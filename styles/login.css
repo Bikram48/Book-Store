@@ -1,0 +1,30 @@
+.container #headerText {
+    margin-top: 60px;
+    text-align: center;
+    color: #252757;
+}
+
+.login-section {
+    margin-top: 50px;
+}
+
+.login-btn {
+    position: relative;
+    top: 15px;
+    left: 45%;
+    border: none;
+    border-radius: 0%;
+    background-color: black;
+    color: white;
+    text-align: center;
+    width: 100px;
+    height: 40px;
+}
+
+.create-account {
+    text-align: center;
+    padding-top: 30px;
+    font-size: 15px;
+    padding-left: 30px;
+    font-weight: bold;
+}
