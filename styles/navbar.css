@@ -1,0 +1,9 @@
+@import url('https://fonts.googleapis.com/css2?family=Bree+Serif&display=swap');
+.navitems ul li {
+    font-family: 'Bree Serif', serif;
+    padding-right: 80px;
+}
+
+.navitems ul li i {
+    color: #252757;
+}
