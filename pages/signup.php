@@ -12,7 +12,7 @@
 </head>
 
 <body>
-    <div class="container">
+    <div class="container" style="margin-bottom: 80px;">
         <h2 id="headerText">Create Account</h1>
             <div class="row login-section">
                 <div class="col-xl-3"></div>
