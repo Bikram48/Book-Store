@@ -76,7 +76,7 @@
 
   <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
     © 2021 Copyright:
-    <a class="text-white" href="https://Bookland.com/">Bookland.com</a>
+    <a class="text-white" href="https://Bookland.com/">MCNEESE.bookstore.com</a>
   </div>
 </footer>
 </body>
