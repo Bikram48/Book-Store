@@ -19,7 +19,7 @@
                     <p>Hello,</p>
                     <p>HOW CAN WE HELP YOU?</p>
                     <p>We are the best book provider <br> in the market</p>
-                    <button class="shop-btn">Shop now</button>
+                    <a href="booklist.php"><button class="shop-btn">Shop now</button></a>
                 </div>
                 <div class="banner-image">
                     <img class="bg-image img-fluid" src="../images/bg1.jpg" alt="Background Image">
@@ -37,7 +37,7 @@
                         <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Officia commodi facere sequi eum, aut odit deserunt nobis corporis vitae quia beatae asperiores et, voluptas exercitationem labore maxime quis, neque alias!</p>
                         <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Facilis aut esse laborum libero nam alias autem nulla, reiciendis officiis ipsum! Commodi, quo velit? Dolores itaque voluptates voluptate doloribus, inventore quaerat.</p>
                         <button>Contact Us</button>
-                        <button>Shop now</button>
+                        <a href="booklist.php"><button>Shop now</button></a>
                     </div>
                 </div>
 
@@ -48,7 +48,7 @@
     <div class="container">
         <div class="row">
             <div class="col-xl-12">
-                <h2 style="text-align:left" class="header">Genre</h2>
+                <h2 style="margin-bottom:40px;" class="header">Genre</h2>
             </div>
         </div>
         <div class="row genre-row">
@@ -80,7 +80,7 @@
         <div class="row">
             <div class="col-xl-2 col-sm-0"></div>
             <div class="col-xl-8">
-                <h2 class="header">Week's Picks</h2><br><br>
+                <h2 style="margin-top:80px;" class="header">Week's Picks</h2><br><br>
             </div>
             <div class="col-xl-2"></div>
         </div>
@@ -211,7 +211,7 @@
                         <img style="width:70%;" src="../images/asim.jpg" class="rounded-circle img-fluid">
                     </div>
                     <div class="card-body">
-                        <h4 class="font-weight-bold mb-4">John Doe</h4>
+                        <h4 class="font-weight-bold mb-4">Asim</h4>
                         <hr>
                         <p class="dark-grey-text mt-4"><i class="fas fa-quote-left pr-2"></i>Lorem ipsum dolor sit amet eos
                             adipisci, consectetur adipisicing elit.</p>
@@ -227,10 +227,10 @@
                         <img style="width:70%;" src="../images/gopal.jpg" class="rounded-circle img-fluid">
                     </div>
                     <div class="card-body">
-                        <h4 class="font-weight-bold mb-4">Anna Aston</h4>
+                        <h4 class="font-weight-bold mb-4">Saroj</h4>
                         <hr>
-                        <p class="dark-grey-text mt-4"><i class="fas fa-quote-left pr-2"></i>Neque cupiditate assumenda in
-                            maiores repudiandae mollitia architecto.</p>
+                        <p class="dark-grey-text mt-4"><i class="fas fa-quote-left pr-2"></i>Lorem ipsum dolor sit amet eos
+                            adipisci, consectetur adipisicing elit.</p>
                     </div>
                 </div>
             </div>
@@ -242,10 +242,10 @@
                         <img style="width:70%;" src="../images/saroj.jpg" class="rounded-circle img-fluid">
                     </div>
                     <div class="card-body">
-                        <h4 class="font-weight-bold mb-4">Maria Kate</h4>
+                        <h4 class="font-weight-bold mb-4">Rajib</h4>
                         <hr>
-                        <p class="dark-grey-text mt-4"><i class="fas fa-quote-left pr-2"></i>Delectus impedit saepe officiis
-                            ab aliquam repellat rem unde ducimus.</p>
+                        <p class="dark-grey-text mt-4"><i class="fas fa-quote-left pr-2"></i>Lorem ipsum dolor sit amet eos
+                            adipisci, consectetur adipisicing elit.</p>
                     </div>
                 </div>
             </div>

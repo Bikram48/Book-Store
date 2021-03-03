@@ -29,7 +29,7 @@
               <a class="nav-link" href="#"> <span class="sr-only">(current)</span></a>
               </li>
               <li class="nav-item">
-                <a style="color:black;" class="nav-link" href="#">HOME </a>
+                <a style="color:black;" class="nav-link" href="index.php">HOME </a>
               </li>
               <li class="nav-item">
                 <a style="color:black;" class="nav-link" href="#">ABOUT</a>
