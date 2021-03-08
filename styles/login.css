@@ -28,3 +28,9 @@
     padding-left: 30px;
     font-weight: bold;
 }
+
+.error-text {
+    color: red;
+    font-weight: bolder;
+    font-size: 12px;
+}

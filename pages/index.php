@@ -32,7 +32,7 @@
                     <img src="../images/model.png" />
                     <!--about-me-text-->
                     <div class="about-text">
-                        <p>About Us</p>
+                        <p style="margin-top:20px;">About Us</p>
                         <p>Buy book online</p>
                         <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Officia commodi facere sequi eum, aut odit deserunt nobis corporis vitae quia beatae asperiores et, voluptas exercitationem labore maxime quis, neque alias!</p>
                         <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Facilis aut esse laborum libero nam alias autem nulla, reiciendis officiis ipsum! Commodi, quo velit? Dolores itaque voluptates voluptate doloribus, inventore quaerat.</p>
@@ -52,27 +52,27 @@
             </div>
         </div>
         <div class="row genre-row">
-            <div class="col-xl-2 col-md-4 col-sm-6">
+            <div class="col-xl-2 col-md-4 col-sm-6 col-6 mt-2">
                 <p class="genre">Horror</p>
                 <img style="width:100%;height:200px;" src="../images/horror.jpg" alt="horror genre">
             </div>
-            <div class="col-xl-2 col-md-4 col-sm-6">
+            <div class="col-xl-2 col-md-4 col-sm-6 col-6 mt-2">
                 <p class="genre">History</p>
                 <img style="width:100%;height:200px;" src="../images/history.jpg" alt="horror genre">
             </div>
-            <div class="col-xl-2 col-md-4 col-sm-6">
+            <div class="col-xl-2 col-md-4 col-sm-6 col-6 mt-2">
                 <p class="genre">Romance</p>
                 <img style="width:100%;height:200px;" src="../images/romance.jpg" alt="horror genre">
             </div>
-            <div class="col-xl-2 col-md-4 col-sm-6">
+            <div class="col-xl-2 col-md-4 col-sm-6 col-6 mt-2">
                 <p class="genre">Inspirational</p>
                 <img style="width:100%;height:200px;" src="../images/inspiration.jpg" alt="horror genre">
             </div>
-            <div class="col-xl-2 col-md-4 col-sm-6">
+            <div class="col-xl-2 col-md-4 col-sm-6 col-6 mt-2">
                 <p class="genre">Fantasy</p>
                 <img style="width:100%;height:200px;" src="../images/fantasy.jpg" alt="horror genre">
             </div>
-            <div class="col-xl-2 col-md-4 col-sm-6">
+            <div class="col-xl-2 col-md-4 col-sm-6 col-6 mt-2">
                 <p class="genre">Religion</p>
                 <img style="width:100%;height:200px;" src="../images/religion.jpg" alt="horror genre">
             </div>
