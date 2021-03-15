@@ -271,7 +271,7 @@
 
 .genre-row img {
     opacity: 0.7;
-    filter: brightness(30%);
+    filter: brightness(70%);
     z-index: 1;
 }
 

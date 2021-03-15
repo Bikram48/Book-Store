@@ -48,33 +48,45 @@
     <div class="container">
         <div class="row">
             <div class="col-xl-12">
-                <h2 style="margin-bottom:40px;" class="header">Genre</h2>
+                <h2 style="margin-bottom:40px;" class="header">Department</h2>
             </div>
         </div>
         <div class="row genre-row">
             <div class="col-xl-2 col-md-4 col-sm-6 col-6 mt-2">
-                <p class="genre">Horror</p>
-                <img style="width:100%;height:200px;" src="../images/horror.jpg" alt="horror genre">
+                <a href="categorised_product.php?genre=engineering">
+                <p class="genre">Engineering</p>
+                <img style="width:100%;height:200px;" src="../images/engineering1.jpg" alt="engineering genre">
+                </a>
             </div>
             <div class="col-xl-2 col-md-4 col-sm-6 col-6 mt-2">
-                <p class="genre">History</p>
-                <img style="width:100%;height:200px;" src="../images/history.jpg" alt="horror genre">
+            <a href="categorised_product.php?genre=computer_science">
+                <p class="genre">Computer <br> Science</p>
+                <img style="width:100%;height:200px;" src="../images/cs.jpg" alt="cs genre">
+            </a>
             </div>
             <div class="col-xl-2 col-md-4 col-sm-6 col-6 mt-2">
-                <p class="genre">Romance</p>
-                <img style="width:100%;height:200px;" src="../images/romance.jpg" alt="horror genre">
+            <a href="categorised_product.php?genre=nursing">
+                <p class="genre">Nursing</p>
+                <img style="width:100%;height:200px;" src="../images/nursing.jpg" alt="nursing genre">
+            </a>
             </div>
             <div class="col-xl-2 col-md-4 col-sm-6 col-6 mt-2">
-                <p class="genre">Inspirational</p>
-                <img style="width:100%;height:200px;" src="../images/inspiration.jpg" alt="horror genre">
+            <a href="categorised_product.php?genre=maths">
+                <p class="genre">Mathematics</p>
+                <img style="width:100%;height:200px;" src="../images/math.jpg" alt="maths genre">
+            </a>
             </div>
             <div class="col-xl-2 col-md-4 col-sm-6 col-6 mt-2">
-                <p class="genre">Fantasy</p>
-                <img style="width:100%;height:200px;" src="../images/fantasy.jpg" alt="horror genre">
+            <a href="categorised_product.php?genre=english">
+                <p class="genre">English</p>
+                <img style="width:100%;height:200px;" src="../images/english.jpg" alt="english genre">
+            </a>
             </div>
             <div class="col-xl-2 col-md-4 col-sm-6 col-6 mt-2">
-                <p class="genre">Religion</p>
-                <img style="width:100%;height:200px;" src="../images/religion.jpg" alt="horror genre">
+            <a href="categorised_product.php?genre=business">
+                <p class="genre">Business</p>
+                <img style="width:100%;height:200px;" src="../images/business.jpg" alt="business genre">
+            </a>
             </div>
         </div>
         <div class="row">
@@ -121,83 +133,6 @@
         </div>
         <div style="margin-top: 50px;" class="row">
             <button class="viewmore-btn">View More</button>
-        </div>
-        <div style="margin-top:200px;margin-bottom:50px;" class="row justify-content-center">
-            <h2 class="text-center">OUR TEAM</h2>
-        </div>
-        <div class="row mt-6">
-            <div class="col-xl-3 text-center">
-                <div class="team mx-auto">
-                    <img class="img-fluid rounded-circle z-depth-1" src="../images/asim.jpg" alt="group member">
-                </div>
-                <div class="content">
-                    <h5 class="font-weight-bold mt-4 mb-3">Asim Prakash Oli</h5>
-                    <p class="text-uppercase blue-text"><strong>Member</strong></p>
-                    <a type="button" class="btn-floating btn-sm mx-1 mb-0 btn-fb">
-                        <i class="fab fa-facebook-f"></i>
-                    </a>
-                    <a type="button" class="btn-floating btn-sm mx-1 mb-0 btn-dribbble">
-                        <i class="fab fa-dribbble"></i>
-                    </a>
-                    <a type="button" class="btn-floating btn-sm mx-1 mb-0 btn-tw">
-                        <i class="fab fa-twitter"></i>
-                    </a>
-                </div>
-            </div>
-            <div class="col-xl-3 text-center">
-                <div class="team mx-auto">
-                    <img class="img-fluid rounded-circle z-depth-1" src="../images/asim.jpg" alt="group member">
-                </div>
-                <div class="content">
-                    <h5 class="font-weight-bold mt-4 mb-3">Rajib Rijal</h5>
-                    <p class="text-uppercase blue-text"><strong>Member</strong></p>
-                    <a type="button" class="btn-floating btn-sm mx-1 mb-0 btn-fb">
-                        <i class="fab fa-facebook-f"></i>
-                    </a>
-                    <a type="button" class="btn-floating btn-sm mx-1 mb-0 btn-dribbble">
-                        <i class="fab fa-dribbble"></i>
-                    </a>
-                    <a type="button" class="btn-floating btn-sm mx-1 mb-0 btn-tw">
-                        <i class="fab fa-twitter"></i>
-                    </a>
-                </div>
-            </div>
-            <div class="col-xl-3 text-center">
-                <div class="team mx-auto">
-                    <img class="img-fluid rounded-circle z-depth-1" src="../images/saroj.jpg" alt="group member">
-                </div>
-                <div class="content">
-                    <h5 class="font-weight-bold mt-4 mb-3">Saroj Khanal</h5>
-                    <p class="text-uppercase blue-text"><strong>Member</strong></p>
-                    <a type="button" class="btn-floating btn-sm mx-1 mb-0 btn-fb">
-                        <i class="fab fa-facebook-f"></i>
-                    </a>
-                    <a type="button" class="btn-floating btn-sm mx-1 mb-0 btn-dribbble">
-                        <i class="fab fa-dribbble"></i>
-                    </a>
-                    <a type="button" class="btn-floating btn-sm mx-1 mb-0 btn-tw">
-                        <i class="fab fa-twitter"></i>
-                    </a>
-                </div>
-            </div>
-            <div class="col-xl-3 text-center">
-                <div class="team mx-auto">
-                    <img class="img-fluid rounded-circle z-depth-1" src="../images/gopal.jpg" alt="group member">
-                </div>
-                <div class="content">
-                    <h5 class="font-weight-bold mt-4 mb-3">Gopal Thapa</h5>
-                    <p class="text-uppercase blue-text"><strong>Member</strong></p>
-                    <a type="button" class="btn-floating btn-sm mx-1 mb-0 btn-fb">
-                        <i class="fab fa-facebook-f"></i>
-                    </a>
-                    <a type="button" class="btn-floating btn-sm mx-1 mb-0 btn-dribbble">
-                        <i class="fab fa-dribbble"></i>
-                    </a>
-                    <a type="button" class="btn-floating btn-sm mx-1 mb-0 btn-tw">
-                        <i class="fab fa-twitter"></i>
-                    </a>
-                </div>
-            </div>
         </div>
 
         <div style="margin-top:200px;margin-bottom:50px;" class="row justify-content-center">

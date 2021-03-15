@@ -13,14 +13,16 @@
 
 <body>
     <?php
+    require_once "../backend/image_handler.php";
     require_once "../backend/signup.php";
-    $error1 = $error2 = $error3 = $error4 = "";
+    $error1 = $error2 = $error3 = $error4 =$error5= "";
     if (isset($_POST['submit'])) {
         $obj = new RegisterUser();
         $username = $_POST['username'];
         $email = $_POST['email'];
         $password = $_POST['password'];
         $repeat_password = $_POST['repeat_password'];
+        $file=$_FILES['file'];
         if (strlen($username) < 5) {
             $error2 = "username must be at least 5 characters long ";
         } else if ($password != $repeat_password) {
@@ -33,13 +35,16 @@
             $error3 .= "Password must contain at least one capital letter";
         } elseif (!preg_match("#[\W]+#", $password)) {
             $error3 .= "Password must contain at least one special character";
+        } elseif(checkFileExtension($file)==false){
+            $error5="Invalid file. Only jpg,jpeg and png are allowed";
         } else {
             if ($obj->checkExistingUserName($username) > 0) {
                 $error2 = "Username is already taken";
             } else if ($obj->checkExistingEmail($email) > 0) {
                 $error4 = "Email is aready existed please choose another one!!";
             } else {
-                if ($obj->addUser($username, $email, $password)) { ?>
+                $filename=uploadFile($file);
+                if ($obj->addUser($username, $email, $password,$filename)) { ?>
                     <div class="alert alert-warning alert-dismissible fade show" role="alert">
                         Congratulations! You are successfully signed up. Please click signin text to go to the login page.
                         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -57,7 +62,7 @@
             <div class="row login-section">
                 <div class="col-xl-3"></div>
                 <div class="col-xl-6">
-                    <form action="signup.php" method="POST">
+                    <form action="signup.php" method="POST" enctype="multipart/form-data">
                         <div class="form-group">
                             <label for="exampleInputEmail1">Username</label>
                             <input name="username" style="border-radius: 0%;" type="input" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" required>
@@ -91,6 +96,15 @@
                             <small id="error" class="form-text text-muted">
                                 <p class="error-text"><?php if (isset($error1)) {
                                                             echo $error1;
+                                                        } ?></p>
+                            </small>
+                        </div>
+                        <div class="custom-file">
+                            <input type="file" name="file" class="custom-file-input" id="customFile">
+                            <label class="custom-file-label" for="customFile">Choose Avatar</label>
+                            <small id="error" class="form-text text-muted">
+                                <p class="error-text"><?php if (isset($error5)) {
+                                                            echo $error5;
                                                         } ?></p>
                             </small>
                         </div>

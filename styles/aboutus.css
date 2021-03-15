@@ -1,0 +1,46 @@
+@import url('https://fonts.googleapis.com/css2?family=Arimo&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Arimo&family=Arvo&family=Dosis:wght@200&family=Kanit:wght@300&display=swap');
+.imagess {
+    position: absolute;
+}
+
+
+/* Image */
+
+.clsFirstImg {
+    margin-top: 100px;
+    width: 60%;
+    z-index: 1;
+    position: absolute;
+    top: 50px;
+    box-shadow: 0px 25px 42px rgba(0, 0, 0, 0.2);
+    margin-left: 10%;
+}
+
+.clsSecondImg {
+    margin-left: 50%;
+    z-index: 10;
+    margin-top: 150px;
+    width: 40%;
+    position: absolute;
+    top: 60px;
+    left: 20px;
+    box-shadow: 0px 25px 42px rgba(0, 0, 0, 0.2);
+}
+
+.contents {
+    margin-top: 140px;
+}
+
+.title {
+    font-family: 'Arimo', sans-serif;
+    font-weight: bolder;
+}
+
+.content {
+    text-align: justify;
+    font-family: 'Arimo', sans-serif;
+    font-family: 'Arvo', serif;
+    font-family: 'Dosis', sans-serif;
+    font-family: 'Kanit', sans-serif;
+}

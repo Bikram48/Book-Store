@@ -9,7 +9,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../styles/login.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-    <title>Document</title>+
+    <title>Document</title>
 </head>
 
 <body>
@@ -20,13 +20,13 @@
        $obj=new UserLogin();
         $emailorusername=$_POST['emailorusername'];
         $password=$_POST['password'];
-        if($obj->checkUser($emailorusername,$password)==true){
+        if($obj->adminLogin($emailorusername,$password)==true){
             echo "<script type='text/javascript'>window.location.href='index.php'</script>";
             exit;
          
         }
         else{
-            $error="User doesn't exist. Please try again later!!";
+            $error="Sorry you aren't admin. Please try again later!!";
         }
     }
     ?>
@@ -35,7 +35,7 @@
             <div class="row login-section">
                 <div class="col-xl-3"></div>
                 <div class="col-xl-6">
-                    <form method="POST" action="login.php">
+                    <form method="POST" action="adminlogin.php">
                         <div class="form-group">
                             <label for="exampleInputEmail1">Email/Username</label>
                             <input style="border-radius: 0%;" type="input" name="emailorusername" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" required>

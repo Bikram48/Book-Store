@@ -1,0 +1,13 @@
+button {
+    position: relative;
+    background-color: #1B1A3A;
+    margin-top: 100px;
+    color: white;
+    font-weight: bolder;
+}
+
+.container #headerText {
+    margin-top: 60px;
+    text-align: center;
+    color: #252757;
+}

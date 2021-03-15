@@ -1,6 +1,6 @@
+<?php session_start(); ?>
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -20,7 +20,7 @@
     <div class="row">
       <div class="col-lg-12">
         <nav class="navbar  navbar-expand-lg navbar-light bg-light">
-          <a class="navbar-brand" href="index.php"><img width="70" height="60" src="../images/website_logo.svg"></a>
+          <a class="navbar-brand" href="index.php"><img width="150" height="60" src="../images/website_logo.svg"></a>
           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
@@ -28,32 +28,51 @@
             <ul class="navbar-nav">
               <a class="nav-link" href="#"> <span class="sr-only">(current)</span></a>
               </li>
-              <li class="nav-item">
+              <li class="nav-item">  
                 <a style="color:black;" class="nav-link" href="index.php">HOME </a>
               </li>
               <li class="nav-item">
-                <a style="color:black;" class="nav-link" href="#">ABOUT</a>
+                <a style="color:black;" class="nav-link" href="aboutus.php">ABOUT</a>
               </li>
               <li class="nav-item">
                 <a style="color:black;" class="nav-link" href="#">CONTACT</a>
               </li>
+              <?php    if(isset($_SESSION['adminid'])){ ?>
+                <li class="nav-item">
+                <a style="color:black;" class="nav-link" href="../admin_dashboard/dashboard.php">DASHBOARD</a>
+              </li>
+              <?php } ?>
               <li class="nav-item">
                 <a class="nav-link" id="addClass" href="#"><i style="padding:0px;" class="fas fa-search"></i></a>
               </li>
 
               <li class="nav-item">
-                <a class="nav-link" href="#"><i class="fas fa-shopping-bag"></i></a>
+                <a class="nav-link" href="addtocart.php"><i class="fas fa-shopping-bag"></i></a>
               </li>
                 <div class="user-area dropdown float-right">
                   <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  <?php 
+                      if(isset($_SESSION['userid'])){
+                        require_once "../backend/db_connect.php";
+                        $db_connection=new Connection();
+                        $userid=$_SESSION['userid'];
+                        $query=mysqli_query($db_connection->getConnection(),"SELECT image FROM user WHERE userid=$userid");
+                        $row=mysqli_fetch_assoc($query);
+                      
+                   ?>
+                   <?php echo "<img class='user-avatar rounded-circle' src=../avatars/".$row['image'].">";?>
 
-                    <img class='user-avatar rounded-circle' src="../images/steve.jpg">
+                  <?php }else{echo "<img class='user-avatar rounded-circle' src=../avatars/avatar.png>";} ?> 
 
                   </a>
                   <div class="user-menu dropdown-menu">
+                  <?php if(isset($_SESSION['userid']) or isset($_SESSION['adminid'])){ ?>
                     <a class="nav-link" href="userprofile.php"><i class="fa fa-user"></i> My Profile</a>
-                    <a class="nav-link" href="logout.php"><i class="fa fa-power-off"></i> Logout</a>
+                    <a class="nav-link" href="../backend/logout.php"><i class="fa fa-power-off"></i> Logout</a>
                   </div>
+                  <?php } else{ ?>
+                    <a class="nav-link" href="login.php"><i class="fas fa-sign-in-alt"></i>  <span style="padding-left:10px;">Login</span></a>
+                  <?php } ?>
                 </div>
 
 

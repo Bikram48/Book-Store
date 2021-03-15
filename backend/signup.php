@@ -8,13 +8,13 @@ class RegisterUser
         $this->connection=new Connection();
     }
 
-    public function addUser($username, $email, $password)
+    public function addUser($username, $email, $password,$image)
     {
         $username=mysqli_real_escape_string($this->connection->getConnection(),$username);
         $email=mysqli_real_escape_string($this->connection->getConnection(),$email);
         $password=mysqli_real_escape_string($this->connection->getConnection(),$password);
         $pwd = md5($password);
-        $query = mysqli_query($this->connection->getConnection(), "INSERT INTO user(username,email,password,status) VALUES('$username','$email','$pwd',0)");
+        $query = mysqli_query($this->connection->getConnection(), "INSERT INTO user(username,email,password,status,image) VALUES('$username','$email','$pwd',0,'$image')");
         if (!$query) {
             return false;
         }
