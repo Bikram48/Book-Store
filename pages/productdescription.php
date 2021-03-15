@@ -1,62 +1,142 @@
-<?php include "navbar.php" ?>
+<?php
+include "../backend/db_connect.php";
+include "navbar.php";
+?>
+
 <!DOCTYPE html>
-<html lang="en">
+<html>
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nomos Watch</title>
+    <title>
+    </title>
     <link rel="stylesheet" href="../styles/productdescription.css">
+    <link rel="stylesheet" href="../script/css/bootstrap.min.css">
+    <script src="https://kit.fontawesome.com/b99e675b6e.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
-<body>
+
+<body style="background-image: linear-gradient(to bottom right , #f7f7f7 , #faeee7);">
+
     <div class="container">
-    <?php 
-        require_once "../backend/db_connect.php";
-        $db=new Connection();
-        if(isset($_GET['productid'])){
-            $productid=$_GET['productid'];
-        }
-            $query=mysqli_query($db->getConnection(),"SELECT * FROM product WHERE productid=$productid");
-            while($row=mysqli_fetch_assoc($query)){
-        
-    ?>
-        <div class="cardsss">
-            <div class="images">
-                <h2><?php echo $row['product_name'] ?></h2>
-                <div class="slider"><img id="big-image" src="../images/<?php echo $row['image']?>" alt=""></div>
+        <div class="row">
+            <div class="col-md-5 col-xl-6 col-sm-12 image-part">
+                <?php
+                $db_connection = new Connection();
+                if (isset($_GET['productid'])) {
+                    $productid = $_GET['productid'];
+                    $query = mysqli_query($db_connection->getConnection(), "SELECT * FROM PRODUCT WHERE PRODUCTID=$productid");
+
+                    while ($row = mysqli_fetch_assoc($query)) {
+                ?>
+                        <div class="image">
+                            <?php echo "<img style=height:350px; class=img-fluid  src=../images/" . $row['image'] . ">"; ?>
+                        </div>
+
+                <?php
+                    }
+                }
+                ?>
+
             </div>
-            <div class="infos">
-                <h5><?php echo $row['product_name'] ?></h5>
-                <h6><i><?php echo $row['category'] ?></i></h6>
-                <div class="reviews">
+
+            <div class="col-md-6 col-xl-5 col-sm-12 description">
+                <?php
+
+                $query = mysqli_query($db_connection->getConnection(), "SELECT * FROM PRODUCT WHERE PRODUCTID=$productid");
+                while ($row = mysqli_fetch_assoc($query)) {
+
+                ?>
+                    <h1><?php echo $row['product_name']; ?></h1>
+                <?php } ?>
+                <div class="ratings">
+
+                    <i style="color:orangered;" class="fas fa-star"></i>
                     <i class="fas fa-star"></i>
                     <i class="fas fa-star"></i>
                     <i class="fas fa-star"></i>
                     <i class="fas fa-star"></i>
-                    <i class="fas fa-star-half-alt"></i>
+
+
                 </div>
-                <div class="price">
-                    <h3><?php echo $row['price']; ?>$</h3>
-                </div>
-                <div id="more-infos">
-                    <h5 class="choose">Description</h5>
-                </div>
-                <div id="info-content">
-                    <p  class="paragraph" style="display: block;"><?php echo $row['description'] ?></p>
-                </div>
-                <div class="quantity">
-                    <h3>QUANTITY</h3>
-                <input type="number" name="items" id="counter" min="1" value="1">
+
+                <?php
+                $query = mysqli_query($db_connection->getConnection(), "SELECT * FROM PRODUCT WHERE PRODUCTID=$productid");
+                while ($row = mysqli_fetch_assoc($query)) {
+
+                ?>
+                    <p class="product-description"><?php echo $row['description']; ?>
+                    </p>
+
+                    <p class="price"><?php echo "Price: £" . $row['price']; ?> </p>
+                    <p class="price"><?php echo "Total Items :  " . $row['quantity']; ?> </p>
+
+                <?php
+                }
+                ?>
+
+                <form action="" method="POST">
+                    <label for="quantity">Quantity</label>
+                    <input id="quantity" type="text" name="number" value=1>
+                    <input class="adding-cart" type="submit" name="submit" value="Add to Cart">
+
+
+
+                    <!--<div style="margin-top:100px;width:520px;" class="row">
+					<div class="profile-reviews tab">
+                        <h1>Your Activity</h1>
+                        <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Natus voluptate ab odio sapiente quibusdam excepturi animi, 
+                         </p>
+                    </div>
+					</div>	
+					-->
             </div>
-                <div class="buttons">
-                    <a href="addtocart.php"><button id="add-to-cart"><i class="fas fa-shopping-cart"></i>ADD TO CART</button></a>
-                    <button>BUY NOW</button>
+
+            <div class="col-xl-10 col-lg-10 col-md-10 bar">
+                <div class="row">
+                    <?php
+
+                    $query = mysqli_query($db_connection->getConnection(), "SELECT * FROM PRODUCT WHERE PRODUCTID=$productid");
+                    while ($row = mysqli_fetch_assoc($query)) {
+
+                    ?>
+                        <div class="col-xl-1 col-md-6 show-image">
+                            <?php echo "<img style=height:50px; class=img-fluid  src=../Images/" . $row['image'] . ">"; ?>
+                        </div>
+                        <div class="col-xl-4 show-image">
+                        <?php echo $row['product_name']; ?>
+                        </div>
+                        <div class="col-xl-2 col-md-1 price-show">
+                            <?php echo "£." . $row['price']; ?>
+                        </div>
+
+                    <?php
+                    }
+                    ?>
+                    <div class="col-xl-3 col-md-1  cart-add float-right">
+                        <input class="addsubmit" type="submit" name="submit" value="Add to Cart">
+                    </div>
+                    </form>
                 </div>
             </div>
         </div>
-        <?php } ?>
+        <!--<div class="row rating">
+				<i  class="fa fa-star" data-index="0"></i>
+				<i class="fa fa-star" data-index="1"></i>
+				<i class="fa fa-star" data-index="2"></i>
+				<i class="fa fa-star" data-index="3"></i>
+				<i  class="fa fa-star" data-index="4"></i>
+			</div>
+						-->
+
+
     </div>
 
-</body>
-</html> 
+    </div>
 
-<?php include "footer.php" ?>
+    <?php include "footer.php"; ?>
+    <script src="../JS/main.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="http://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
+    <script src="../script/js/Faq.js"></script>
+
+</html>

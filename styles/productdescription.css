@@ -1,255 +1,375 @@
-* {
-    margin: 0px;
-    padding: 0px;
-}
-
-html,
+@import url('https://fonts.googleapis.com/css2?family=Fira+Sans:wght@100;400&family=Prata&display=swap');
 body {
-    margin: 0px;
-    padding: 0px;
-    height: 100%;
-    width: 100%;
-    overflow-x: hidden;
-}
-
-body {
-    font-family: 'Montserrat', sans-serif;
+    background-color: black;
 }
 
 .container {
-    height: 100%;
-    padding: 20px;
-}
-
-.cardsss {
     background-color: white;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    flex-direction: column;
-    position: relative;
+    box-shadow: 5px 10px #f8f8f8;
+    margin: 120px 0px 100px 500px;
+    height: 700px;
 }
 
-#shopping {
+.product-description {
+    font-size: 16px;
+    padding: 5px 0px 0px 0px;
+    margin-top: 10px;
+    color: black;
+    font-family: 'Fira Sans', sans-serif;
+    font-family: 'Prata', serif;
+    font-weight: bolder;
+}
+
+.allergy-info {
+    font-size: 16px;
+    padding: 5px 0px 0px 0px;
+    margin-top: 10px;
+    color: black;
+    font-family: 'Fira Sans', sans-serif;
+    font-family: 'Prata', serif;
+    font-weight: bolder;
+}
+
+.description {
+    margin-top: 30px;
+}
+
+.description h1 {
+    color: black;
+    font-size: 30px;
+    font-weight: bold;
+}
+
+.image-part {
+    margin-top: 10px;
+    background-color: #f7f7f7;
+    height: 700px;
+    margin: 0;
+    padding: 0;
+}
+
+.bar {
+    height: 80px;
+    width: 100%;
+    box-shadow: 0.5px 0.5px 1px 1px #dddddd;
+    background-color: white;
     position: absolute;
-    top: 0px;
-    right: 0px;
+    left: 10%;
+    bottom: 120px;
+    overflow: none;
 }
 
-#shopping i {
-    font-size: 20px;
-}
-
-#shopping sup {
-    margin-left: 4px;
-}
-
-.images h2 {
-    margin-bottom: 25px;
-}
-
-.infos h1 {
+.adding-cart {
     display: none;
 }
 
-.imgs {
-    cursor: pointer;
+@media screen and (min-width:400px) and (max-width:770px) {
+    .image-part {
+        height: 300px;
+        margin-left: 50px;
+    }
+    .description {
+        margin-top: 120px;
+        height: 500px;
+        background-color: white;
+        margin-bottom: 800px;
+        margin-left: 100px;
+    }
+    .bar {
+        display: none;
+    }
+    .adding-cart {
+        display: block;
+        width: 200px;
+        position: relative;
+        border: none;
+        bottom: 10px;
+        top: 20px;
+        border-radius: 4px;
+        background-color: #00005c;
+        height: 40px;
+        color: white;
+    }
 }
 
-.infos .price {
-    display: flex;
-    justify-content: start;
+.image {
+    margin-top: 20%;
 }
 
-.infos .price h3:last-child {
-    margin-left: 20px;
+.col-md-7 h2 {
+    color: #555;
 }
 
-.infos #more-infos {
-    display: flex;
-    justify-content: space-between;
-    color: gray;
-}
-
-#more-infos h5 {
-    padding: 8px;
-}
-
-#more-infos h5:nth-child(1) {
+.price {
+    font-size: 16px;
     color: black;
-    border-bottom: 2px solid black;
-    padding-bottom: 6px;
+    font-family: 'Fira Sans', sans-serif;
+    font-family: 'Prata', serif;
+    font-weight: bolder;
 }
 
-.infos {
+.stock {
+    color: black;
+    font-family: 'Fira Sans', sans-serif;
+    font-family: 'Prata', serif;
+    font-weight: bolder;
+}
+
+form label {
+    color: black;
+    font-family: 'Fira Sans', sans-serif;
+    font-family: 'Prata', serif;
+    font-weight: bolder;
+}
+
+form #quantity {
+    margin-left: 20px;
+    width: 40px;
+    font-family: 'Fira Sans', sans-serif;
+    font-family: 'Prata', serif;
+    font-weight: bolder;
+}
+
+form {
+    margin: 0;
+}
+
+select {
+    font-size: 24;
+    font-weight: bold;
+    color: #555;
+    width: 100px;
+    text-align: center;
+    border: 1px solid #ccc;
+}
+
+.cart {
+    background: green;
+    font: 26px;
+    color: #ccc;
+    width: 250px;
+    height: 50px;
+    font-weight: bold;
+    border: 1px solid #ccc;
+    margin: 30px 0px 0px 100px;
+}
+
+.addsubmit {
+    width: 200px;
+    position: relative;
+    border: none;
+    left: 100%;
+    bottom: 10px;
+    top: 20px;
+    border-radius: 4px;
+    background-color: #00005c;
+    height: 40px;
+    color: white;
+}
+
+.price-show {
+    position: relative;
+    left: 30%;
+    top: 30px;
+    color: black;
+    font-weight: bold;
+    font-size: 15px;
+}
+
+.show-image {
+    position: relative;
+    top: 10px;
+    color: black;
+    font-weight: bold;
+    font-size: 13px;
+}
+
+.rating {
+    position: relative;
+    bottom: 100px;
+    left: 60px;
+}
+
+.rating .fa-star {
+    font-size: 50px;
+}
+
+.review-section {
+    min-height: 400px;
+    width: 400px;
+    background: #f7f7f7;
+}
+
+h5 {
+    color: black;
+}
+
+#comment {
+    width: 100%;
+    margin-top: 40px;
+    height: 100px;
+    padding: 10px;
+    border: 3px dashed #8ebf42;
+    background-color: #d0e2bc;
+    font: 1.4em/1.6em cursive;
+    color: #095484;
+}
+
+.review-section input[type=submit] {
+    width: 150px;
+    height: 40px;
+    float: right;
+    color: white;
+    background-color: orangered;
+}
+
+.all-comments {
+    margin-top: 100px;
+}
+
+.all-comments .img img {
+    background-color: red;
+    border-radius: 50%;
+}
+
+.all-comments .people h3 {
+    font-size: 14px;
+    color: #035aa6;
+    position: absolute;
+}
+
+.all-comments .people p {
+    margin-top: 20px;
+    color: black;
+}
+
+.description {
+    margin-left: 10px;
+}
+
+.ratings .fa-star {
+    color: #f37121;
+}
+
+.comment {
     display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    height: 400px;
-    margin-top: 30px;
-    width: 90%;
+    min-height: 400px;
+    /* height: 100vh; */
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
+
+.comment .comments {
+    width: 1050px;
+    box-shadow: 1px 10px 12px rgba(0, 0, 0, 0.075), 0 2px 4px rgba(0, 0, 0, 0.0375);
+    padding: 15px 10px;
+}
+
+.comment .comments h2 {
+    text-align: center;
+    margin-bottom: 15px;
+}
+
+.comment .comments textarea {
+    height: 30px;
+    width: 95%;
+    border: none;
+    border-bottom: 2px solid #aaa;
+    background-color: transparent;
+    margin-bottom: 10px;
+    resize: none;
+    outline: none;
+    transition: .5s;
+    font-size: 18px;
+}
+
+.comment .comments input[type="Submit"] {
+    padding: 10px 15px;
+    border: none;
+    outline: none;
+    border-radius: 5px;
+    text-transform: uppercase;
+    font-weight: bold;
+    cursor: pointer;
+    color: #fff;
+    background-color: #273c75;
+    width: 200px;
+    height: 40px;
+}
+
+.comment .comments input[type="button"] {
+    padding: 10px 15px;
+    border: none;
+    outline: none;
+    border-radius: 5px;
+    text-transform: uppercase;
+    font-weight: bold;
+    cursor: pointer;
+    color: #fff;
+    background-color: #273c75;
+    width: 200px;
+    height: 40px;
+}
+
+.comment .comments .btn {
+    display: none;
+}
+
+.comment-section h2 {
+    padding-left: 10px;
+    padding-top: 40px;
+    font-size: 23px;
+    font-weight: bold;
+}
+
+.user-image img {
+    border-radius: 50%;
+    margin-left: 25px;
+}
+
+.author {
+    font-size: 15px;
+    font-weight: bold;
+    padding-top: 5px;
 }
 
 .reviews {
-    color: gold;
+    margin-top: 25px;
 }
 
-h3:nth-child(2) {
-    color: gray;
-    text-decoration: line-through;
-}
-
-.choose {
-    cursor: pointer;
-}
-
-.quantity {
-    width: 60%;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+.nav {
     margin-top: 20px;
 }
 
-.quantity input {
-    text-align: center;
-    width: 40px;
-}
-
-#info-content {
-    font-size: 12px;
-    height: 70px;
-}
-
-.buttons {
-    height: 40px;
+.nav ul {
+    width: 100%;
     display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: space-between;
+    justify-content: center;
+    list-style-type: none;
+    height: 40px;
+    background: #fff;
 }
 
-.buttons button {
-    margin: 10px;
-    width: 180px;
-    padding: 5px;
-    font: inherit;
-    border: 2px solid #5FDFFC;
-    border-radius: 25px;
-    background-color: white;
-    outline: none;
+.nav ul li {
+    width: 100%;
     cursor: pointer;
+    text-align: center;
+    transition: all .2s ease-in-out;
 }
 
-.buttons button:nth-child(1) i {
-    margin-right: 10px;
+.nav ul li.active,
+.nav ul li:hover {
+    box-shadow: 0px -3px 0px rgba(288, 0, 70, .9) inset;
 }
 
-.buttons button:hover {
-    color: white;
-    background-color: #5FDFFC;
+.tab {
+    width: 100%;
+    height: 240px;
+    background-color: red;
+    overflow: auto;
+    margin-left: 50px;
 }
 
-.slider {
-    height: 80%;
-    display: flex;
-    align-items: center;
-}
-
-.slider img {
-    width: 90%;
-    margin: auto;
-}
-
-.img-slider {
-    width: 70%;
-    display: flex;
-    height: 40px;
-    justify-content: space-between;
-    margin: auto;
-    margin-top: 15px;
-}
-
-.img-slider div {
-    width: 20%;
-    height: 100%;
-}
-
-.img-slider img {
-    height: 100%;
-}
-
-@media ( min-width: 1025px) {
-    .container {
-        width: 75%;
-        height: 80%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        border-radius: 20px;
-    }
-    .cardsss {
-        flex-direction: row;
-        height: 85%;
-        width: 80%;
-        border-radius: 15px;
-    }
-    .images {
-        width: 50%;
-        height: 100%;
-        margin-right: 100px;
-    }
-    .images h2 {
-        display: none;
-    }
-    .infos {
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-        margin-top: 0px;
-        height: 80%;
-        width: 50%;
-        font-size: 20px;
-        padding-right: 70px;
-    }
-    .infos h1 {
-        display: block;
-    }
-    .buttons {
-        flex-direction: row;
-        font-size: 15px;
-    }
-    .buttons button {
-        padding: 8px;
-    }
-    .img-slider {
-        width: 50%;
-    }
-    #shopping {
-        position: absolute;
-        top: 20px;
-        right: 20px;
-    }
-    #shopping i {
-        font-size: 30px;
-    }
-}
-
-@media (min-width: 670px) {
-    .container {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
-    .buttons {
-        flex-direction: row;
-        font-size: 15px;
-    }
-    .cardsss {
-        width: 75%;
-        height: 100%;
-    }
-    #shopping i {
-        font-size: 30px;
-    }
+.edit-review a {
+    color: black;
+    text-decoration: none;
 }

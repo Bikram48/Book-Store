@@ -59,7 +59,7 @@
                 </a>
             </div>
             <div class="col-xl-2 col-md-4 col-sm-6 col-6 mt-2">
-            <a href="categorised_product.php?genre=computer_science">
+            <a href="booklist.php?genre=computer_science">
                 <p class="genre">Computer <br> Science</p>
                 <img style="width:100%;height:200px;" src="../images/cs.jpg" alt="cs genre">
             </a>

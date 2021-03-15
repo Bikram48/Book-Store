@@ -28,23 +28,34 @@
             </div>
             <div class="col-xl-2 col-sm-0 col-0"></div>
         </div>
-        <?php for($i=0;$i<=5;$i++){ ?>
-        <div class="row book-items">
-            <div class="col-xl-1 col-lg-1 col-sm-3"></div>
-            <div class="col-xl-2 col-lg-2 col-md-3 col-sm-6 image-box">
-                <img class="img-fluid" src="../images/steve.jpg" alt="">
-            </div>
-            <div class="col-xl-7 col-lg-7 col-md-8 col-sm-6 book-contents">
-                <h3>Steve Jobs</h3>
-                <p>Morgan Rogers</p>
-                <p>$16.99</p>
-                <div class="description">
-                    <p>Based on more than forty interviews with Steve Jobs conducted over two years - as well as interviews with more than a hundred family members, friends, adversaries, competitors, and colleagues - this is the acclaimed, internationally bestselling biography of the ultimate icon of inventiveness.</p>
+        <?php
+            require_once "../backend/db_connect.php";
+            $db_connection=new Connection();
+          if(isset($_GET['genre'])){
+            $category=$_GET['genre'];
+        }
+        
+        $query=mysqli_query($db_connection->getConnection(),"SELECT * FROM product WHERE category='$category'");
+        while ($row = mysqli_fetch_assoc($query)) {
+            $productid=$row['productid'];
+        ?>
+            <div class="row book-items">
+                <div class="col-xl-1 col-lg-1 col-sm-3"></div>
+                <div class="col-xl-2 col-lg-2 col-md-3 col-sm-6 image-box">
+                    <img class="img-fluid" src="../images/<?php echo $row['image'] ?>" alt="">
                 </div>
-                <button class="addtocart">ADD TO CART</button>
+                <div class="col-xl-7 col-lg-7 col-md-8 col-sm-6 book-contents">
+                    <h3 class="product_title"><?php echo $row['product_name']; ?></h3>
+                    <p style="font-style: italic;font-weight:bolder;"><?php echo $row['category']; ?></p>
+                    <p style="font-weight: bolder;">$<?php echo $row['price']; ?></p>
+                    <div class="description">
+                        <p><?php echo $row['description']; ?></p>
+                    </div>
+                    <button class="addtocart">ADD TO CART</button>
+                    <button class="addtocart"><?php echo "<a style=color:white;text-decoration:none; href='productdescription.php?productid=$productid'>PRODUCT DETAILS</a>" ?></button>
+                </div>
             </div>
-        </div>
-        <?php }?>
+        <?php } ?>
 
     </div>
     <div style="margin-top:400px;">

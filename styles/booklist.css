@@ -1,3 +1,6 @@
+@import url('https://fonts.googleapis.com/css2?family=Balsamiq+Sans&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Fjalla+One&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Kavoon&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Krona+One&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300&family=Shippori+Mincho&display=swap');
 .banner {
@@ -139,10 +142,18 @@
 .addtocart {
     margin-top: 20px;
     height: 40px;
-    width: 300px;
+    width: 180px;
     border: none;
     background-color: #E6029F;
     color: white;
     font-weight: bolder;
     border-radius: 20px;
+}
+
+.product_title {
+    font-family: 'Kavoon', cursive;
+}
+
+.description {
+    font-family: 'Balsamiq Sans', cursive;
 }
