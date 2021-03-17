@@ -25,24 +25,28 @@
                     <img class="bg-image img-fluid" src="../images/bg1.jpg" alt="Background Image">
                 </div>
             </div>
-            <div class="col-xl-2"></div>
-            <div class="col-xl-8">
+            <div class="col-xl-12 title-head">
+                    <h1>Most Popular Books</h1>
+            </div>
+            <div class="col-xl-1"></div>
+            <div class="col-xl-10">
                 <div class="about-container">
-                    <!--img-->
-                    <img src="../images/model.png" />
-                    <!--about-me-text-->
-                    <div class="about-text">
-                        <p style="margin-top:20px;">About Us</p>
-                        <p>Buy book online</p>
-                        <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Officia commodi facere sequi eum, aut odit deserunt nobis corporis vitae quia beatae asperiores et, voluptas exercitationem labore maxime quis, neque alias!</p>
-                        <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Facilis aut esse laborum libero nam alias autem nulla, reiciendis officiis ipsum! Commodi, quo velit? Dolores itaque voluptates voluptate doloribus, inventore quaerat.</p>
-                        <button>Contact Us</button>
-                        <a href="booklist.php"><button>Shop now</button></a>
+                    <div class="card" style="width: 14rem;">
+                        <img class="card-img-top" style="width: 100%;height:100%" src="../images/computer5.png" alt="Card image cap">
+                        
+                    </div>
+                    <div class="card" style="width: 14rem;">
+                        <img class="card-img-top"  style="width: 100%;height:100%"  src="../images/computer3.png" alt="Card image cap">
+                    
+                    </div>
+                    <div class="card" style="width: 14rem;">
+                        <img class="card-img-top"  style="width: 100%;height:100%"  src="../images/computer1.png" alt="Card image cap">
+                     
                     </div>
                 </div>
 
             </div>
-            <div class="col-xl-2"></div>
+            <div class="col-xl-1"></div>
         </div>
     </div>
     <div class="container">
@@ -53,40 +57,40 @@
         </div>
         <div class="row genre-row">
             <div class="col-xl-2 col-md-4 col-sm-6 col-6 mt-2">
-                <a href="categorised_product.php?genre=engineering">
-                <p class="genre">Engineering</p>
-                <img style="width:100%;height:200px;" src="../images/engineering1.jpg" alt="engineering genre">
+                <a href="booklist.php?genre=engineering">
+                    <p class="genre">Engineering</p>
+                    <img style="width:100%;height:200px;" src="../images/engineering1.jpg" alt="engineering genre">
                 </a>
             </div>
             <div class="col-xl-2 col-md-4 col-sm-6 col-6 mt-2">
-            <a href="booklist.php?genre=computer_science">
-                <p class="genre">Computer <br> Science</p>
-                <img style="width:100%;height:200px;" src="../images/cs.jpg" alt="cs genre">
-            </a>
+                <a href="booklist.php?genre=computer_science">
+                    <p class="genre">Computer <br> Science</p>
+                    <img style="width:100%;height:200px;" src="../images/cs.jpg" alt="cs genre">
+                </a>
             </div>
             <div class="col-xl-2 col-md-4 col-sm-6 col-6 mt-2">
-            <a href="categorised_product.php?genre=nursing">
-                <p class="genre">Nursing</p>
-                <img style="width:100%;height:200px;" src="../images/nursing.jpg" alt="nursing genre">
-            </a>
+                <a href="booklist.php?genre=nursing">
+                    <p class="genre">Nursing</p>
+                    <img style="width:100%;height:200px;" src="../images/nursing.jpg" alt="nursing genre">
+                </a>
             </div>
             <div class="col-xl-2 col-md-4 col-sm-6 col-6 mt-2">
-            <a href="categorised_product.php?genre=maths">
-                <p class="genre">Mathematics</p>
-                <img style="width:100%;height:200px;" src="../images/math.jpg" alt="maths genre">
-            </a>
+                <a href="booklist.php?genre=maths">
+                    <p class="genre">Mathematics</p>
+                    <img style="width:100%;height:200px;" src="../images/math.jpg" alt="maths genre">
+                </a>
             </div>
             <div class="col-xl-2 col-md-4 col-sm-6 col-6 mt-2">
-            <a href="categorised_product.php?genre=english">
-                <p class="genre">English</p>
-                <img style="width:100%;height:200px;" src="../images/english.jpg" alt="english genre">
-            </a>
+                <a href="booklist.php?genre=english">
+                    <p class="genre">English</p>
+                    <img style="width:100%;height:200px;" src="../images/english.jpg" alt="english genre">
+                </a>
             </div>
             <div class="col-xl-2 col-md-4 col-sm-6 col-6 mt-2">
-            <a href="categorised_product.php?genre=business">
-                <p class="genre">Business</p>
-                <img style="width:100%;height:200px;" src="../images/business.jpg" alt="business genre">
-            </a>
+                <a href="booklist.php?genre=business">
+                    <p class="genre">Business</p>
+                    <img style="width:100%;height:200px;" src="../images/business.jpg" alt="business genre">
+                </a>
             </div>
         </div>
         <div class="row">
