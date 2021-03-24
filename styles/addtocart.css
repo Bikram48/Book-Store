@@ -177,3 +177,11 @@
     .cart-total a:hover {
         background-color: red;
     }
+    
+    .remove-all {
+        float: right;
+        margin-bottom: 10px;
+        border: none;
+        background-color: #0C0C2D;
+        color: white;
+    }

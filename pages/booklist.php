@@ -1,4 +1,4 @@
-<?php include "navbar.php" ?>
+<?php session_start()?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -29,15 +29,52 @@
             <div class="col-xl-2 col-sm-0 col-0"></div>
         </div>
         <?php
-            require_once "../backend/db_connect.php";
-            $db_connection=new Connection();
-          if(isset($_GET['genre'])){
-            $category=$_GET['genre'];
+        require_once "../backend/db_connect.php";
+        $db_connection = new Connection();
+        $error="";
+        if (isset($_GET['genre'])) {
+            $category = $_GET['genre'];
+            $_SESSION['category'] = $category;
         }
-        
-        $query=mysqli_query($db_connection->getConnection(),"SELECT * FROM product WHERE category='$category'");
+
+        if (isset($_SESSION['category'])) {
+            $cat = $_SESSION['category'];
+        }
+
+        if(isset($_POST['submit'])){
+            $productid=$_POST['pid'];
+            $quantity=1;
+            if(isset($_COOKIE['cartitem'])){
+				$cookie_data=stripslashes($_COOKIE['cartitem']);
+				$cart_data=json_decode($cookie_data,true);
+			}
+			else{
+				$cart_data=array();
+			}
+			$item_id_list=array_column($cart_data,'item_id');
+			if(in_array($productid,$item_id_list)){
+				foreach($cart_data as $keys=>$values){
+					if($cart_data[$keys]['item_id']==$productid){
+						echo '<script language="javascript">';
+  						echo 'alert("This product is already in cart")';
+						  echo '</script>';
+						$error=true;
+					}
+				}
+			}
+			else{
+				$item_array=array("item_id" => $productid,"item_quantity"=> $quantity);
+				$cart_data[] = $item_array;
+			}
+            $item_data=json_encode($cart_data);
+            setcookie('cartitem',$item_data,time()+ (86400 * 30));
+            if(!$error){
+                header("Location:addtocart.php");
+            }
+        }
+        $query = mysqli_query($db_connection->getConnection(), "SELECT * FROM product WHERE category='$cat'");
         while ($row = mysqli_fetch_assoc($query)) {
-            $productid=$row['productid'];
+            $productid = $row['productid'];
         ?>
             <div class="row book-items">
                 <div class="col-xl-1 col-lg-1 col-sm-3"></div>
@@ -51,8 +88,11 @@
                     <div class="description">
                         <p><?php echo $row['description']; ?></p>
                     </div>
-                    <button class="addtocart">ADD TO CART</button>
-                    <button class="addtocart"><?php echo "<a style=color:white;text-decoration:none; href='productdescription.php?productid=$productid'>PRODUCT DETAILS</a>" ?></button>
+                    <form method="POST" action="booklist.php">  
+                        <input type="hidden" name="pid" value="<?php echo $productid ?>">
+                        <button type="submit" class="addtocart" name="submit">ADD TO CART</button>
+                        <button class="addtocart"><?php echo "<a style=color:white;text-decoration:none; href='productdescription.php?productid=$productid'>PRODUCT DETAILS</a>" ?></button>
+                    </form>
                 </div>
             </div>
         <?php } ?>

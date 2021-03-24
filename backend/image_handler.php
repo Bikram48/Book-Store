@@ -27,7 +27,7 @@
         
         $fileExt=explode('.',$filename);
         $fileActualExt=strtolower(end($fileExt));
-
+        $filename=str_replace(" ","-",$filename);
         $filePath="../avatars/".$filename;
         move_uploaded_file($fileTmpName,$filePath);
         return $filename;
@@ -42,7 +42,7 @@
         
         $fileExt=explode('.',$filename);
         $fileActualExt=strtolower(end($fileExt));
-
+        $filename=str_replace(" ","-",$filename);
         $filePath="../images/".$filename;
         move_uploaded_file($fileTmpName,$filePath);
         return $filename;
