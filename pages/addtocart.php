@@ -1,4 +1,5 @@
-<?php ob_start();  include "navbar.php" ?>
+<?php ob_start();  include "navbar.php" 
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -12,24 +13,50 @@
 
 <body>
     <?php 
+        require_once "../backend/db_connect.php";
+        $db_connection = new Connection();
           if(isset($_GET['action'])=='clear'){
-            setcookie('cartitem', "", time() - (86400 * 30));
+            if(isset($_COOKIE['cartitem'])){
+                setcookie('cartitem', "", time() - (86400 * 30));
+            }
+            if(isset($_SESSION['userid'])){
+                $userid=$_SESSION['userid'];
+                $query=mysqli_query($db_connection->getConnection(),"DELETE FROM cart WHERE fk1_userid=$userid");
+            }
         }
     ?>
     <div class="container">
         <div class="cart">
             <div class="products">
             <a href="addtocart.php?action=clear"><button class="remove-all">Remove All</button></a>
-                <?php require_once "../backend/db_connect.php";
-                $db_connection = new Connection();
+                <?php 
                 include "../backend/cookie_handler.php";
+                require_once "../backend/cart.php";
                 if (isset($_POST['submit'])) {
                     $quantity = $_POST['quantity'];
                     $productid = $_POST['productid'];
-                    updateQuantity($productid, $quantity);
+                    if(isset($_COOKIE['cartitem'])){
+                        updateQuantity($productid, $quantity);
+                    }
+                    if(isset($_SESSION['userid'])){
+                        $userid=$_SESSION['userid'];
+                        $query=mysqli_query($db_connection->getConnection(),"SELECT cart_id FROM cart WHERE fk1_productid=$productid AND fk1_userid=$userid");
+                        $row=mysqli_fetch_assoc($query);
+                        $cartid=$row['cart_id'];
+                        $cartObj=new Cart($productid,$quantity,$userid);
+                        $cartObj->updateCart($cartid);
+                    }
                 }
                 if (isset($_GET['pid'])) {
-                    removeProduct($_GET['pid']);
+                    if(isset($_COOKIE['cartitem'])){
+                        removeProduct($_GET['pid']);
+                    }
+                    if(isset($_SESSION['userid'])){
+                        $cartObj=new Cart($_GET['pid'],1,$_SESSION['userid']);
+                        if($cartObj->removeProduct()==true){
+                            //echo "Removed successfully";
+                        }
+                    }
                 }
             
                 if (isset($_COOKIE['cartitem'])) {
@@ -70,7 +97,39 @@
                             </div>
                 <?php }
                     }
-                } ?>
+                }if(isset($_SESSION['userid'])){
+                        $userid=$_SESSION['userid'];
+                        $query=mysqli_query($db_connection->getConnection(),"SELECT p.*,c.quantity FROM product p,cart c,user u WHERE u.userid=c.fk1_userid AND p.productid=c.fk1_productid AND c.fk1_userid=$userid");
+                        while($row=mysqli_fetch_assoc($query)){
+                            $pid=$row['productid'];
+                    ?>
+                       <div class="product">
+                                <img src="../images/<?php echo $row['image'] ?>">
+                                <div class="product-info">
+                                    <div class="product-name">
+                                        <?php echo $row['product_name'] ?>
+                                    </div>
+                                    <div class="product-price">
+                                        <?php echo $row['price'] ?>
+                                    </div>
+                                    <form method="POST" action="addtocart.php">
+                                    <input type="hidden" value="<?php echo $row['productid']; ?>" name="productid">
+                                        <p class="product-quantity">
+                                            <input value=<?php echo $row['quantity'] ?> name="quantity">
+                                        </p>
+                                        <p class="product-edit">
+                                            <button style="background: none;border:none;" type="submit" name="submit">Edit</button>
+                                        </p>
+                                    </form>
+                                    <?php echo "<a href='addtocart.php?pid=$pid'>" ?>
+                                    <p class="product-remove">
+                                        <i class="fa fa-trash"></i>
+                                        <span class="remove">Remove</span>
+                                    </p>
+                                    </a>
+                                </div>
+                            </div>
+                <?php }} ?>
             </div>
             <div class="cart-total">
 

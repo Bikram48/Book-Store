@@ -1,5 +1,5 @@
 
-<?php ob_start(); include "navbar.php" ?>
+<?php ob_start(); require_once "navbar.php" ?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -15,7 +15,7 @@
 <body>
     <?php
        require_once "../backend/login.php";
-       include "../backend/cart.php";
+       include_once "../backend/cart.php";
        $error="";
        if(isset($_POST['submit'])){
        $obj=new UserLogin();

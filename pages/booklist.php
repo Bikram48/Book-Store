@@ -1,4 +1,5 @@
-<?php ob_start(); include "navbar.php" ?>
+<?php ob_start();
+include "navbar.php" ?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -30,8 +31,9 @@
         </div>
         <?php
         require_once "../backend/db_connect.php";
+        include_once "../backend/cart.php";
         $db_connection = new Connection();
-        $error="";
+        $error = "";
         if (isset($_GET['genre'])) {
             $category = $_GET['genre'];
             $_SESSION['category'] = $category;
@@ -41,35 +43,46 @@
             $cat = $_SESSION['category'];
         }
 
-        if(isset($_POST['submit'])){
-            $productid=$_POST['pid'];
-            $quantity=1;
-            if(isset($_COOKIE['cartitem'])){
-				$cookie_data=stripslashes($_COOKIE['cartitem']);
-				$cart_data=json_decode($cookie_data,true);
-			}
-			else{
-				$cart_data=array();
-			}
-			$item_id_list=array_column($cart_data,'item_id');
-			if(in_array($productid,$item_id_list)){
-				foreach($cart_data as $keys=>$values){
-					if($cart_data[$keys]['item_id']==$productid){
-						echo '<script language="javascript">';
-  						echo 'alert("This product is already in cart")';
-						  echo '</script>';
-						$error=true;
-					}
-				}
-			}
-			else{
-				$item_array=array("item_id" => $productid,"item_quantity"=> $quantity);
-				$cart_data[] = $item_array;
-			}
-            $item_data=json_encode($cart_data);
-            setcookie('cartitem',$item_data,time()+ (86400 * 30));
-            if(!$error){
-                header("Location:addtocart.php");
+        if (isset($_POST['submit'])) {
+            $productid = $_POST['pid'];
+            $quantity = 1;
+            if (isset($_SESSION['userid'])) {
+                $cartObj=new Cart($productid,$quantity,$_SESSION['userid']);
+                echo "Total cart items: ".$cartObj->checkProductExistence();
+                if($cartObj->checkProductExistence()==0){
+                    $cartObj->insertItem();
+                }
+                else{
+                    echo '<script language="javascript">';
+                    echo 'alert("This product is already in cart")';
+                    echo '</script>';
+                }
+            } else {
+                if (isset($_COOKIE['cartitem'])) {
+                    $cookie_data = stripslashes($_COOKIE['cartitem']);
+                    $cart_data = json_decode($cookie_data, true);
+                } else {
+                    $cart_data = array();
+                }
+                $item_id_list = array_column($cart_data, 'item_id');
+                if (in_array($productid, $item_id_list)) {
+                    foreach ($cart_data as $keys => $values) {
+                        if ($cart_data[$keys]['item_id'] == $productid) {
+                            echo '<script language="javascript">';
+                            echo 'alert("This product is already in cart")';
+                            echo '</script>';
+                            $error = true;
+                        }
+                    }
+                } else {
+                    $item_array = array("item_id" => $productid, "item_quantity" => $quantity);
+                    $cart_data[] = $item_array;
+                }
+                $item_data = json_encode($cart_data);
+                setcookie('cartitem', $item_data, time() + (86400 * 30));
+                if (!$error) {
+                    header("Location:addtocart.php");
+                }
             }
         }
         $query = mysqli_query($db_connection->getConnection(), "SELECT * FROM product WHERE category='$cat'");
@@ -88,7 +101,7 @@
                     <div class="description">
                         <p><?php echo $row['description']; ?></p>
                     </div>
-                    <form method="POST" action="booklist.php">  
+                    <form method="POST" action="booklist.php">
                         <input type="hidden" name="pid" value="<?php echo $productid ?>">
                         <button type="submit" class="addtocart" name="submit">ADD TO CART</button>
                         <button class="addtocart"><?php echo "<a style=color:white;text-decoration:none; href='productdescription.php?productid=$productid'>PRODUCT DETAILS</a>" ?></button>

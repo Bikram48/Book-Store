@@ -1,7 +1,7 @@
 <?php
 ob_start();
 include "navbar.php";
-include "../backend/db_connect.php";
+include_once "../backend/db_connect.php";
 ?>
 
 <!DOCTYPE html>
@@ -26,6 +26,23 @@ include "../backend/db_connect.php";
                      $error="";
                     $productid=$_POST['pid'];
                     $quantity=$_POST['quantity'];
+                    if (isset($_SESSION['userid'])) {
+                        include_once "../backend/cart.php";
+                        $cartObj=new Cart($productid,$quantity,$_SESSION['userid']);
+                        if($cartObj->checkProductExistence()==0){
+                            $cartObj->insertItem();
+                        }
+                        else{
+                            $error=true;
+                            echo '<script language="javascript">';
+                            echo 'alert("This product is already in cart")';
+                            echo '</script>';
+                        }
+                        if(!$error){
+                            header("Location:addtocart.php");
+                        }
+                    }
+                    else{
                     if(isset($_COOKIE['cartitem'])){
                         $cookie_data=stripslashes($_COOKIE['cartitem']);
                         $cart_data=json_decode($cookie_data,true);
@@ -53,6 +70,7 @@ include "../backend/db_connect.php";
                     if(!$error){
                         header("Location:addtocart.php");
                     }
+                }
                 }
                 $db_connection = new Connection();
                 if (isset($_GET['productid'])) {
