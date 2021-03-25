@@ -51,5 +51,21 @@
             }
         }
 
+        public function getUserId($usernameoremail,$password){
+            $userid=0;
+            $username=mysqli_real_escape_string($this->connection->getConnection(),$usernameoremail);
+            $password=mysqli_real_escape_string($this->connection->getConnection(),$password);
+            $query=mysqli_query($this->connection->getConnection(),"SELECT * FROM user WHERE username='$username' AND password='$password'");
+            $row=mysqli_fetch_assoc($query);
+            $count=mysqli_num_rows($query);
+            if($count==1){
+                if($row['status']==1){
+                    $userid=$row['userid'];
+                }
+            }
+
+            return $userid;
+        }
+
     }
 ?>

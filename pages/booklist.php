@@ -1,4 +1,4 @@
-<?php session_start()?>
+<?php ob_start(); include "navbar.php" ?>
 <!DOCTYPE html>
 <html lang="en">
 

@@ -2,8 +2,6 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="../styles/navbar.css">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
@@ -49,6 +47,7 @@
               <li class="nav-item">
                 <a class="nav-link" href="addtocart.php"><i class="fas fa-shopping-bag"></i></a>
               </li>
+          
                 <div class="user-area dropdown float-right">
                   <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                   <?php 
@@ -74,7 +73,7 @@
                     <a class="nav-link" href="login.php"><i class="fas fa-sign-in-alt"></i>  <span style="padding-left:10px;">Login</span></a>
                   <?php } ?>
                 </div>
-
+        
 
             </ul>
           </div>
@@ -94,6 +93,7 @@
   </div>
 
   <script>
+  /*
     $(function() {
       $("#addClass").click(function() {
         $('#qnimate').addClass('popup-box-on');
@@ -103,6 +103,7 @@
         $('#qnimate').removeClass('popup-box-on');
       });
     })
+    */
   </script>
 </body>
 

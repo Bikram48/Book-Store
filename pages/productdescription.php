@@ -1,6 +1,7 @@
 <?php
-include "../backend/db_connect.php";
+ob_start();
 include "navbar.php";
+include "../backend/db_connect.php";
 ?>
 
 <!DOCTYPE html>
@@ -21,10 +22,47 @@ include "navbar.php";
         <div class="row">
             <div class="col-md-5 col-xl-6 col-sm-12 image-part">
                 <?php
+                 if(isset($_POST['submit'])){
+                     $error="";
+                    $productid=$_POST['pid'];
+                    $quantity=$_POST['quantity'];
+                    if(isset($_COOKIE['cartitem'])){
+                        $cookie_data=stripslashes($_COOKIE['cartitem']);
+                        $cart_data=json_decode($cookie_data,true);
+                    }
+                    else{
+                        $cart_data=array();
+                    }
+                    $item_id_list=array_column($cart_data,'item_id');
+                    if(in_array($productid,$item_id_list)){
+                        foreach($cart_data as $keys=>$values){
+                            if($cart_data[$keys]['item_id']==$productid){
+                                echo '<script language="javascript">';
+                                  echo 'alert("This product is already in cart")';
+                                  echo '</script>';
+                                $error=true;
+                            }
+                        }
+                    }
+                    else{
+                        $item_array=array("item_id" => $productid,"item_quantity"=> $quantity);
+                        $cart_data[] = $item_array;
+                    }
+                    $item_data=json_encode($cart_data);
+                    setcookie('cartitem',$item_data,time()+ (86400 * 30));
+                    if(!$error){
+                        header("Location:addtocart.php");
+                    }
+                }
                 $db_connection = new Connection();
                 if (isset($_GET['productid'])) {
-                    $productid = $_GET['productid'];
-                    $query = mysqli_query($db_connection->getConnection(), "SELECT * FROM PRODUCT WHERE PRODUCTID=$productid");
+                    $_SESSION['productid'] = $_GET['productid'];
+                }
+                if (isset($_SESSION['productid'])) {
+                    $pid = $_SESSION['productid'];
+                }
+        
+                    $query = mysqli_query($db_connection->getConnection(), "SELECT * FROM PRODUCT WHERE PRODUCTID=$pid");
 
                     while ($row = mysqli_fetch_assoc($query)) {
                 ?>
@@ -34,7 +72,7 @@ include "navbar.php";
 
                 <?php
                     }
-                }
+                
                 ?>
 
             </div>
@@ -42,7 +80,7 @@ include "navbar.php";
             <div class="col-md-6 col-xl-5 col-sm-12 description">
                 <?php
 
-                $query = mysqli_query($db_connection->getConnection(), "SELECT * FROM PRODUCT WHERE PRODUCTID=$productid");
+                $query = mysqli_query($db_connection->getConnection(), "SELECT * FROM PRODUCT WHERE PRODUCTID=$pid");
                 while ($row = mysqli_fetch_assoc($query)) {
 
                 ?>
@@ -60,9 +98,9 @@ include "navbar.php";
                 </div>
 
                 <?php
-                $query = mysqli_query($db_connection->getConnection(), "SELECT * FROM PRODUCT WHERE PRODUCTID=$productid");
+                $query = mysqli_query($db_connection->getConnection(), "SELECT * FROM PRODUCT WHERE PRODUCTID=$pid");
                 while ($row = mysqli_fetch_assoc($query)) {
-
+                    $productid = $row['productid'];
                 ?>
                     <p class="product-description"><?php echo $row['description']; ?>
                     </p>
@@ -74,9 +112,10 @@ include "navbar.php";
                 }
                 ?>
 
-                <form action="" method="POST">
+                <form action="productdescription.php" method="POST">
+                    <input type="hidden" name="pid" value="<?php echo $productid ?>">
                     <label for="quantity">Quantity</label>
-                    <input id="quantity" type="text" name="number" value=1>
+                    <input id="quantity" type="text" name="quantity" value=1>
                     <input class="adding-cart" type="submit" name="submit" value="Add to Cart">
 
 
@@ -95,7 +134,7 @@ include "navbar.php";
                 <div class="row">
                     <?php
 
-                    $query = mysqli_query($db_connection->getConnection(), "SELECT * FROM PRODUCT WHERE PRODUCTID=$productid");
+                    $query = mysqli_query($db_connection->getConnection(), "SELECT * FROM PRODUCT WHERE PRODUCTID=$pid");
                     while ($row = mysqli_fetch_assoc($query)) {
 
                     ?>

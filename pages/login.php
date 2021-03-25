@@ -1,5 +1,5 @@
 
-<?php include "navbar.php" ?>
+<?php ob_start(); include "navbar.php" ?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -9,19 +9,41 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../styles/login.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-    <title>Document</title>+
+    <title>Document</title>
 </head>
 
 <body>
     <?php
        require_once "../backend/login.php";
+       include "../backend/cart.php";
        $error="";
        if(isset($_POST['submit'])){
        $obj=new UserLogin();
         $emailorusername=$_POST['emailorusername'];
         $password=$_POST['password'];
         if($obj->checkUser($emailorusername,$password)==true){
-            echo "<script type='text/javascript'>window.location.href='index.php'</script>";
+            if(isset($_COOKIE['cartitem'])){
+                $cookie_data=stripslashes($_COOKIE['cartitem']);
+                $cart_data=json_decode($cookie_data,true);
+                if(isset($_SESSION['userid'])){
+                    $userid=$_SESSION['userid'];
+                }
+                foreach($cart_data as $keys=>$values){
+                    $quantity=$values['item_quantity'];
+                    $pid=$values['item_id'];
+
+                    $cartObj=new Cart($pid,$quantity,$userid);
+                    if($cartObj->insertItem()==true){
+                        setcookie('cartitem', "", time() - (86400 * 30));
+                        echo "Data inserted successfully";
+                    }
+                    else{
+                        echo "error occured";
+                    }
+                }
+            }
+
+            //echo "<script type='text/javascript'>window.location.href='index.php'</script>";
             exit;
          
         }
