@@ -1,6 +1,7 @@
 <?php session_start(); ?>
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="../styles/navbar.css">
@@ -26,54 +27,64 @@
             <ul class="navbar-nav">
               <a class="nav-link" href="#"> <span class="sr-only">(current)</span></a>
               </li>
-              <li class="nav-item">  
+              <li>
+                <form method="POST" action="searchresult.php">
+                  <select name="keyword_cat" style="width: 100px;height:40px;border-radius:5px;border:2px solid black;">
+                    <option value="keyword">keyword search</option>
+                    <option value="author">Author</option>
+                    <option value="title">Title</option>
+                  </select>
+                  <input name="searchtxt" style="width: 400px;height:40px;border-radius:3px;border:2px solid black;" type="text" >
+                  <button style="height: 40px;width:50px;" type="submit" name="submit"><i class="fas fa-search"></i></button>
+                </form>
+              </li>
+              <li class="nav-item">
                 <a style="color:black;" class="nav-link" href="index.php">HOME </a>
               </li>
               <li class="nav-item">
                 <a style="color:black;" class="nav-link" href="aboutus.php">ABOUT</a>
               </li>
               <li class="nav-item">
-                <a style="color:black;" class="nav-link" href="#">CONTACT</a>
+                <a style="color:black;" class="nav-link" href="contactus.php">CONTACT</a>
               </li>
-              <?php    if(isset($_SESSION['adminid'])){ ?>
+              <?php if (isset($_SESSION['adminid'])) { ?>
                 <li class="nav-item">
-                <a style="color:black;" class="nav-link" href="../admin_dashboard/dashboard.php">DASHBOARD</a>
-              </li>
+                  <a style="color:black;" class="nav-link" href="../admin_dashboard/dashboard.php">DASHBOARD</a>
+                </li>
               <?php } ?>
-              <li class="nav-item">
-                <a class="nav-link" id="addClass" href="#"><i style="padding:0px;" class="fas fa-search"></i></a>
-              </li>
 
               <li class="nav-item">
                 <a class="nav-link" href="addtocart.php"><i class="fas fa-shopping-bag"></i></a>
               </li>
-          
-                <div class="user-area dropdown float-right">
-                  <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  <?php 
-                      if(isset($_SESSION['userid'])){
-                        require_once "../backend/db_connect.php";
-                        $db_connection=new Connection();
-                        $userid=$_SESSION['userid'];
-                        $query=mysqli_query($db_connection->getConnection(),"SELECT image FROM user WHERE userid=$userid");
-                        $row=mysqli_fetch_assoc($query);
-                      
-                   ?>
-                   <?php echo "<img class='user-avatar rounded-circle' src=../avatars/".$row['image'].">";?>
 
-                  <?php }else{echo "<img class='user-avatar rounded-circle' src=../avatars/avatar.png>";} ?> 
+              <div class="user-area dropdown float-right">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  <?php
+                  if (isset($_SESSION['userid'])) {
+                    require_once "../backend/db_connect.php";
+                    $db_connection = new Connection();
+                    $userid = $_SESSION['userid'];
+                    $query = mysqli_query($db_connection->getConnection(), "SELECT image FROM user WHERE userid=$userid");
+                    $row = mysqli_fetch_assoc($query);
 
-                  </a>
-                  <div class="user-menu dropdown-menu">
-                  <?php if(isset($_SESSION['userid']) or isset($_SESSION['adminid'])){ ?>
+                  ?>
+                    <?php echo "<img class='user-avatar rounded-circle' src=../avatars/" . $row['image'] . ">"; ?>
+
+                  <?php } else {
+                    echo "<img class='user-avatar rounded-circle' src=../avatars/avatar.png>";
+                  } ?>
+
+                </a>
+                <div class="user-menu dropdown-menu">
+                  <?php if (isset($_SESSION['userid']) or isset($_SESSION['adminid'])) { ?>
                     <a class="nav-link" href="userprofile.php"><i class="fa fa-user"></i> My Profile</a>
                     <a class="nav-link" href="../backend/logout.php"><i class="fa fa-power-off"></i> Logout</a>
-                  </div>
-                  <?php } else{ ?>
-                    <a class="nav-link" href="login.php"><i class="fas fa-sign-in-alt"></i>  <span style="padding-left:10px;">Login</span></a>
-                  <?php } ?>
                 </div>
-        
+              <?php } else { ?>
+                <a class="nav-link" href="login.php"><i class="fas fa-sign-in-alt"></i> <span style="padding-left:10px;">Login</span></a>
+              <?php } ?>
+              </div>
+
 
             </ul>
           </div>
@@ -91,20 +102,6 @@
       </div>
     </div>
   </div>
-
-  <script>
-  /*
-    $(function() {
-      $("#addClass").click(function() {
-        $('#qnimate').addClass('popup-box-on');
-      });
-
-      $("#removeClass").click(function() {
-        $('#qnimate').removeClass('popup-box-on');
-      });
-    })
-    */
-  </script>
 </body>
 
 </html>
