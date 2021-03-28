@@ -164,18 +164,18 @@
         font-size: 20px;
     }
     
-    .cart-total a {
+    .cart-total button {
+        width: 100%;
         display: block;
-        text-align: center;
         height: 40px;
         line-height: 40px;
-        background-color: tomato;
+        background-color: #B8B8BF;
         color: white;
         text-decoration: none;
-    }
-    
-    .cart-total a:hover {
-        background-color: red;
+        position: relative;
+        color: black;
+        font-weight: bolder;
+        top: 50px;
     }
     
     .remove-all {
