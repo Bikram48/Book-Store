@@ -57,6 +57,7 @@ include "navbar.php" ?>
                     echo 'alert("This product is already in cart")';
                     echo '</script>';
                 }
+                header("Location:addtocart.php");
             } else {
                 if (isset($_COOKIE['cartitem'])) {
                     $cookie_data = stripslashes($_COOKIE['cartitem']);

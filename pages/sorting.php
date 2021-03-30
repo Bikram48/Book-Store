@@ -21,43 +21,37 @@ include "navbar.php";
         $db = new Connection();
         $count = 0;
         require_once "../backend/search_query.php";
-        if (isset($_POST['submit'])) {
-            $_SESSION['keywordcat'] = $_POST['keyword_cat'];
-            $_SESSION['searchtxt'] = $_POST['searchtxt'];
-        }
-        $query=getQuery($_SESSION['keywordcat'],$_SESSION['searchtxt']);
-        while ($row = mysqli_fetch_array($query,MYSQLI_ASSOC)) {
-            $_SESSION['search_product'] = $row['productid'];
-            $count++;
-        }
-    
-
+     
+        
 
         ?>
 
-        <h1><?php if($count>0){ echo $count;} else{ echo "No ";} ?> Items Found </h1>
-        <?php if ($count > 0) { ?>
             <div class="row sorting-part">
                 <div class="col-xl-12 col-sm-12">
                     <form action="sorting.php" method="POST">
-                        <select class="sort" name="sorting_value" id="">
+                        <select class="sort" name="Sorting_value" id="">
                             <option value='option'>Sorting Option</option>
-                            <option value='popularity'>Popularity</option>
                             <option value='low'>Price Low To High</option>
                             <option value='high'>Price High To Low</option>
                         </select>
-                        <input type="submit" name="sorting" value="SORT">
+                        <input type="submit" name="submit" value="SORT">
                     </form>
                 </div>
             </div>
-        <?php } ?>
+
         <div class="row">
             <?php
-               if (isset($_POST['submit'])) {
-                $_SESSION['keywordcat'] = $_POST['keyword_cat'];
-                $_SESSION['searchtxt'] = $_POST['searchtxt'];
+             if (isset($_SESSION['searchtxt'])) {
+                $searchtxt = $_SESSION['searchtxt'];
             }
-            $query=getQuery($_SESSION['keywordcat'],$_SESSION['searchtxt']);
+            if(isset($_SESSION['keywordcat'])){
+                $keywordcat=$_SESSION['keywordcat'];
+            }
+            if (isset($_POST['sorting'])) {
+                $sorting = $_POST['sorting_value'];
+            
+        
+          $query=sortingQuery($sorting,$searchtxt,$keywordcat);
             while ($row = mysqli_fetch_assoc($query)) {
                 $productid = $row['productid'];
             ?>
@@ -76,6 +70,7 @@ include "navbar.php";
 
             <?php
             }
+        }
 
             ?>
 

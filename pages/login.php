@@ -1,5 +1,5 @@
-
-<?php ob_start(); require_once "navbar.php" ?>
+<?php ob_start();
+require_once "navbar.php" ?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -14,41 +14,37 @@
 
 <body>
     <?php
-       require_once "../backend/login.php";
-       include_once "../backend/cart.php";
-       $error="";
-       if(isset($_POST['submit'])){
-       $obj=new UserLogin();
-        $emailorusername=$_POST['emailorusername'];
-        $password=$_POST['password'];
-        if($obj->checkUser($emailorusername,$password)==true){
-            if(isset($_COOKIE['cartitem'])){
-                $cookie_data=stripslashes($_COOKIE['cartitem']);
-                $cart_data=json_decode($cookie_data,true);
-                if(isset($_SESSION['userid'])){
-                    $userid=$_SESSION['userid'];
+    require_once "../backend/login.php";
+    include_once "../backend/cart.php";
+    $error = "";
+    if (isset($_POST['submit'])) {
+        $obj = new UserLogin();
+        $emailorusername = $_POST['emailorusername'];
+        $password = $_POST['password'];
+        if ($obj->checkUser($emailorusername, $password) == true) {
+            if (isset($_COOKIE['cartitem'])) {
+                $cookie_data = stripslashes($_COOKIE['cartitem']);
+                $cart_data = json_decode($cookie_data, true);
+                if (isset($_SESSION['userid'])) {
+                    $userid = $_SESSION['userid'];
                 }
-                foreach($cart_data as $keys=>$values){
-                    $quantity=$values['item_quantity'];
-                    $pid=$values['item_id'];
+                foreach ($cart_data as $keys => $values) {
+                    $quantity = $values['item_quantity'];
+                    $pid = $values['item_id'];
 
-                    $cartObj=new Cart($pid,$quantity,$userid);
-                    if($cartObj->insertItem()==true){
-                        setcookie('cartitem', "", time() - (86400 * 30));
-                        echo "Data inserted successfully";
-                    }
-                    else{
-                        echo "error occured";
+                    $cartObj = new Cart($pid, $quantity, $userid);
+                    if ($cartObj->checkProductExistence() == 0) {
+                        if ($cartObj->insertItem() == true) {
+                            setcookie('cartitem', "", time() - (86400 * 30));
+                        }
                     }
                 }
             }
 
-            //echo "<script type='text/javascript'>window.location.href='index.php'</script>";
+            echo "<script type='text/javascript'>window.location.href='index.php'</script>";
             exit;
-         
-        }
-        else{
-            $error="User doesn't exist. Please try again later!!";
+        } else {
+            $error = "User doesn't exist. Please try again later!!";
         }
     }
     ?>

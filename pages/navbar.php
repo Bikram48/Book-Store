@@ -29,13 +29,12 @@
               </li>
               <li>
                 <form method="POST" action="searchresult.php">
-                  <select name="keyword_cat" style="width: 100px;height:40px;border-radius:5px;border:2px solid black;">
+                  <select style="font-family: sans-serif;height:40px;width:107px;font-size:12px;margin:0;padding:0;border:none;background-color:#0E0E25;color:white" name="keyword_cat" style="width: 100px;height:40px;border-radius:5px;border:2px solid black;">
                     <option value="keyword">keyword search</option>
-                    <option value="author">Author</option>
                     <option value="title">Title</option>
                   </select>
-                  <input name="searchtxt" style="width: 400px;height:40px;border-radius:3px;border:2px solid black;" type="text" >
-                  <button style="height: 40px;width:50px;" type="submit" name="submit"><i class="fas fa-search"></i></button>
+                  <input class="search-box" name="searchtxt" type="text" >
+                  <button style="height: 40px;width:50px;border:none;background-color:#0E0E25;" type="submit" name="submit"><i style="color:white;" class="fas fa-search"></i></button>
                 </form>
               </li>
               <li class="nav-item">

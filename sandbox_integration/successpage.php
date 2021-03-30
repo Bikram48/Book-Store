@@ -8,4 +8,5 @@
     $_SESSION['payment_gross']=$_POST['payment_gross'];
     $_SESSION['num_cart_items']=(int)$_POST['num_cart_items'];
     addPayment($_SESSION['num_cart_items'], $_SESSION['txn_id'], $_SESSION['payment_gross'],$_SESSION['payer_status'],1);
+    echo "<h1>Your Payment has been received</h1>"
 ?>

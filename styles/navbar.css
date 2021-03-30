@@ -127,3 +127,24 @@
 .user-area .dropdown-toggle:after {
     display: none;
 }
+
+.search-box {
+    margin: 0;
+    width: 250px;
+    height: 40px;
+    border-radius: 3px;
+    border: 2px solid black;
+    padding: 0;
+    border: 0;
+    background-color: #BBBBBB;
+}
+
+@media only screen and (max-width:1340px) and (min-width:1000px) {
+    .navitems ul li {
+        font-family: 'Bree Serif', serif;
+        padding-right: 20px;
+    }
+    .search-box {
+        width: 200px;
+    }
+}
