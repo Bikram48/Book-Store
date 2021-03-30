@@ -1,5 +1,14 @@
 .box {
     width: 100%;
-    min-height: 250px;
-    border: 1px solid black;
+    height: 400px;
+    box-shadow: 10px 10px 8px 10px #888888;
+}
+
+.userprofile {
+    margin-top: 100px;
+}
+
+button[type=submit] {
+    background-color: black;
+    border: none;
 }

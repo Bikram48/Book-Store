@@ -12,35 +12,67 @@
 </head>
 
 <body>
-    <div class="container">
-        <div class="row text-center">
+    <?php
+    require_once "../backend/db_connect.php";
+    $connection = new Connection();
 
-            <!--Grid column-->
-            <div class="col-md-6 mb-4">
-                <img class="rounded-circle" alt="100x100" src="https://mdbootstrap.com/img/Photos/Avatars/img%20(30).jpg" data-holder-rendered="true">
-                <h1>Bikram Chand</h1>
-                <input type="file" >
-            </div>
-            <!--Grid column-->
-            <div class="col-md-6 box">
-                <form>
+    $query = mysqli_query($connection->getConnection(), "SELECT * FROM user WHERE userid=$userid");
+    $row = mysqli_fetch_assoc($query);
+    $image = $row['image'];
+    $username = $row['username'];
+    $email = $row['email'];
+    ?>
+    <?php
+    include "../backend/image_handler.php";
+    require_once "../backend/userprofile.php";
+
+    if (isset($_SESSION['userid'])) {
+        $userid = $_SESSION['userid'];
+    }
+    if (isset($_POST['submit'])) {
+        $imageName = "";
+        $username = $_POST['username'];
+        $email = $_POST['email'];
+        $file = $_FILES['file'];
+        if($_FILES['file']['size']==0){
+            $imageName=$image;
+        }
+        if (checkFileExtension($file)) {
+            $imageName = uploadFile($file);
+        }
+        updateUser($username, $email, $imageName, $userid);
+    }
+    ?>
+    <div class="container">
+        <form method="POST" action="userprofile.php" enctype="multipart/form-data">
+            <div class="row userprofile">
+
+                <div class="col-md-6 mb-4 text-center">
+                    <img class="rounded-circle" width="400px" height="400px" src="../avatars/<?php echo $image ?>" data-holder-rendered="true">
+                    <h1><?php echo $username; ?></h1>
+
+                    <input type="file" name="file">
+
+                </div>
+                <div class="col-md-6 box">
                     <div class="form-group">
                         <label for="exampleInputEmail1">Username</label>
-                        <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
+                        <input type="text" class="form-control" name="username" id="exampleInputEmail1" aria-describedby="emailHelp" value="<?php echo $username; ?>" placeholder="Enter email">
                         <small id="emailHelp" class="form-text text-muted"></small>
                     </div>
                     <div class="form-group">
                         <label for="exampleInputPassword1">Email</label>
-                        <input type="text" class="form-control" id="exampleInputPassword1" placeholder="Password">
+                        <input type="email" name="email" class="form-control" id="exampleInputPassword1" value="<?php echo $email; ?>" placeholder="Password">
                     </div>
-                    
-                    <button type="submit" class="btn btn-primary">Submit</button>
-                </form>
+                    <br>
+                    <button type="submit" name="submit" class="btn btn-primary">UPDATE</button>
+                </div>
             </div>
-
-        </div>
+        </form>
+    </div>
+    <div style="margin-top:200px;">
+        <?php include "footer.php" ?>
     </div>
 </body>
 
 </html>
-<?php include "footer.php"; ?>
