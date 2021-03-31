@@ -6,6 +6,6 @@
 
 </div>
 
-<a href="index.php" class="btn-link">Back to Products</a>
+<a href="../pages/index.php" class="btn-link">Go Back To Home Page</a>
 
 </div>

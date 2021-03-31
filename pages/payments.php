@@ -1,5 +1,4 @@
 <?php
-    session_start();
     include "paypal_functions.php";
     if(isset($_SESSION['userid'])){
         $userid=$_SESSION['userid'];
@@ -7,9 +6,9 @@
     
     $paypalConfig = [
         'email' => 'chandbikram001@gmail.com',
-        'return_url' => 'http://localhost/book_store/sandbox_integration/successpage.php',
+        'return_url' => 'http://localhost/book_store/pages/successpage.php',
         'cancel_url' => 'http://localhost/book_store/sandbox_integration/cancel.php',
-        'notify_url' => 'http://localhost/book_store/sandbox_integration/payments.php'
+        'notify_url' => 'http://localhost/book_store/pages/payments.php'
     ];
 
   

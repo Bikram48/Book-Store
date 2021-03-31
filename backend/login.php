@@ -18,6 +18,7 @@
             if($count==1){
                 if($row['status']==0){
                     $_SESSION['userid']=$row['userid'];
+                    $_SESSION['customer_id']=$row['userid'];
                     $_SESSION['username']=$usernameoremail;
                     return true;
                 }

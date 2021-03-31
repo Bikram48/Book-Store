@@ -16,7 +16,7 @@
 <body>
     <div class="container">
         <div class="row">
-            <div class="col-xl-6 library-hours">
+            <div class="col-xl-6 library-hours" style="margin-bottom: 300px;">
                 <table border="1px" bordercolor="#B8B8BF">
                     <thead style="background-color: #D5D0C8;">
                         <tr>

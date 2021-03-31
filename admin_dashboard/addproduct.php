@@ -50,7 +50,7 @@
                             </div>
                             <div class="form-group col-md-6">
                                 <label for="inputPassword4">Price</label>
-                                <input type="number" name="price" class="form-control">
+                                <input type="text" name="price" class="form-control">
                             </div>
                         </div>
                         <br>
