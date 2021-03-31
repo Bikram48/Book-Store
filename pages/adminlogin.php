@@ -50,7 +50,6 @@
                             <input style="border-radius: 0%;" type="password" name="password" class="form-control" id="exampleInputPassword1" required>
                         </div>
                         <button class="login-btn" type="submit" name="submit" class="btn btn-primary">SIGN IN</button>
-                        <p class="create-account"><a style="color:#252757;" href="signup.php">Create account</a></p>
                     </form>
                 </div>
                 <div class="col-xl-3"></div>
