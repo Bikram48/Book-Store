@@ -1,6 +1,5 @@
 <?php 
-ob_start();
-include "navbar.php";
+require_once "navbar.php";
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -33,14 +32,15 @@ include "navbar.php";
                
                     <?php
                 
-                include "../backend/cookie_handler.php";
+                require_once "../backend/cookie_handler.php";
                 require_once "../backend/cart.php";
                 $total_item = 0;
+                
                 if (isset($_POST['submit'])) {
                     $quantity = $_POST['quantity'];
                     $productid = $_POST['productid'];
                     if (isset($_COOKIE['cartitem'])) {
-                        updateQuantity($productid, $quantity);
+                        updateQuantity($productid, $quantity); 
                     }
                     if (isset($_SESSION['userid'])) {
                         $userid = $_SESSION['userid'];
@@ -208,11 +208,13 @@ include "navbar.php";
                                         <input type="hidden" name="quantity_<?php echo $i; ?>" value="<?php echo $quantity; ?>">
                                         <input type="hidden" name="rm" value="2">
                                         <input type="hidden" name="return" value="http://localhost/book_store/sandbox_integration/successpage.php">
-                                <?php 
+                                <?php }}
                                 ?>
-                            
+                                <?php if (isset($_SESSION['userid'])) { ?>
                                     <button type="submit" name="submit" border="0">Pay with paypal &nbsp;&nbsp;<img height="30px;" src="../images/rsz_paypal.png"></button>
-                                <?php }} ?>
+                                <?php } else { ?>
+                                    <button border="0">Login to checkout</button>
+                                <?php } ?>
                             </form>
                         </div>
                     </div>

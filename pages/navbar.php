@@ -33,7 +33,7 @@
                     <option value="keyword">keyword search</option>
                     <option value="title">Title</option>
                   </select>
-                  <input class="search-box" name="searchtxt" type="text" >
+                  <input class="search-box" name="searchtxt" type="text">
                   <button style="height: 40px;width:50px;border:none;background-color:#0E0E25;" type="submit" name="submit"><i style="color:white;" class="fas fa-search"></i></button>
                 </form>
               </li>
@@ -55,7 +55,6 @@
               <li class="nav-item">
                 <a class="nav-link" href="addtocart.php"><i class="fas fa-shopping-bag"></i></a>
               </li>
-
               <div class="user-area dropdown float-right">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                   <?php
@@ -83,8 +82,6 @@
                 <a class="nav-link" href="login.php"><i class="fas fa-sign-in-alt"></i> <span style="padding-left:10px;">Login</span></a>
               <?php } ?>
               </div>
-
-
             </ul>
           </div>
         </nav>
