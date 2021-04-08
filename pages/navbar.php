@@ -51,10 +51,10 @@
                   <a style="color:black;" class="nav-link" href="../admin_dashboard/dashboard.php">DASHBOARD</a>
                 </li>
               <?php } ?>
-
               <li class="nav-item">
                 <a class="nav-link" href="addtocart.php"><i class="fas fa-shopping-bag"></i></a>
               </li>
+              <li class="nav-item">
               <div class="user-area dropdown float-right">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                   <?php
@@ -82,6 +82,7 @@
                 <a class="nav-link" href="login.php"><i class="fas fa-sign-in-alt"></i> <span style="padding-left:10px;">Login</span></a>
               <?php } ?>
               </div>
+              </li>
             </ul>
           </div>
         </nav>

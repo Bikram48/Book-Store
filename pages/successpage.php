@@ -2,7 +2,15 @@
 session_start();
 require_once("../backend/config.php");
 $db_connection = mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD, DB_DATABSE);
-print_r($_POST);
+
+$payer_email = $_SESSION['email'];
+$payer_status = "VERIFIED";
+$payment_gross = $_SESSION['totalPrice'];
+$customer_id = $_SESSION['customer_id'];
+if ($customer_id) {
+    $query = mysqli_query($db_connection, "INSERT INTO payments(payment_gross,payment_status,fk1_userid) VALUES($payment_gross,'$payer_status',$customer_id)");
+}
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -15,23 +23,17 @@ print_r($_POST);
 </head>
 
 <body>
-    <?php
-    $payer_email = $_POST['payer_email'];
-    $payer_status = $_POST['payer_status'];
-    $txn_id = $_POST['txn_id'];
-    $payment_gross = $_POST['payment_gross'];
-    $num_cart_items = (int)$_POST['num_cart_items'];
-    $customer_id = $_SESSION['customer_id'];
-    if ($customer_id) {
-        $query = mysqli_query($db_connection, "INSERT INTO payments(item_number,txn_id,payment_gross,payment_status,fk1_userid) VALUES($num_cart_items,'$txn_id',$payment_gross,'$payer_status',19)");
-    }
-    ?>
     <h1>Your Payment Is Successful</h1>
     <h2>Please See Your Email For The Invoice</h2>
     <?php
     require '../phpmailer/PHPMailerAutoload.php';
     $content='';
     $mail = new PHPMailer;
+/*
+    $query=mysqli_query($db_connection,"SELECT email from user WHERE userid=$customer_id");
+    $row=mysqli_fetch_assoc($query);
+    $email=$row['email'];
+    */
 
     //$mail->SMTPDebug = 3;                               // Enable verbose debug output
 
@@ -44,7 +46,7 @@ print_r($_POST);
     $mail->Port = 587;                                    // TCP port to connect to
 
     $mail->setFrom('mcneesebookstoreofficial@gmail.com', 'McneeseBookstore');
-    $mail->addAddress('chandbikram001@gmail.com');               // Name is optional
+    $mail->addAddress($payer_email);               // Name is optional
     //$mail->addReplyTo('info@example.com', 'Information');
 
     //$mail->addAttachment('/var/tmp/file.tar.gz');         // Add attachments
@@ -53,7 +55,7 @@ print_r($_POST);
 
     $mail->Subject = 'McneeseBookstore Invoice';
     $content.="Dear Valued Customer,<br> Greetings from McneeseBookstore! <br> Here is your invoice...<br>";
-    $qry=mysqli_query($db_connection,"SELECT p.product_name,c.quantity,p.price FROM cart c,product p WHERE p.productid=c.fk1_productid AND c.fk1_userid=19");
+    $qry=mysqli_query($db_connection,"SELECT p.product_name,c.quantity,p.price FROM cart c,product p WHERE p.productid=c.fk1_productid AND c.fk1_userid=$customer_id");
     $content.='<table  width="500" border="1"><tr><th style=width:200px;>Productname</th><th style=width:100px;>Quantity</th><th style=width:100px;>Price Per Quantity</th></tr></table>';
     while($row=mysqli_fetch_assoc($qry)){
         $content.='<table  width="500" border="1"><tr><td style=width:200px;>'.$row['product_name'].'</td><td style=width:100px;>'.$row['quantity'].'</td><td style=width:100px;>'.$row['price'].'</td></tr></table>';
@@ -68,7 +70,7 @@ print_r($_POST);
         echo 'Message could not be sent.';
         echo 'Mailer Error: ' . $mail->ErrorInfo;
     } else {
-        echo 'Message has been sent';
+        echo '';
     }
     ?>
     <a href="../pages/index.php">Go to homepage</a>

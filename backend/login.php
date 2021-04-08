@@ -20,6 +20,7 @@
                     $_SESSION['userid']=$row['userid'];
                     $_SESSION['customer_id']=$row['userid'];
                     $_SESSION['username']=$usernameoremail;
+                    $_SESSION['email']=$row['email'];
                     return true;
                 }
                 else{

@@ -1,6 +1,56 @@
 <?php
-ob_start();
 include "navbar.php";
+ if(isset($_POST['submit'])){
+    $error="";
+   $productid=$_POST['pid'];
+   $quantity=$_POST['quantity'];
+   if (isset($_SESSION['userid'])) {
+       include_once "../backend/cart.php";
+       $cartObj=new Cart($productid,$quantity,$_SESSION['userid']);
+       if($cartObj->checkProductExistence()==0){
+           $cartObj->insertItem();
+       }
+       else{
+           $error=true;
+           echo '<script language="javascript">';
+           echo 'alert("This product is already in cart")';
+           echo '</script>';
+       }
+       if(!$error){
+           header("Location:addtocart.php");
+       }
+   }
+   else{
+   if(isset($_COOKIE['cartitem'])){
+       $cookie_data=stripslashes($_COOKIE['cartitem']);
+       $cart_data=json_decode($cookie_data,true);
+   }
+   else{
+       $cart_data=array();
+   }
+   $item_id_list=array_column($cart_data,'item_id');
+   if(in_array($productid,$item_id_list)){
+       foreach($cart_data as $keys=>$values){
+           if($cart_data[$keys]['item_id']==$productid){
+               echo '<script language="javascript">';
+                 echo 'alert("This product is already in cart")';
+                 echo '</script>';
+               $error=true;
+           }
+       }
+   }
+   else{
+       $item_array=array("item_id" => $productid,"item_quantity"=> $quantity);
+       $cart_data[] = $item_array;
+   }
+   $item_data=json_encode($cart_data);
+   setcookie('cartitem',$item_data,time()+ (86400 * 30));
+   ob_end_flush();
+   if(!$error){
+       header("Location:addtocart.php");
+   }
+}
+}
 include_once "../backend/db_connect.php";
 ?>
 
@@ -22,56 +72,6 @@ include_once "../backend/db_connect.php";
         <div class="row">
             <div class="col-md-5 col-xl-6 col-sm-12 image-part">
                 <?php
-                 if(isset($_POST['submit'])){
-                     $error="";
-                    $productid=$_POST['pid'];
-                    $quantity=$_POST['quantity'];
-                    if (isset($_SESSION['userid'])) {
-                        include_once "../backend/cart.php";
-                        $cartObj=new Cart($productid,$quantity,$_SESSION['userid']);
-                        if($cartObj->checkProductExistence()==0){
-                            $cartObj->insertItem();
-                        }
-                        else{
-                            $error=true;
-                            echo '<script language="javascript">';
-                            echo 'alert("This product is already in cart")';
-                            echo '</script>';
-                        }
-                        if(!$error){
-                            header("Location:addtocart.php");
-                        }
-                    }
-                    else{
-                    if(isset($_COOKIE['cartitem'])){
-                        $cookie_data=stripslashes($_COOKIE['cartitem']);
-                        $cart_data=json_decode($cookie_data,true);
-                    }
-                    else{
-                        $cart_data=array();
-                    }
-                    $item_id_list=array_column($cart_data,'item_id');
-                    if(in_array($productid,$item_id_list)){
-                        foreach($cart_data as $keys=>$values){
-                            if($cart_data[$keys]['item_id']==$productid){
-                                echo '<script language="javascript">';
-                                  echo 'alert("This product is already in cart")';
-                                  echo '</script>';
-                                $error=true;
-                            }
-                        }
-                    }
-                    else{
-                        $item_array=array("item_id" => $productid,"item_quantity"=> $quantity);
-                        $cart_data[] = $item_array;
-                    }
-                    $item_data=json_encode($cart_data);
-                    setcookie('cartitem',$item_data,time()+ (86400 * 30));
-                    if(!$error){
-                        header("Location:addtocart.php");
-                    }
-                }
-                }
                 $db_connection = new Connection();
                 if (isset($_GET['productid'])) {
                     $_SESSION['productid'] = $_GET['productid'];

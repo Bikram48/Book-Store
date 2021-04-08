@@ -1,5 +1,54 @@
-<?php 
+<?php
+require_once "../backend/db_connect.php";
+require_once "../backend/cookie_handler.php";
+$db_connection = new Connection();
+if (isset($_GET['action']) == 'clear') {
+    if (isset($_COOKIE['cartitem'])) {
+        setcookie('cartitem', "", time() - (86400 * 30));
+    }
+}
+if (isset($_COOKIE['cartitem'])) {
+    if (isset($_POST['submit'])) {
+        $quantity = $_POST['quantity'];
+        $productid = $_POST['productid'];
+        updateQuantity($productid, $quantity);
+    }
+}
+if (isset($_GET['pid'])) {
+    if (isset($_COOKIE['cartitem'])) {
+        removeProduct($_GET['pid']);
+    }
+}
 require_once "navbar.php";
+require_once "../backend/cart.php";
+$total_item = 0;
+if (isset($_SESSION['userid'])) {
+    if (isset($_POST['submit'])) {
+        $quantity = $_POST['quantity'];
+        $productid = $_POST['productid'];
+        $userid = $_SESSION['userid'];
+        $query = mysqli_query($db_connection->getConnection(), "SELECT cart_id FROM cart WHERE fk1_productid=$productid AND fk1_userid=$userid");
+        $row = mysqli_fetch_assoc($query);
+        $cartid = $row['cart_id'];
+        $cartObj = new Cart($productid, $quantity, $userid);
+        $cartObj->updateCart($cartid);
+    }
+}
+if (isset($_GET['pid'])) {
+    if (isset($_SESSION['userid'])) {
+        $cartObj = new Cart($_GET['pid'], 1, $_SESSION['userid']);
+        if ($cartObj->removeProduct() == true) {
+            //echo "Removed successfully";
+        }
+    }
+}
+$total_price = 0;
+if (isset($_GET['action']) == 'clear') {
+    if (isset($_SESSION['userid'])) {
+        $userid = $_SESSION['userid'];
+        $query = mysqli_query($db_connection->getConnection(), "DELETE FROM cart WHERE fk1_userid=$userid");
+    }
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -14,55 +63,13 @@ require_once "navbar.php";
 
 <body>
     <?php
-    require_once "../backend/db_connect.php";
-    $db_connection = new Connection();
-    if (isset($_GET['action']) == 'clear') {
-        if (isset($_COOKIE['cartitem'])) {
-            setcookie('cartitem', "", time() - (86400 * 30));
-        }
-        if (isset($_SESSION['userid'])) {
-            $userid = $_SESSION['userid'];
-            $query = mysqli_query($db_connection->getConnection(), "DELETE FROM cart WHERE fk1_userid=$userid");
-        }
-    }
+
     ?>
     <div class="container">
         <div class="cart">
             <div class="products">
-               
-                    <?php
-                
-                require_once "../backend/cookie_handler.php";
-                require_once "../backend/cart.php";
-                $total_item = 0;
-                
-                if (isset($_POST['submit'])) {
-                    $quantity = $_POST['quantity'];
-                    $productid = $_POST['productid'];
-                    if (isset($_COOKIE['cartitem'])) {
-                        updateQuantity($productid, $quantity); 
-                    }
-                    if (isset($_SESSION['userid'])) {
-                        $userid = $_SESSION['userid'];
-                        $query = mysqli_query($db_connection->getConnection(), "SELECT cart_id FROM cart WHERE fk1_productid=$productid AND fk1_userid=$userid");
-                        $row = mysqli_fetch_assoc($query);
-                        $cartid = $row['cart_id'];
-                        $cartObj = new Cart($productid, $quantity, $userid);
-                        $cartObj->updateCart($cartid);
-                    }
-                }
-                if (isset($_GET['pid'])) {
-                    if (isset($_COOKIE['cartitem'])) {
-                        removeProduct($_GET['pid']);
-                    }
-                    if (isset($_SESSION['userid'])) {
-                        $cartObj = new Cart($_GET['pid'], 1, $_SESSION['userid']);
-                        if ($cartObj->removeProduct() == true) {
-                            //echo "Removed successfully";
-                        }
-                    }
-                }
-                $total_price = 0;
+
+                <?php
 
                 if (isset($_COOKIE['cartitem'])) {
                     $cookie_data = stripslashes($_COOKIE['cartitem']);
@@ -77,7 +84,7 @@ require_once "navbar.php";
                             $total_price = $total_price + $price * $quantity;
                             $total_item++;
                             if ($total_item > 0) {
-                    ?>
+                ?>
 
                                 <div class="product">
                                     <img src="../images/<?php echo $row['image'] ?>">
@@ -105,14 +112,14 @@ require_once "navbar.php";
                                         </a>
                                     </div>
                                 </div>
-                            <?php }
+                <?php }
                         }
                     }
                 }
-          
+
                 ?>
-                  
-                    <?php 
+
+                <?php
                 if (isset($_SESSION['userid'])) {
                     $userid = $_SESSION['userid'];
                     $query = mysqli_query($db_connection->getConnection(), "SELECT p.*,c.quantity FROM product p,cart c,user u WHERE u.userid=c.fk1_userid AND p.productid=c.fk1_productid AND c.fk1_userid=$userid");
@@ -123,7 +130,7 @@ require_once "navbar.php";
                             $quantity = $row['quantity'];
                             $total_price = $total_price + $price * $quantity;
                             $total_item++;
-                            ?>
+                ?>
                             <div class="product">
                                 <img src="../images/<?php echo $row['image'] ?>">
                                 <div class="product-info">
@@ -150,16 +157,16 @@ require_once "navbar.php";
                                     </a>
                                 </div>
                             </div>
-                <?php }
-                    } 
-                  
+                    <?php }
+                    }
                 }
-                if ($total_item > 0) {?>
+                if ($total_item > 0) { ?>
                     <a href="addtocart.php?action=clear"><button class="remove-all">Remove All</button></a>
-                    <?php } 
-                if($total_item==0){
+                <?php }
+                if ($total_item == 0) {
                     echo "<h1 style=text-align:center;>No items in cart</h1>";
-                }  ?>
+                }
+                $_SESSION['totalPrice']=$total_price;  ?>
             </div>
             <?php if ($total_item > 0) { ?>
                 <div class="cart-total">
@@ -186,11 +193,10 @@ require_once "navbar.php";
                                 <input type="hidden" name="cmd" value="_cart">
                                 <input type="hidden" name="upload" value="1">
                                 <input type="hidden" name="no_note" value="1">
-                                <input type="hidden" name="lc" value="US">
-                                <input type="hidden" name="receiver_id" value="19">
+                                <input type="hidden" name="currency_code" value="USD"> 
                                 <?php
-                                    $i = 0;
-                                    if(isset($_SESSION['userid'])){
+                                $i = 0;
+                                if (isset($_SESSION['userid'])) {
                                     $query = mysqli_query($db_connection->getConnection(), "SELECT p.*,c.quantity FROM product p,cart c,user u WHERE u.userid=c.fk1_userid AND p.productid=c.fk1_productid AND c.fk1_userid=$userid");
                                     while ($row = mysqli_fetch_assoc($query)) {
                                         $i++;
@@ -206,9 +212,9 @@ require_once "navbar.php";
                                         <input type="hidden" name="amount_<?php echo $i; ?>" value="<?php echo $price; ?>">
 
                                         <input type="hidden" name="quantity_<?php echo $i; ?>" value="<?php echo $quantity; ?>">
-                                        <input type="hidden" name="rm" value="2">
                                         <input type="hidden" name="return" value="http://localhost/book_store/sandbox_integration/successpage.php">
-                                <?php }}
+                                <?php }
+                                }
                                 ?>
                                 <?php if (isset($_SESSION['userid'])) { ?>
                                     <button type="submit" name="submit" border="0">Pay with paypal &nbsp;&nbsp;<img height="30px;" src="../images/rsz_paypal.png"></button>
