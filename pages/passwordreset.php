@@ -1,3 +1,4 @@
+<?php session_start(); ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -10,13 +11,14 @@
 </head>
 <body>
 <?php
-    require_once "../backend/signup.php";
+    require_once "../backend/forgetpassword.php";
     $error1 = $error2 = $error3 = $error4 =$error5= "";
+    $loginBtn='';
     if(isset($_GET['email'])){
-        $email=$_GET['email'];
+        $_SESSION['email']=$_GET['email'];
     }
+    $email=$_SESSION['email'];
     if (isset($_POST['submit'])) {
-        $obj = new RegisterUser();
         $password = $_POST['password'];
         $repeat_password = $_POST['repeat_password'];
         if ($password != $repeat_password) {
@@ -31,7 +33,16 @@
             $error3 .= "Password must contain at least one special character";
         } 
         else{
-            
+            if(updatePassword($password,$email)==true){
+                $loginBtn.=true; ?>
+                  <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                        Your password is changed! Now Login by clicking the login button
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+            <?php
+            }
         }
         }
     ?>
@@ -40,7 +51,7 @@
             <div class="row login-section">
                 <div class="col-xl-3"></div>
                 <div class="col-xl-6">
-                    <form action="signup.php" method="POST" enctype="multipart/form-data">
+                    <form action="passwordreset.php" method="POST" enctype="multipart/form-data">
                         <div class="form-group">
                             <label for="exampleInputEmail1">Email</label>
                             <input disabled name="email" style="border-radius: 0%;" type="email" value="<?php echo $email ?>" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
@@ -63,8 +74,12 @@
                                                         } ?></p>
                             </small>
                         </div>
-                        <button style="width: 100%;position:relative;left:0;" class="login-btn" type="submit" name="submit" class="btn btn-primary">RESET PASSWORD</button>
+                        <button style="width: 100%;position:relative;left:0;" class="login-btn" type="submit" name="submit" class="btn btn-primary">RESET PASSWORD</button><br><br>
+                      
                     </form>
+                    <?php if($loginBtn==true){ ?>
+                            <a href="login.php"><button style="width: 100%;position:relative;left:0;" class="login-btn"  name="submit" class="btn btn-primary">LogIn</button></a>
+                        <?php } ?>
                 </div>
                 <div class="col-xl-3"></div>
             </div>

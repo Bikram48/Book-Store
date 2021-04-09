@@ -1,5 +1,7 @@
 <?php 
-require_once "navbar.php" ?>
+require_once "navbar.php";
+error_reporting(E_ERROR | E_PARSE);
+ ?>
 <!DOCTYPE html>
 <html lang="en">
 

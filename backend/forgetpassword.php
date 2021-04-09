@@ -50,7 +50,9 @@
 
     function updatePassword($password,$email){
         $connection=new Connection();
-        $query=mysqli_query($connection->getConnection(),"UPDATE user SET password='$password' WHERE email='$email'");
+        $password = mysqli_real_escape_string($connection->getConnection(), $password);
+        $pwd = md5($password);
+        $query=mysqli_query($connection->getConnection(),"UPDATE user SET password='$pwd' WHERE email='$email'");
         if($query){
             return true;
         }
