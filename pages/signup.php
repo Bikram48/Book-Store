@@ -44,15 +44,17 @@
                 $error4 = "Email is aready existed please choose another one!!";
             } else {
                 $filename=uploadFile($file);
-                if ($obj->addUser($username, $email, $password,$filename)) { ?>
+                if ($obj->addUser($username, $email, $password,$filename)) { 
+                    if($obj->sendVerificationCode($email)==true){?>
                     <div class="alert alert-warning alert-dismissible fade show" role="alert">
-                        Congratulations! You are successfully signed up. Please click signin text to go to the login page.
+                        Your account has been made,please verify it by clicking the activation link that has been send to your email.
                         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
     <?php
                 }
+            }
             }
         }
     }

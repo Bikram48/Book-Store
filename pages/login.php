@@ -16,11 +16,31 @@ require_once "navbar.php" ?>
     <?php
     require_once "../backend/login.php";
     include_once "../backend/cart.php";
+    $obj = new UserLogin();
     $error = "";
+    if(isset($_GET['verification_code'])&&isset($_GET['email'])){
+        $verification_code=$_GET['verification_code'];
+        $email=$_GET['email'];
+        if($obj->verifyUser($verification_code,$email)==true){?>
+             <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                        Your account has been verified, you can now Login.
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+       <?php }
+    }
     if (isset($_POST['submit'])) {
-        $obj = new UserLogin();
         $emailorusername = $_POST['emailorusername'];
         $password = $_POST['password'];
+        if($obj->checkVerifiedUser($emailorusername,$password)==false){?>
+              <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                        Please verify your account first!
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+        <?php }else{
         if ($obj->checkUser($emailorusername, $password) == true) {
             if (isset($_COOKIE['cartitem'])) {
                 $cookie_data = stripslashes($_COOKIE['cartitem']);
@@ -47,6 +67,10 @@ require_once "navbar.php" ?>
             $error = "User doesn't exist. Please try again later!!";
         }
     }
+    
+
+    
+    }
     ?>
     <div class="container" style="margin-bottom: 200px;">
         <h2 id="headerText">Login</h1>
@@ -67,6 +91,7 @@ require_once "navbar.php" ?>
                             <label for="exampleInputPassword1">Password</label>
                             <input style="border-radius: 0%;" type="password" name="password" class="form-control" id="exampleInputPassword1" required>
                         </div>
+                        <a href="forgetpassword.php">Forgot Password?</a><br>
                         <button class="login-btn" type="submit" name="submit" class="btn btn-primary">SIGN IN</button>
                         <p class="create-account"><a style="color:#252757;" href="signup.php">Create account</a></p>
                     </form>
