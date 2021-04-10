@@ -82,9 +82,22 @@
         border-radius: 5px;
     }
     
-    .product-remove:hover {
-        background-color: white;
+    .product-edit button {
+        background: none;
+        border: none;
+        color: white;
+    }
+    
+    .product-edit:hover {
+        background-color: black;
         color: green;
+        font-weight: 600;
+        border: 1px solid green;
+    }
+    
+    .product-remove:hover {
+        background-color: black;
+        color: white;
         font-weight: 600;
         border: 1px solid green;
     }

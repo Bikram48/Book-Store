@@ -52,7 +52,6 @@ if (isset($_POST['submit'])) {
         }
         $item_data = json_encode($cart_data);
         setcookie('cartitem', $item_data, time() + (86400 * 30));
-        ob_end_flush();
         if (!$error) {
             header("Location:addtocart.php");
         }

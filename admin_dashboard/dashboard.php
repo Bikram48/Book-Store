@@ -24,7 +24,7 @@
             <div class="col-xl-4 ">
             </div>
             <div class="col-xl-4 box1">
-            <a href="addproduct.php">
+            <a href="showproducts.php">
                 <div class="text-box">
                     <p>VIEW PRODUCT</p>
                 </div>
@@ -32,5 +32,6 @@
             </div>
         </div>
     </div>
+    
 </body>
 </html>

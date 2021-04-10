@@ -122,11 +122,28 @@
 
 .image-box img {
     width: 100%;
-    height: inherit;
+    height: 100%;
     position: absolute;
     left: 0;
     top: 0;
     bottom: 0;
+}
+
+@media only screen and (max-width: 574px) {
+    .image-box {
+        position: relative;
+        width: 50%;
+        height: 400px;
+        box-shadow: 1px 1px 1px 1px #888888;
+    }
+    .image-box img {
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        left: 0;
+        top: 0;
+        bottom: 0;
+    }
 }
 
 .description {

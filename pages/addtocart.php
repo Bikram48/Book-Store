@@ -101,7 +101,7 @@ if (isset($_GET['action']) == 'clear') {
                                                 <input value=<?php echo $values['item_quantity'] ?> name="quantity">
                                             </p>
                                             <p class="product-edit">
-                                                <button style="background: none;border:none;" type="submit" name="submit">Edit</button>
+                                                <button type="submit" name="submit"><i style="color:white;" class="fas fa-edit"></i> <span class="edit">Edit</span></button>
                                             </p>
                                         </form>
                                         <?php echo "<a href='addtocart.php?pid=$pid'>" ?>

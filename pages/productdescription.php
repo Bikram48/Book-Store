@@ -1,4 +1,5 @@
 <?php
+ob_start();
 include "navbar.php";
  if(isset($_POST['submit'])){
     $error="";
@@ -45,7 +46,6 @@ include "navbar.php";
    }
    $item_data=json_encode($cart_data);
    setcookie('cartitem',$item_data,time()+ (86400 * 30));
-   ob_end_flush();
    if(!$error){
        header("Location:addtocart.php");
    }
@@ -66,7 +66,7 @@ include_once "../backend/db_connect.php";
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 
-<body style="background-image: linear-gradient(to bottom right , #f7f7f7 , #faeee7);">
+<body>
 
     <div class="container">
         <div class="row">
@@ -112,9 +112,9 @@ include_once "../backend/db_connect.php";
                     <i class="fas fa-star"></i>
                     <i class="fas fa-star"></i>
 
-
                 </div>
-
+                Give Rating: <input type="number"  max="5">
+                <input type="submit" value="submit">
                 <?php
                 $query = mysqli_query($db_connection->getConnection(), "SELECT * FROM PRODUCT WHERE PRODUCTID=$pid");
                 while ($row = mysqli_fetch_assoc($query)) {
@@ -136,16 +136,6 @@ include_once "../backend/db_connect.php";
                     <input id="quantity" type="text" name="quantity" value=1>
                     <input class="adding-cart" type="submit" name="submit" value="Add to Cart">
 
-
-
-                    <!--<div style="margin-top:100px;width:520px;" class="row">
-					<div class="profile-reviews tab">
-                        <h1>Your Activity</h1>
-                        <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Natus voluptate ab odio sapiente quibusdam excepturi animi, 
-                         </p>
-                    </div>
-					</div>	
-					-->
             </div>
 
             <div class="col-xl-10 col-lg-10 col-md-10 bar">
@@ -176,21 +166,13 @@ include_once "../backend/db_connect.php";
                 </div>
             </div>
         </div>
-        <!--<div class="row rating">
-				<i  class="fa fa-star" data-index="0"></i>
-				<i class="fa fa-star" data-index="1"></i>
-				<i class="fa fa-star" data-index="2"></i>
-				<i class="fa fa-star" data-index="3"></i>
-				<i  class="fa fa-star" data-index="4"></i>
-			</div>
-						-->
-
-
+    </div>
+            
+    </div>
+    <div style="margin-top:300px;">
+        <?php include "footer.php" ?>
     </div>
 
-    </div>
-
-    <?php include "footer.php"; ?>
     <script src="../JS/main.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="http://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
