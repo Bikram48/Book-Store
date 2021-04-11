@@ -1,6 +1,7 @@
 <?php
 require_once "../backend/db_connect.php";
 require_once "../backend/cookie_handler.php";
+require_once "../backend/discounthandler.php";
 $db_connection = new Connection();
 if (isset($_GET['action']) == 'clear') {
     if (isset($_COOKIE['cartitem'])) {
@@ -79,13 +80,16 @@ if (isset($_GET['action']) == 'clear') {
                         $pid = $values['item_id'];
                         $query = mysqli_query($db_connection->getConnection(), "SELECT * FROM product WHERE productid=$pid");
                         while ($row = mysqli_fetch_assoc($query)) {
-                            $price = $row['price'];
+                            if (checkexisted_discount($row['productid']) > 0) {
+                                $price = priceafterdiscount($row['productid']);
+                            } else {
+                                $price = $row['price'];
+                            }
                             $quantity = $values['item_quantity'];
                             $total_price = $total_price + $price * $quantity;
                             $total_item++;
                             if ($total_item > 0) {
                 ?>
-
                                 <div class="product">
                                     <img src="../images/<?php echo $row['image'] ?>">
                                     <div class="product-info">
@@ -93,7 +97,13 @@ if (isset($_GET['action']) == 'clear') {
                                             <?php echo $row['product_name'] ?>
                                         </div>
                                         <div class="product-price">
-                                            <?php echo $row['price'] ?>
+
+                                            <?php if (checkexisted_discount($row['productid']) > 0) { ?>
+                                                <del><?php echo "$" . $row['price'] ?></del><?php $price = priceafterdiscount($row['productid']);
+                                                                                            echo " $" . $price; ?>
+                                            <?php } else {
+                                                echo "$" . $row['price'];
+                                            } ?>
                                         </div>
                                         <form method="POST" action="addtocart.php">
                                             <input type="hidden" value="<?php echo $row['productid']; ?>" name="productid">
@@ -126,7 +136,11 @@ if (isset($_GET['action']) == 'clear') {
                     if (mysqli_num_rows($query) > 0) {
                         while ($row = mysqli_fetch_assoc($query)) {
                             $pid = $row['productid'];
-                            $price = $row['price'];
+                            if (checkexisted_discount($row['productid']) > 0) {
+                                $price = priceafterdiscount($row['productid']);
+                            } else {
+                                $price = $row['price'];
+                            }
                             $quantity = $row['quantity'];
                             $total_price = $total_price + $price * $quantity;
                             $total_item++;
@@ -138,7 +152,13 @@ if (isset($_GET['action']) == 'clear') {
                                         <?php echo $row['product_name'] ?>
                                     </div>
                                     <div class="product-price">
-                                        <?php echo $row['price'] ?>
+
+                                        <?php if (checkexisted_discount($row['productid']) > 0) { ?>
+                                            <del><?php echo "$" . $row['price'] ?></del><?php $price = priceafterdiscount($row['productid']);
+                                                                                        echo " $" . $price; ?>
+                                        <?php } else {
+                                            echo "$" . $row['price'];
+                                        } ?>
                                     </div>
                                     <form method="POST" action="addtocart.php">
                                         <input type="hidden" value="<?php echo $row['productid']; ?>" name="productid">
@@ -166,7 +186,7 @@ if (isset($_GET['action']) == 'clear') {
                 if ($total_item == 0) {
                     echo "<h1 style=text-align:center;>No items in cart</h1>";
                 }
-                $_SESSION['totalPrice']=$total_price;  ?>
+                $_SESSION['totalPrice'] = $total_price;  ?>
             </div>
             <?php if ($total_item > 0) { ?>
                 <div class="cart-total">
@@ -193,7 +213,7 @@ if (isset($_GET['action']) == 'clear') {
                                 <input type="hidden" name="cmd" value="_cart">
                                 <input type="hidden" name="upload" value="1">
                                 <input type="hidden" name="no_note" value="1">
-                                <input type="hidden" name="currency_code" value="USD"> 
+                                <input type="hidden" name="currency_code" value="USD">
                                 <?php
                                 $i = 0;
                                 if (isset($_SESSION['userid'])) {

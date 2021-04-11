@@ -12,7 +12,7 @@
             $username=mysqli_real_escape_string($this->connection->getConnection(),$usernameoremail);
             $password=mysqli_real_escape_string($this->connection->getConnection(),$password);
             $pwd=md5($password);
-            $query=mysqli_query($this->connection->getConnection(),"SELECT * FROM user WHERE username='$username' AND password='$pwd'");
+            $query=mysqli_query($this->connection->getConnection(),"SELECT * FROM user WHERE (username='$username' OR email='$usernameoremail') AND password='$pwd'");
             $row=mysqli_fetch_assoc($query);
             $count=mysqli_num_rows($query);
             if($count==1){

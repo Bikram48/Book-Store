@@ -35,15 +35,21 @@
             $error3 .= "Password must contain at least one capital letter";
         } elseif (!preg_match("#[\W]+#", $password)) {
             $error3 .= "Password must contain at least one special character";
-        } elseif(checkFileExtension($file)==false){
-            $error5="Invalid file. Only jpg,jpeg and png are allowed";
         } else {
             if ($obj->checkExistingUserName($username) > 0) {
                 $error2 = "Username is already taken";
             } else if ($obj->checkExistingEmail($email) > 0) {
                 $error4 = "Email is aready existed please choose another one!!";
             } else {
-                $filename=uploadFile($file);
+                if(!$_FILES['file']['size']==0){
+                    if(checkFileExtension($file)==false){
+                        $error5="Invalid file. Only jpg,jpeg and png are allowed";
+                    } 
+                    $filename=uploadFile($file);
+                }
+                else{
+                    $filename=null;
+                }
                 if ($obj->addUser($username, $email, $password,$filename)) { 
                     if($obj->sendVerificationCode($email)==true){?>
                     <div class="alert alert-warning alert-dismissible fade show" role="alert">
@@ -67,7 +73,7 @@
                     <form action="signup.php" method="POST" enctype="multipart/form-data">
                         <div class="form-group">
                             <label for="exampleInputEmail1">Username</label>
-                            <input name="username" style="border-radius: 0%;" type="input" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" required>
+                            <input name="username" style="border-radius: 0%;" type="input" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" value="<?php if(isset($username)){ echo $username; } ?>" required>
                             <small id="error" class="form-text text-muted">
                                 <p class="error-text"><?php if (isset($error1)) {
                                                             echo $error2;
@@ -76,7 +82,7 @@
                         </div>
                         <div class="form-group">
                             <label for="exampleInputEmail1">Email</label>
-                            <input name="email" style="border-radius: 0%;" type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" required>
+                            <input name="email" style="border-radius: 0%;" type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" value="<?php if(isset($email)){ echo $email; } ?>" required>
                             <small id="error" class="form-text text-muted">
                                 <p class="error-text"><?php if (isset($error4)) {
                                                             echo $error4;
@@ -85,7 +91,7 @@
                         </div>
                         <div class="form-group">
                             <label for="exampleInputPassword1">Password</label>
-                            <input name="password" style="border-radius: 0%;" type="password" class="form-control" id="exampleInputPassword1" required>
+                            <input name="password" style="border-radius: 0%;" type="password" class="form-control" id="exampleInputPassword1" value="<?php if(isset($password)){ echo $password; } ?>" required>
                             <small id="error" class="form-text text-muted">
                                 <p class="error-text"><?php if (isset($error3)) {
                                                             echo $error3;
@@ -94,7 +100,7 @@
                         </div>
                         <div class="form-group">
                             <label for="exampleInputPassword1">Repeat Password</label>
-                            <input name="repeat_password" style="border-radius: 0%;" type="password" class="form-control" id="exampleInputPassword1" required>
+                            <input name="repeat_password" style="border-radius: 0%;" type="password" class="form-control" id="exampleInputPassword1" value="<?php if(isset($repeat_password)){ echo $repeat_password; } ?>" required>
                             <small id="error" class="form-text text-muted">
                                 <p class="error-text"><?php if (isset($error1)) {
                                                             echo $error1;
@@ -102,13 +108,14 @@
                             </small>
                         </div>
                         <div class="custom-file">
-                            <input type="file" name="file" class="custom-file-input" id="customFile">
-                            <label class="custom-file-label" for="customFile">Choose Avatar</label>
+                        <label for="formFileLg" class="form-label">Choose Avatar</label>
+                            <input class="form-control form-control-lg" id="formFileLg" type="file" name="file" />
                             <small id="error" class="form-text text-muted">
                                 <p class="error-text"><?php if (isset($error5)) {
                                                             echo $error5;
                                                         } ?></p>
                             </small>
+                            <br>
                         </div>
                         <button class="login-btn" type="submit" name="submit" class="btn btn-primary">CREATE</button>
                         <p class="create-account"><a style="color:#252757;" href="login.php">SIGN IN</a></p>

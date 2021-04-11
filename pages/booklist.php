@@ -1,6 +1,7 @@
 <?php 
 ob_start();
 include "navbar.php";
+require_once "../backend/discounthandler.php";
 require_once "../backend/db_connect.php";
 include_once "../backend/cart.php";
 $db_connection = new Connection();
@@ -99,7 +100,12 @@ if (isset($_POST['submit'])) {
                 <div class="col-xl-7 col-lg-7 col-md-8 col-sm-6 book-contents">
                     <h3 class="product_title"><?php echo $row['product_name']; ?></h3>
                     <p style="font-style: italic;font-weight:bolder;"><?php echo $row['category']; ?></p>
-                    <p style="font-weight: bolder;">$<?php echo $row['price']; ?></p>
+                    <?php if (checkexisted_discount($productid) > 0) { ?>
+                        <p style="font-weight: bolder;"><del>$<?php echo $row['price']; ?></del> $<?php echo priceafterdiscount($productid); ?></p>
+                    <?php } else { ?>
+                        <p style="font-weight: bolder;">$<?php echo $row['price']; ?></p>
+                    <?php } ?>
+                   
                     <div class="description">
                         <p><?php echo $row['description']; ?></p>
                     </div>

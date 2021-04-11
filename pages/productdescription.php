@@ -1,57 +1,55 @@
 <?php
 ob_start();
 include "navbar.php";
- if(isset($_POST['submit'])){
-    $error="";
-   $productid=$_POST['pid'];
-   $quantity=$_POST['quantity'];
-   if (isset($_SESSION['userid'])) {
-       include_once "../backend/cart.php";
-       $cartObj=new Cart($productid,$quantity,$_SESSION['userid']);
-       if($cartObj->checkProductExistence()==0){
-           $cartObj->insertItem();
-       }
-       else{
-           $error=true;
-           echo '<script language="javascript">';
-           echo 'alert("This product is already in cart")';
-           echo '</script>';
-       }
-       if(!$error){
-           header("Location:addtocart.php");
-       }
-   }
-   else{
-   if(isset($_COOKIE['cartitem'])){
-       $cookie_data=stripslashes($_COOKIE['cartitem']);
-       $cart_data=json_decode($cookie_data,true);
-   }
-   else{
-       $cart_data=array();
-   }
-   $item_id_list=array_column($cart_data,'item_id');
-   if(in_array($productid,$item_id_list)){
-       foreach($cart_data as $keys=>$values){
-           if($cart_data[$keys]['item_id']==$productid){
-               echo '<script language="javascript">';
-                 echo 'alert("This product is already in cart")';
-                 echo '</script>';
-               $error=true;
-           }
-       }
-   }
-   else{
-       $item_array=array("item_id" => $productid,"item_quantity"=> $quantity);
-       $cart_data[] = $item_array;
-   }
-   $item_data=json_encode($cart_data);
-   setcookie('cartitem',$item_data,time()+ (86400 * 30));
-   if(!$error){
-       header("Location:addtocart.php");
-   }
-}
+require_once "../backend/discounthandler.php";
+if (isset($_POST['submit'])) {
+    $error = "";
+    $productid = $_POST['pid'];
+    $quantity = $_POST['quantity'];
+    if (isset($_SESSION['userid'])) {
+        include_once "../backend/cart.php";
+        $cartObj = new Cart($productid, $quantity, $_SESSION['userid']);
+        if ($cartObj->checkProductExistence() == 0) {
+            $cartObj->insertItem();
+        } else {
+            $error = true;
+            echo '<script language="javascript">';
+            echo 'alert("This product is already in cart")';
+            echo '</script>';
+        }
+        if (!$error) {
+            header("Location:addtocart.php");
+        }
+    } else {
+        if (isset($_COOKIE['cartitem'])) {
+            $cookie_data = stripslashes($_COOKIE['cartitem']);
+            $cart_data = json_decode($cookie_data, true);
+        } else {
+            $cart_data = array();
+        }
+        $item_id_list = array_column($cart_data, 'item_id');
+        if (in_array($productid, $item_id_list)) {
+            foreach ($cart_data as $keys => $values) {
+                if ($cart_data[$keys]['item_id'] == $productid) {
+                    echo '<script language="javascript">';
+                    echo 'alert("This product is already in cart")';
+                    echo '</script>';
+                    $error = true;
+                }
+            }
+        } else {
+            $item_array = array("item_id" => $productid, "item_quantity" => $quantity);
+            $cart_data[] = $item_array;
+        }
+        $item_data = json_encode($cart_data);
+        setcookie('cartitem', $item_data, time() + (86400 * 30));
+        if (!$error) {
+            header("Location:addtocart.php");
+        }
+    }
 }
 include_once "../backend/db_connect.php";
+
 ?>
 
 <!DOCTYPE html>
@@ -79,18 +77,32 @@ include_once "../backend/db_connect.php";
                 if (isset($_SESSION['productid'])) {
                     $pid = $_SESSION['productid'];
                 }
-        
-                    $query = mysqli_query($db_connection->getConnection(), "SELECT * FROM PRODUCT WHERE PRODUCTID=$pid");
+                if (isset($_SESSION['userid'])) {
+                    $userid = $_SESSION['userid'];
+                }
+                include "../backend/ratinghandler.php";
+                if (isset($_POST['rating_submit'])) {
+                    $rating_number = $_POST['rating_number'];
+                    if (checkUserRating($userid, $pid) > 0) {
+                        echo '<script language="javascript">';
+                        echo 'alert("Sorry!! you have already rated this product..")';
+                        echo '</script>';
+                    } else {
+                        insert_rating($rating_number, $userid, $pid);
+                    }
+                }
 
-                    while ($row = mysqli_fetch_assoc($query)) {
+                $query = mysqli_query($db_connection->getConnection(), "SELECT * FROM PRODUCT WHERE PRODUCTID=$pid");
+
+                while ($row = mysqli_fetch_assoc($query)) {
                 ?>
-                        <div class="image">
-                            <?php echo "<img style=height:350px; class=img-fluid  src=../images/" . $row['image'] . ">"; ?>
-                        </div>
+                    <div class="image">
+                        <?php echo "<img style=height:350px; class=img-fluid  src=../images/" . $row['image'] . ">"; ?>
+                    </div>
 
                 <?php
-                    }
-                
+                }
+
                 ?>
 
             </div>
@@ -105,25 +117,66 @@ include_once "../backend/db_connect.php";
                     <h1><?php echo $row['product_name']; ?></h1>
                 <?php } ?>
                 <div class="ratings">
+                    <?php $rating = averageRating($pid);
+                    if ($rating == 1) { ?>
+                        <i style="color:orangered;" class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    <?php } elseif ($rating == 2) { ?>
+                        <i style="color:orangered;" class="fas fa-star"></i>
+                        <i style="color:orangered;" class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    <?php } elseif ($rating == 3) { ?>
+                        <i style="color:orangered;" class="fas fa-star"></i>
+                        <i style="color:orangered;" class="fas fa-star"></i>
+                        <i style="color:orangered;" class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    <?php } elseif ($rating == 4) { ?>
 
-                    <i style="color:orangered;" class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
+                        <i style="color:orangered;" class="fas fa-star"></i>
+                        <i style="color:orangered;" class="fas fa-star"></i>
+                        <i style="color:orangered;" class="fas fa-star"></i>
+                        <i style="color:orangered;" class="fas fa-star"></i>
+                        <i style="color:black;" class="fas fa-star"></i>
+
+                    <?php } elseif ($rating == 5) { ?>
+                        <i style="color:orangered;" class="fas fa-star"></i>
+                        <i style="color:orangered;" class="fas fa-star"></i>
+                        <i style="color:orangered;" class="fas fa-star"></i>
+                        <i style="color:orangered;" class="fas fa-star"></i>
+                        <i style="color:orangered;" class="fas fa-star"></i>
+                    <?php } else { ?>
+                        <p style="color:red;font-weight:bolder;">Not rated yet!!</p>
+                    <?php } ?>
+
+
 
                 </div>
-                Give Rating: <input type="number"  max="5">
-                <input type="submit" value="submit">
+                <?php if (isset($_SESSION['userid'])) { ?>
+                    <form method="POST" action="productdescription.php">
+                        Give Rating: <input type="number" max="5" name="rating_number" required>
+                        <input type="submit" value="submit" name="rating_submit">
+                    </form>
+                <?php } else { ?>
+                    <a href="login.php">Login to rate the book</a>
                 <?php
+                }
                 $query = mysqli_query($db_connection->getConnection(), "SELECT * FROM PRODUCT WHERE PRODUCTID=$pid");
                 while ($row = mysqli_fetch_assoc($query)) {
                     $productid = $row['productid'];
                 ?>
                     <p class="product-description"><?php echo $row['description']; ?>
                     </p>
-
-                    <p class="price"><?php echo "Price: £" . $row['price']; ?> </p>
+                    <?php if (checkexisted_discount($productid) > 0) { ?>
+                        <p class="price">Price: <del><?php echo "$" . $row['price']; ?></del><?php echo "  $" . priceafterdiscount($productid); ?> </p>
+                    <?php } else { ?>
+                        <p class="price"><?php echo "Price: $" . $row['price']; ?></p>
+                    <?php } ?>
                     <p class="price"><?php echo "Total Items :  " . $row['quantity']; ?> </p>
 
                 <?php
@@ -150,10 +203,10 @@ include_once "../backend/db_connect.php";
                             <?php echo "<img style=height:50px; class=img-fluid  src=../Images/" . $row['image'] . ">"; ?>
                         </div>
                         <div class="col-xl-4 show-image">
-                        <?php echo $row['product_name']; ?>
+                            <?php echo $row['product_name']; ?>
                         </div>
                         <div class="col-xl-2 col-md-1 price-show">
-                            <?php echo "£." . $row['price']; ?>
+                            <?php echo "$." . $row['price']; ?>
                         </div>
 
                     <?php
@@ -167,7 +220,7 @@ include_once "../backend/db_connect.php";
             </div>
         </div>
     </div>
-            
+
     </div>
     <div style="margin-top:300px;">
         <?php include "footer.php" ?>
