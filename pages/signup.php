@@ -15,7 +15,8 @@
     <?php
     require_once "../backend/image_handler.php";
     require_once "../backend/signup.php";
-    $error1 = $error2 = $error3 = $error4 =$error5= "";
+    $error="";
+    $error1 = $error2 = $error3 = $error4 =$error5= $error6="";
     if (isset($_POST['submit'])) {
         $obj = new RegisterUser();
         $username = $_POST['username'];
@@ -24,25 +25,38 @@
         $repeat_password = $_POST['repeat_password'];
         $file=$_FILES['file'];
         if (strlen($username) < 5) {
+            $error=true;
             $error2 = "username must be at least 5 characters long ";
         } else if ($password != $repeat_password) {
+            $error=true;
             $error1 = "Password is not matching";
         } elseif (strlen($password) < 6) {
+            $error=true;
             $error3 .= "Password must be at least 6 characters long";
+        } elseif(!filter_var($email,FILTER_VALIDATE_EMAIL))
+        {
+            $error=true;
+            $error6="Invalid email ID";
         } elseif (!preg_match("#[0-9]+#", $password)) {
+            $error=true;
             $error3 .= "Password must contain at least one number";
         } elseif (!preg_match("#[A-Z]+#", $password)) {
+            $error=true;
             $error3 .= "Password must contain at least one capital letter";
         } elseif (!preg_match("#[\W]+#", $password)) {
+            $error=true;
             $error3 .= "Password must contain at least one special character";
         } else {
             if ($obj->checkExistingUserName($username) > 0) {
+                $error=true;
                 $error2 = "Username is already taken";
             } else if ($obj->checkExistingEmail($email) > 0) {
+                $error=true;
                 $error4 = "Email is aready existed please choose another one!!";
             } else {
                 if(!$_FILES['file']['size']==0){
                     if(checkFileExtension($file)==false){
+                        $error=true;
                         $error5="Invalid file. Only jpg,jpeg and png are allowed";
                     } 
                     $filename=uploadFile($file);
@@ -50,6 +64,7 @@
                 else{
                     $filename=null;
                 }
+                if(!$error){
                 if ($obj->addUser($username, $email, $password,$filename)) { 
                     if($obj->sendVerificationCode($email)==true){?>
                     <div class="alert alert-warning alert-dismissible fade show" role="alert">
@@ -61,6 +76,7 @@
     <?php
                 }
             }
+        }
             }
         }
     }
@@ -86,6 +102,8 @@
                             <small id="error" class="form-text text-muted">
                                 <p class="error-text"><?php if (isset($error4)) {
                                                             echo $error4;
+                                                        }  if (isset($error6)) {
+                                                            echo $error6;
                                                         } ?></p>
                             </small>
                         </div>

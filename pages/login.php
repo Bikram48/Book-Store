@@ -1,6 +1,7 @@
 <?php 
+ob_start();
 require_once "navbar.php";
-error_reporting(E_ERROR | E_PARSE);
+//error_reporting(E_ERROR | E_PARSE);
  ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -55,10 +56,14 @@ error_reporting(E_ERROR | E_PARSE);
                     $pid = $values['item_id'];
 
                     $cartObj = new Cart($pid, $quantity, $userid);
-                    if ($cartObj->checkProductExistence() == 0) {
-                        if ($cartObj->insertItem() == true) {
+                    if ($cartObj->checkProductExistence()== 0) {
+                        if ($cartObj->insertItem() == true) {  
+                            echo "HEllo"; 
                             setcookie('cartitem', "", time() - (86400 * 30));
                         }
+                    }
+                    else{
+                        setcookie('cartitem', "", time() - (86400 * 30));
                     }
                 }
             }

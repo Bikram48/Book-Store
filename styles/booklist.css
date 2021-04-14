@@ -151,6 +151,10 @@
     overflow: hidden;
 }
 
+.description p {
+    text-align: justify;
+}
+
 .book-contents {
     width: 50%;
     margin-left: 40px;

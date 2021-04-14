@@ -1,4 +1,7 @@
 <?php
+ob_start();
+require_once "navbar.php";
+require_once "../backend/cart.php";
 require_once "../backend/db_connect.php";
 require_once "../backend/cookie_handler.php";
 require_once "../backend/discounthandler.php";
@@ -20,8 +23,6 @@ if (isset($_GET['pid'])) {
         removeProduct($_GET['pid']);
     }
 }
-require_once "navbar.php";
-require_once "../backend/cart.php";
 $total_item = 0;
 if (isset($_SESSION['userid'])) {
     if (isset($_POST['submit'])) {
@@ -107,11 +108,12 @@ if (isset($_GET['action']) == 'clear') {
                                         </div>
                                         <form method="POST" action="addtocart.php">
                                             <input type="hidden" value="<?php echo $row['productid']; ?>" name="productid">
-                                            <p class="product-quantity">
-                                                <input value=<?php echo $values['item_quantity'] ?> name="quantity">
-                                            </p>
+
+                                            <div class="col-xl-4 col-lg-4 col-md-4 col-sm-6 col-12">
+                                                <input type="number" value=<?php echo $values['item_quantity'] ?> name="quantity">
+                                            </div>
                                             <p class="product-edit">
-                                                <button type="submit" name="submit"><i style="color:white;" class="fas fa-edit"></i> <span class="edit">Edit</span></button>
+                                            <button  type="submit" name="submit"><i class="fas fa-edit"></i>quantity</button>
                                             </p>
                                         </form>
                                         <?php echo "<a href='addtocart.php?pid=$pid'>" ?>
@@ -162,11 +164,11 @@ if (isset($_GET['action']) == 'clear') {
                                     </div>
                                     <form method="POST" action="addtocart.php">
                                         <input type="hidden" value="<?php echo $row['productid']; ?>" name="productid">
-                                        <p class="product-quantity">
-                                            <input value=<?php echo $row['quantity'] ?> name="quantity">
-                                        </p>
+                                        <div class="col-xl-4 col-lg-4 col-md-4 col-sm-6 col-12">
+                                            <input type="number" value=<?php echo $row['quantity'] ?> name="quantity">
+                                        </div>
                                         <p class="product-edit">
-                                            <button style="background: none;border:none;" type="submit" name="submit">Edit</button>
+                                            <button  type="submit" name="submit"><i class="fas fa-edit"></i>quantity</button>
                                         </p>
                                     </form>
                                     <?php echo "<a href='addtocart.php?pid=$pid'>" ?>
@@ -191,7 +193,7 @@ if (isset($_GET['action']) == 'clear') {
             <?php if ($total_item > 0) { ?>
                 <div class="cart-total">
                     <div class="row">
-                        <div class="col-xl-12">
+                        <div class="col-xl-12 col-lg-12 col-md-12">
                             <p>
 
                                 <span>Total Price</span>
@@ -200,7 +202,7 @@ if (isset($_GET['action']) == 'clear') {
 
                             </p>
                         </div>
-                        <div class="col-xl-12">
+                        <div class="col-xl-12 col-lg-12 col-md-12">
                             <p>
 
                                 <span>Number of Items</span>
@@ -208,7 +210,7 @@ if (isset($_GET['action']) == 'clear') {
                                 <span><?php echo $total_item ?></span>
                             </p>
                         </div>
-                        <div class="col-xl-12">
+                        <div class="col-xl-12 col-lg-12 col-md-12">
                             <form action="payments.php" method="post">
                                 <input type="hidden" name="cmd" value="_cart">
                                 <input type="hidden" name="upload" value="1">
@@ -250,6 +252,10 @@ if (isset($_GET['action']) == 'clear') {
         </div>
     </div>
 </body>
+<script src="../scripts/input-spinner.js"></script>
+<script>
+    $("input[type='number']").inputSpinner();
+</script>
 
 </html>
 <?php include "footer.php" ?>

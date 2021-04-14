@@ -3,6 +3,11 @@
         background-color: black;
     }
     
+    .productName {
+        text-transform: uppercase;
+        font-weight: bold;
+    }
+    
     .container {
         background-color: white;
         box-shadow: 5px 10px #f8f8f8;
@@ -15,9 +20,11 @@
         padding: 5px 0px 0px 0px;
         margin-top: 10px;
         color: black;
-        font-family: 'Fira Sans', sans-serif;
-        font-family: 'Prata', serif;
-        font-weight: bolder;
+        line-height: 30px;
+        text-align: justify;
+        min-height: 100px;
+        max-height: 280px;
+        overflow: hidden;
     }
     
     .allergy-info {
@@ -28,16 +35,6 @@
         font-family: 'Fira Sans', sans-serif;
         font-family: 'Prata', serif;
         font-weight: bolder;
-    }
-    
-    .description {
-        margin-top: 30px;
-    }
-    
-    .description h1 {
-        color: black;
-        font-size: 30px;
-        font-weight: bold;
     }
     
     .image-part {
@@ -69,6 +66,9 @@
     }
     
     @media screen and (min-width:200px) and (max-width:770px) {
+        .container {
+            margin-bottom: 500px;
+        }
         .image-part {
             height: 300px;
         }
@@ -87,11 +87,12 @@
         }
         .adding-cart {
             display: block;
-            width: 200px;
+            width: 300px;
             position: relative;
             border: none;
             bottom: 10px;
             top: 20px;
+            left: 25%;
             border-radius: 4px;
             background-color: #00005c;
             height: 40px;
@@ -141,9 +142,7 @@
     
     form label {
         color: black;
-        font-family: 'Fira Sans', sans-serif;
-        font-family: 'Prata', serif;
-        font-weight: bolder;
+        font-weight: bold;
     }
     
     form #quantity {
@@ -396,4 +395,16 @@
     .edit-review a {
         color: black;
         text-decoration: none;
+    }
+    
+    #submitbtn {
+        float: right;
+        position: absolute;
+        bottom: 1px;
+        left: 100%;
+        height: 35px;
+        border: none;
+        background-color: #015494;
+        border-radius: 4px;
+        color: white;
     }

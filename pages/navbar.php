@@ -56,17 +56,17 @@
               </li>
               <li class="nav-item">
               <div class="user-area dropdown float-right">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <a style="color:black;text-decoration:none;font-size:14px;" href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                   <?php
                   if (isset($_SESSION['userid'])) {
                     require_once "../backend/db_connect.php";
                     $db_connection = new Connection();
                     $userid = $_SESSION['userid'];
-                    $query = mysqli_query($db_connection->getConnection(), "SELECT image FROM user WHERE userid=$userid");
+                    $query = mysqli_query($db_connection->getConnection(), "SELECT image,username FROM user WHERE userid=$userid");
                     $row = mysqli_fetch_assoc($query);
 
                   ?>
-                    <?php echo "<img class='user-avatar rounded-circle' src=../avatars/" . $row['image'] . ">"; ?>
+                    <?php if($row['image']!=""){ echo "<img class='user-avatar rounded-circle' src=../avatars/" . $row['image'] . ">";} else{  echo "Welcome ".$row['username']; } ?>
 
                   <?php } else {
                     echo "<img class='user-avatar rounded-circle' src=../avatars/avatar.png>";
