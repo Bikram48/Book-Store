@@ -225,7 +225,12 @@ if (isset($_GET['action']) == 'clear') {
                                         $name = $row['product_name'];
                                         $productid = $row['productid'];
                                         $quantity = $row['quantity'];
-                                        $price = $row['price'];
+                                        if (checkexisted_discount($row['productid']) > 0) {
+                                            $price = priceafterdiscount($row['productid']);
+                                        }
+                                        else{
+                                            $price = $row['price'];
+                                        }
                                 ?>
                                         <input type="hidden" name="item_name_<?php echo $i; ?>" value="<?php echo $name; ?>">
 

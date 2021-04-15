@@ -2,7 +2,6 @@
 session_start();
 require_once("../backend/config.php");
 $db_connection = mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD, DB_DATABSE);
-
 $payer_email = $_SESSION['email'];
 $payer_status = "VERIFIED";
 $payment_gross = $_SESSION['totalPrice'];
