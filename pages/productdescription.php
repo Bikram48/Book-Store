@@ -131,29 +131,29 @@ include_once "../backend/db_connect.php";
                     <?php $rating = averageRating($pid);
                     if ($rating == 1) { ?>
                         <i style="color:orangered;" class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
+                        <i style="color:silver;" class="fas fa-star"></i>
+                        <i style="color:silver;"  class="fas fa-star"></i>
+                        <i style="color:silver;"  class="fas fa-star"></i>
+                        <i style="color:silver;"  class="fas fa-star"></i>
                     <?php } elseif ($rating == 2) { ?>
                         <i style="color:orangered;" class="fas fa-star"></i>
                         <i style="color:orangered;" class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
+                        <i style="color:silver;"  class="fas fa-star"></i>
+                        <i style="color:silver;"  class="fas fa-star"></i>
+                        <i style="color:silver;"  class="fas fa-star"></i>
                     <?php } elseif ($rating == 3) { ?>
                         <i style="color:orangered;" class="fas fa-star"></i>
                         <i style="color:orangered;" class="fas fa-star"></i>
                         <i style="color:orangered;" class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
+                        <i style="color:silver;" class="fas fa-star"></i>
+                        <i style="color:silver;" class="fas fa-star"></i>
                     <?php } elseif ($rating == 4) { ?>
 
                         <i style="color:orangered;" class="fas fa-star"></i>
                         <i style="color:orangered;" class="fas fa-star"></i>
                         <i style="color:orangered;" class="fas fa-star"></i>
                         <i style="color:orangered;" class="fas fa-star"></i>
-                        <i style="color:black;" class="fas fa-star"></i>
+                        <i style="color:silver;"  class="fas fa-star"></i>
 
                     <?php } elseif ($rating == 5) { ?>
                         <i style="color:orangered;" class="fas fa-star"></i>
@@ -210,25 +210,6 @@ include_once "../backend/db_connect.php";
 
             <div class="col-xl-10 col-lg-10 col-md-10 bar">
                 <div class="row">
-                    <?php
-
-                    $query = mysqli_query($db_connection->getConnection(), "SELECT * FROM PRODUCT WHERE PRODUCTID=$pid");
-                    while ($row = mysqli_fetch_assoc($query)) {
-
-                    ?>
-                        <div class="col-xl-1 col-md-6 show-image">
-                            <?php echo "<img style=height:50px; class=img-fluid  src=../Images/" . $row['image'] . ">"; ?>
-                        </div>
-                        <div class="col-xl-4 show-image">
-                            <?php echo $row['product_name']; ?>
-                        </div>
-                        <div class="col-xl-2 col-md-1 price-show">
-                            <?php echo "$" . $row['price']; ?>
-                        </div>
-
-                    <?php
-                    }
-                    ?>
                     <div class="col-xl-3 col-md-1  cart-add float-right">
                         <input class="addsubmit" type="submit" name="submit" value="Add to Cart">
                     </div>

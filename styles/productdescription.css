@@ -47,10 +47,9 @@
     .bar {
         height: 80px;
         width: 100%;
-        box-shadow: 0.5px 0.5px 1px 1px #dddddd;
         background-color: white;
         position: absolute;
-        left: 10%;
+        left: 33%;
         bottom: 120px;
         overflow: none;
     }
@@ -177,7 +176,7 @@
     }
     
     .addsubmit {
-        width: 200px;
+        width: 300px;
         position: relative;
         border: none;
         left: 100%;
@@ -187,6 +186,7 @@
         background-color: #00005c;
         height: 40px;
         color: white;
+        font-weight: bold;
     }
     
     .price-show {

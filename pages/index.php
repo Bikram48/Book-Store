@@ -92,53 +92,43 @@
                     <img style="width:100%;height:200px;" src="../images/business.jpg" alt="business genre">
                 </a>
             </div>
-        </div>
-        <div class="row">
-            <div class="col-xl-2 col-sm-0"></div>
-            <div class="col-xl-8">
-                <h2 style="margin-top:80px;" class="header">Week's Picks</h2><br><br>
+            <div class="col-xl-2 col-md-4 col-sm-6 col-6 mt-2">
+                <a href="booklist.php?genre=arts">
+                    <p class="genre">Arts</p>
+                    <img style="height:200px;" class="img-fluid" src="../images/arts.jpg" alt="engineering genre">
+                </a>
             </div>
-            <div class="col-xl-2"></div>
-        </div>
-        <div class="row">
-            <div class="col-xl-1 col-md-0 col-sm-0"></div>
-            <div class="col-xl-3 col-md-3 col-lg-3 col-sm-3">
-                <div class="card border-0 first-card" style="width: 18rem;">
-                    <img height="200" class="card-img-top" src="../images/book1.jpg" alt="Card image cap">
-                    <div class="card-body">
-                        <h5 class="card-title">Subtle art of not</h5>
-                        <p class="card-text">$47.0</p>
-                        <p><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></p>
-                    </div>
-                </div>
+            <div class="col-xl-2 col-md-4 col-sm-6 col-6 mt-2">
+                <a href="booklist.php?genre=agriculture_science">
+                    <p class="genre">Agriculture <br> Science</p>
+                    <img style="width:100%;height:200px;" src="../images/agriculture.jpg" alt="cs genre">
+                </a>
             </div>
-            <div class="col-xl-3 col-md-3 col-lg-3 col-sm-3">
-                <div class="card border-0 second-card" style="width: 18rem;">
-                    <img height="200" class="card-img-top" src="../images/steve.jpg" alt="Card image cap">
-                    <div class="card-body">
-                        <h5 class="card-title">Steve Jobs</h5>
-                        <p class="card-text">$47.0</p>
-                        <p><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></p>
-                    </div>
-                </div>
+            <div class="col-xl-2 col-md-4 col-sm-6 col-6 mt-2">
+                <a href="booklist.php?genre=college_materials">
+                    <p class="genre">College <br> Materials</p>
+                    <img style="width:100%;height:200px;" src="../images/collegematerials.jpg" alt="nursing genre">
+                </a>
             </div>
-
-            <div class="col-xl-3 col-md-3 col-lg-3 col-sm-3">
-                <div class="card border-0 third-card" style="width: 18rem;">
-                    <img height="200" class="card-img-top" src="../images/book3.jpg" alt="Card image cap">
-                    <div class="card-body">
-                        <h5 class="card-title">Think and grow rich</h5>
-                        <p class="card-text">$47.0</p>
-                        <p><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></p>
-                    </div>
-                </div>
+            <div class="col-xl-2 col-md-4 col-sm-6 col-6 mt-2">
+                <a href="booklist.php?genre=marketing">
+                    <p class="genre">Marketing</p>
+                    <img style="width:100%;height:200px;" src="../images/margketing.jpg" alt="maths genre">
+                </a>
             </div>
-            <div class="col-xl-2 col-md-0"></div>
+            <div class="col-xl-2 col-md-4 col-sm-6 col-6 mt-2">
+                <a href="booklist.php?genre=psychology">
+                    <p class="genre">Psychology</p>
+                    <img style="width:100%;height:200px;" src="../images/psychology.jpg" alt="english genre">
+                </a>
+            </div>
+            <div class="col-xl-2 col-md-4 col-sm-6 col-6 mt-2">
+                <a href="booklist.php?genre=radiology">
+                    <p class="genre">Radiology</p>
+                    <img style="width:100%;height:200px;" src="../images/radiology.jpg" alt="business genre">
+                </a>
+            </div>
         </div>
-        <div style="margin-top: 50px;" class="row">
-            <button class="viewmore-btn">View More</button>
-        </div>
-
         <div style="margin-top:200px;margin-bottom:50px;" class="row justify-content-center">
             <h2 class="text-center">TESTIMONIALS</h2>
         </div>

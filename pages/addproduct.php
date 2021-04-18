@@ -22,6 +22,7 @@
         $price = $_POST['price'];
         $description = $_POST['description'];
         $category = $_POST['category'];
+        $author=$_POST['author'];
         $quantity = $_POST['quantity'];
         $image = $_FILES['file'];
         $obj = new ProductCrud();
@@ -29,8 +30,8 @@
             $error5 = "Invalid file. Only jpg,jpeg and png are allowed";
         } else {
             $image_name=uploadProductImage($image);
-            if ($obj->addProduct($product_name, $price, $description, $category, $quantity,$image_name)) {
-                echo "Product has been added successfully";
+            if ($obj->addProduct($product_name, $price, $description, $category,$author, $quantity,$image_name)) {
+                //echo "Product has been added successfully";
             } else {
                 echo "Error occured";
             }
@@ -46,7 +47,7 @@
                         <div class="form-row">
                             <div class="form-group col-md-6">
                                 <label for="inputEmail4">Product Name</label>
-                                <input type="text" name="productName" class="form-control">
+                                <input type="text" name="productName" class="form-control" required>
                             </div>
                             <div class="form-group col-md-6">
                                 <label for="inputPassword4">Price</label>
@@ -58,23 +59,36 @@
                             <div class="input-group-prepend">
                                 <span class="input-group-text">Description</span>
                             </div>
-                            <textarea name="description" class="form-control" aria-label="With textarea"></textarea>
+                            <textarea name="description" class="form-control" aria-label="With textarea" required></textarea>
+                        </div>
+                        <br>
+                        <div class="form-group col-md-12">
+                            <label for="inputEmail4">Author</label>
+                            <input style="width: 100%;" type="text" name="author" class="form-control" required>
                         </div>
                         <br>
                         <div class="form-row">
                             <div class="form-group col-md-6">
                                 <label for="inputState">Category</label>
                                 <select name="category" id="inputState" class="form-control">
-                                    <option selected>Choose...</option>
+                                    <option disabled selected>Choose...</option>
                                     <option value="engineering">Engineering</option>
                                     <option value="computer_science">Computer Science</option>
+                                    <option value="nursing">Nursing</option>
+                                    <option value="maths">Mathematics</option>
                                     <option value="english">English</option>
                                     <option value="business">Business</option>
+                                    <option value="arts">Arts</option>
+                                    <option value="agriculture_science">Agriculture Science</option>
+                                    <option value="college_materials">College Materials</option>
+                                    <option value="marketing">Marketing</option>
+                                    <option value="psychology">Psychology</option>
+                                    <option value="radiology">Radiology</option>
                                 </select>
                             </div>
                             <div class="form-group col-md-6">
                                 <label for="inputCity">Quantity</label>
-                                <input type="number" name="quantity" class="form-control" id="inputCity">
+                                <input type="number" name="quantity" class="form-control" id="inputCity" required>
                             </div>
 
                         </div>
