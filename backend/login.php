@@ -51,7 +51,8 @@ class UserLogin
     {
         $username = mysqli_real_escape_string($this->connection->getConnection(), $usernameoremail);
         $password = mysqli_real_escape_string($this->connection->getConnection(), $password);
-        $query = mysqli_query($this->connection->getConnection(), "SELECT * FROM user WHERE username='$username' AND password='$password'");
+        $pwd = md5($password);
+        $query = mysqli_query($this->connection->getConnection(), "SELECT * FROM user WHERE username='$username' AND password='$pwd'");
         $row = mysqli_fetch_assoc($query);
         $count = mysqli_num_rows($query);
         if ($count == 1) {

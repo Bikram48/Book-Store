@@ -48,7 +48,7 @@
               </li>
               <?php if (isset($_SESSION['adminid'])) { ?>
                 <li class="nav-item">
-                  <a style="color:black;" class="nav-link" href="../admin_dashboard/dashboard.php">DASHBOARD</a>
+                  <a style="color:black;" class="nav-link" href="dashboard.php">DASHBOARD</a>
                 </li>
               <?php } ?>
               <li class="nav-item">

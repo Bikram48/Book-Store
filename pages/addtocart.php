@@ -45,6 +45,7 @@ if (isset($_GET['pid'])) {
     }
 }
 $total_price = 0;
+$total_items=0;
 if (isset($_GET['action']) == 'clear') {
     if (isset($_SESSION['userid'])) {
         $userid = $_SESSION['userid'];
@@ -63,7 +64,7 @@ if (isset($_GET['action']) == 'clear') {
     <title>Document</title>
 </head>
 
-<body>
+<body style="background-color: #F4F4F4;">
     <?php
 
     ?>
@@ -87,42 +88,61 @@ if (isset($_GET['action']) == 'clear') {
                                 $price = $row['price'];
                             }
                             $quantity = $values['item_quantity'];
+                            $total_items=$total_items+$values['item_quantity'];
                             $total_price = $total_price + $price * $quantity;
                             $total_item++;
                             if ($total_item > 0) {
                 ?>
                                 <div class="product">
-                                    <img src="../images/<?php echo $row['image'] ?>">
-                                    <div class="product-info">
-                                        <div class="product-name">
-                                            <?php echo $row['product_name'] ?>
-                                        </div>
-                                        <div class="product-price">
-
-                                            <?php if (checkexisted_discount($row['productid']) > 0) { ?>
-                                                <del><?php echo "$" . $row['price'] ?></del><?php $price = priceafterdiscount($row['productid']);
-                                                                                            echo " $" . $price; ?>
-                                            <?php } else {
-                                                echo "$" . $row['price'];
-                                            } ?>
-                                        </div>
-                                        <form method="POST" action="addtocart.php">
-                                            <input type="hidden" value="<?php echo $row['productid']; ?>" name="productid">
-
-                                            <div class="col-xl-4 col-lg-4 col-md-4 col-sm-6 col-12">
-                                                <input type="number" value=<?php echo $values['item_quantity'] ?> name="quantity">
-                                            </div>
-                                            <p class="product-edit">
-                                            <button  type="submit" name="submit"><i class="fas fa-edit"></i>quantity</button>
-                                            </p>
-                                        </form>
-                                        <?php echo "<a href='addtocart.php?pid=$pid'>" ?>
-                                        <p class="product-remove">
-                                            <i class="fa fa-trash"></i>
-                                            <span class="remove">Remove</span>
-                                        </p>
+                                    <div class="row">
+                                        <div class="col-xl-2 col-lg-2 col-md-2 col-lg-2 col-sm-3 col-4">
+                                        <a href="productdescription.php?productid=<?php echo $pid; ?>">
+                                            <img style="height: 150px;width: 100%;" class="img-fluid" src="../images/<?php echo $row['image'] ?>">
                                         </a>
+                                        </div>
+                                        <div class="col-xl-9 col-lg-9 col-md-9 col-sm-9 col-8">
+                                            <div class="product-info">
+                                                <div class="row">
+                                                    <div class="col-xl-11 col-lg-11 col-md-11 col-11 col-sm-10">
+                                                        <div class="product-name">
+                                                        <a style="text-decoration: none;color:black;" href="productdescription.php?productid=<?php echo $pid; ?>"> <?php echo $row['product_name'] ?> </a>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-xl-1 col-lg-1 col-md-1 col-1 col-sm-2">
+                                                        <div class="product-price">
+
+                                                            <?php if (checkexisted_discount($row['productid']) > 0) { ?>
+                                                                <del><?php echo "$" . $row['price'] ?></del><?php $price = priceafterdiscount($row['productid']);
+                                                                                                            echo " $" . $price; ?>
+                                                            <?php } else {
+                                                                echo "$" . $row['price'];
+                                                            } ?>
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+
+                                                <form method="POST" action="addtocart.php">
+                                                    <input type="hidden" value="<?php echo $row['productid']; ?>" name="productid">
+
+                                                    <div class="col-xl-4 col-lg-4 col-md-4 col-sm-6 col-12 col-12">
+                                                        <input type="number" value=<?php echo $values['item_quantity'] ?> name="quantity" min="1" max="<?php echo $row['quantity'] ?>">
+                                                    </div>
+                                                    <p class="product-edit">
+                                                        <button type="submit" name="submit"><i class="fas fa-edit"></i>change quantity</button>
+                                                    </p>
+                                                </form>
+                                                <?php echo "<a href='addtocart.php?pid=$pid'>" ?>
+                                                <p class="product-remove">
+                                                    <i class="fa fa-trash"></i>
+                                                    <span class="remove">Remove</span>
+                                                </p>
+                                                </a>
+                                            </div>
+                                        </div>
                                     </div>
+
+
                                 </div>
                 <?php }
                         }
@@ -134,7 +154,7 @@ if (isset($_GET['action']) == 'clear') {
                 <?php
                 if (isset($_SESSION['userid'])) {
                     $userid = $_SESSION['userid'];
-                    $query = mysqli_query($db_connection->getConnection(), "SELECT p.*,c.quantity FROM product p,cart c,user u WHERE u.userid=c.fk1_userid AND p.productid=c.fk1_productid AND c.fk1_userid=$userid");
+                    $query = mysqli_query($db_connection->getConnection(), "SELECT p.*,c.quantity as cart_quantity FROM product p,cart c,user u WHERE u.userid=c.fk1_userid AND p.productid=c.fk1_productid AND c.fk1_userid=$userid");
                     if (mysqli_num_rows($query) > 0) {
                         while ($row = mysqli_fetch_assoc($query)) {
                             $pid = $row['productid'];
@@ -144,39 +164,55 @@ if (isset($_GET['action']) == 'clear') {
                                 $price = $row['price'];
                             }
                             $quantity = $row['quantity'];
+                            $total_items=$total_items+$quantity;
                             $total_price = $total_price + $price * $quantity;
                             $total_item++;
                 ?>
+                
                             <div class="product">
-                                <img src="../images/<?php echo $row['image'] ?>">
-                                <div class="product-info">
-                                    <div class="product-name">
-                                        <?php echo $row['product_name'] ?>
+                                <div class="row">
+                                    <div class="col-xl-2 col-lg-2 col-md-2 col-lg-2 col-sm-3 col-4">
+                                        <a href="productdescription.php?productid=<?php echo $pid; ?>">
+                                            <img style="height: 150px;width: 100%;" class="img-fluid"  src="../images/<?php echo $row['image'] ?>">
+                                        </a>
                                     </div>
-                                    <div class="product-price">
+                                    <div class="col-xl-9 col-lg-9 col-md-9 col-sm-9 col-8">
+                                        <div class="product-info">
+                                            <div class="row">
+                                                <div class="col-xl-11 col-lg-11 col-md-11 col-11 col-sm-10">
+                                                    <div class="product-name">
+                                                        <a style="text-decoration: none;color:black;" href="productdescription.php?productid=<?php echo $pid; ?>"><?php echo $row['product_name'] ?></a>
+                                                    </div>
+                                                </div>
+                                                <div class="col-xl-1 col-lg-1 col-md-1 col-1 col-sm-2">
+                                                    <div class="product-price">
 
-                                        <?php if (checkexisted_discount($row['productid']) > 0) { ?>
-                                            <del><?php echo "$" . $row['price'] ?></del><?php $price = priceafterdiscount($row['productid']);
-                                                                                        echo " $" . $price; ?>
-                                        <?php } else {
-                                            echo "$" . $row['price'];
-                                        } ?>
-                                    </div>
-                                    <form method="POST" action="addtocart.php">
-                                        <input type="hidden" value="<?php echo $row['productid']; ?>" name="productid">
-                                        <div class="col-xl-4 col-lg-4 col-md-4 col-sm-6 col-12">
-                                            <input type="number" value=<?php echo $row['quantity'] ?> name="quantity">
+                                                        <?php if (checkexisted_discount($row['productid']) > 0) { ?>
+                                                            <del><?php echo "$" . $row['price'] ?></del><?php $price = priceafterdiscount($row['productid']);
+                                                                                                        echo " $" . $price; ?>
+                                                        <?php } else {
+                                                            echo "$" . $row['price'];
+                                                        } ?>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <form method="POST" action="addtocart.php">
+                                                <input type="hidden" value="<?php echo $row['productid']; ?>" name="productid">
+                                                <div class="col-xl-4 col-lg-4 col-md-4 col-sm-6 col-12">
+                                                    <input type="number" value=<?php echo $row['cart_quantity'] ?> name="quantity" max=<?php echo $row['quantity']; ?> min=1>
+                                                </div>
+                                                <p class="product-edit">
+                                                    <button type="submit" name="submit"><i class="fas fa-edit"></i>change quantity</button>
+                                                </p>
+                                            </form>
+                                            <?php echo "<a href='addtocart.php?pid=$pid'>" ?>
+                                            <p class="product-remove">
+                                                <i class="fa fa-trash"></i>
+                                                <span class="remove">Remove</span>
+                                            </p>
+                                            </a>
                                         </div>
-                                        <p class="product-edit">
-                                            <button  type="submit" name="submit"><i class="fas fa-edit"></i>quantity</button>
-                                        </p>
-                                    </form>
-                                    <?php echo "<a href='addtocart.php?pid=$pid'>" ?>
-                                    <p class="product-remove">
-                                        <i class="fa fa-trash"></i>
-                                        <span class="remove">Remove</span>
-                                    </p>
-                                    </a>
+                                    </div>
                                 </div>
                             </div>
                     <?php }
@@ -207,7 +243,7 @@ if (isset($_GET['action']) == 'clear') {
 
                                 <span>Number of Items</span>
 
-                                <span><?php echo $total_item ?></span>
+                                <span><?php echo $total_items ?></span>
                             </p>
                         </div>
                         <div class="col-xl-12 col-lg-12 col-md-12">
@@ -227,8 +263,7 @@ if (isset($_GET['action']) == 'clear') {
                                         $quantity = $row['quantity'];
                                         if (checkexisted_discount($row['productid']) > 0) {
                                             $price = priceafterdiscount($row['productid']);
-                                        }
-                                        else{
+                                        } else {
                                             $price = $row['price'];
                                         }
                                 ?>
@@ -261,6 +296,7 @@ if (isset($_GET['action']) == 'clear') {
 <script>
     $("input[type='number']").inputSpinner();
 </script>
+
 
 </html>
 <?php include "footer.php" ?>
