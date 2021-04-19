@@ -20,18 +20,19 @@
                 <img src="../Images/Body-banner-3.jpg" class="clsFirstImg" />
             </div>
             <div class="col-xl-4 col-lg-4 col-md-4 contents">
-                <h2 class="title">THE TEAM </h2>
-                <p class="content">Lorem ipsum dolor sit amet consectetur adipisicing elit. Asperiores assumenda itaque a dolor consectetur aliquid suscipit odit deserunt? Quibusdam ipsa non sit temporibus saepe eius accusantium iste est laboriosam quam.
-                    Lorem ipsum dolor sit, amet consectetur adipisicing elit. Voluptatibus, mollitia atque alias esse voluptatum voluptas corporis assumenda soluta quia maiores, quibusdam nulla quo cupiditate eos est amet magnam veniam dolore?
+            
+                <p class="content">McneeseBookstore.com is an online bookstore website which contains the user interactive interface and our mission is to  is to provide quality but affordable books for education, entertainment, self-development and self-fulfillment.<br><br>
+                    We believe that bookstores are essential to a healthy culture. They’re where authors can connect with readers, where we discover new writers, where children get hooked on the thrill of reading that can last a lifetime. They’re also anchors for our downtowns and communities.
+                  
                 </p>
             </div>
         </div>
 
         <div style="margin-top:200px;margin-bottom:50px;" class="row justify-content-center">
-            <h2 class="text-center">OUR TEAM</h2>
+            <h2 class="text-center title">OUR TEAM</h2>
         </div>
         <div class="row mt-6">
-            <div class="col-xl-3 text-center">
+            <div class="col-xl-3 col-lg-3 col-md-3 col-sm-6 col-6 text-center">
                 <div class="team mx-auto">
                     <img class="img-fluid rounded-circle z-depth-1" src="../images/asim.jpg" alt="group member">
                 </div>
@@ -49,7 +50,7 @@
                     </a>
                 </div>
             </div>
-            <div class="col-xl-3 text-center">
+            <div class="col-xl col-lg-3 col-md-3 col-sm-6 col-6 -3 text-center">
                 <div class="team mx-auto">
                     <img class="img-fluid rounded-circle z-depth-1" src="../images/asim.jpg" alt="group member">
                 </div>
@@ -67,7 +68,7 @@
                     </a>
                 </div>
             </div>
-            <div class="col-xl-3 text-center">
+            <div class="col-xl-3 col-lg-3 col-md-3 col-sm-6 col-6 4 text-center">
                 <div class="team mx-auto">
                     <img class="img-fluid rounded-circle z-depth-1" src="../images/saroj.jpg" alt="group member">
                 </div>
@@ -85,7 +86,7 @@
                     </a>
                 </div>
             </div>
-            <div class="col-xl-3 text-center">
+            <div class="col-xl-3 col-lg-3 col-md-3 col-sm-6 col-6  text-center">
                 <div class="team mx-auto">
                     <img class="img-fluid rounded-circle z-depth-1" src="../images/gopal.jpg" alt="group member">
                 </div>
@@ -105,6 +106,10 @@
             </div>
         </div>
     </div>
+    <div style="margin-top:200px;">
+        <?php include "footer.php" ?>
+    </div>
+
 </body>
 
 </html>

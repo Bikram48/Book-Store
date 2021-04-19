@@ -5,7 +5,7 @@
     }
     
     $paypalConfig = [
-        'email' => 'chandbikram001@gmail.com',
+        'email' => 'mcneesebookstoreofficial@gmail.com',
         'return_url' => 'http://localhost/book_store/pages/successpage.php',
         'cancel_url' => 'http://localhost/book_store/sandbox_integration/cancel.php',
         'notify_url' => 'http://localhost/book_store/pages/payments.php'
@@ -34,7 +34,7 @@
     
         // Set the details about the product being purchased, including the amount
         // and currency so that these aren't overridden by the form data.
-        $data['currency_code'] = 'GBP';
+        $data['currency_code'] = 'USD';
     
     
         // Build the query string from the data.
@@ -47,18 +47,6 @@
     } else {
         // Handle the PayPal response.
     
-        /*$data=[
-            'item_name' => $_POST['item_name'],
-            'item_number' => $_POST['item_name'],
-            'payment_status' => $_POST['item_name'],
-            'payment_amount' => $_POST['item_name'],
-            'payment_currency' => $_POST['item_name'],
-            'txn_id' => $_POST['item_name'],
-            'receiver_email' => $_POST['item_name'],
-            'payer_email' => $_POST['item_name'],
-            'item_name' => $_POST['item_name'],
-        ];
-        */
         // Assign posted variables to local data array.
             $orderid=16;
             $customerid=4;
@@ -69,23 +57,7 @@
             $payer_email = $_POST['payer_email'];
 
  
-        // We need to verify the transaction comes from PayPal and check we've not
-        // already processed the transaction before adding the payment to our
-        // database.
-        /*
-        if (verifyTransaction($_POST) && (checkTxnid($txn_id)==0)){
-            if(addPayment($txn_id,$payment_gross,$currency_code,$payment_status,$payer_email,$userid)!=false){
-                echo '<script language="javascript">';
-                echo 'alert("Payment successfully added")';
-                echo '</script>';
-            }   
-            else{
-                echo '<script language="javascript">';
-                echo 'alert("Payment is not added")';
-                echo '</script>';
-            }  
-        }
-        */
+     
     }
     
 ?>

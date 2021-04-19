@@ -1,4 +1,5 @@
-<?php include "navbar.php" ?>
+<?php include "navbar.php";
+require_once "../backend/db_connect.php"; ?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -8,6 +9,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="../styles/index.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/owl-carousel/1.3.3/owl.carousel.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/owl-carousel/1.3.3/owl.theme.min.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 </head>
 
@@ -19,30 +22,31 @@
                     <p>Hello,</p>
                     <p>HOW CAN WE HELP YOU?</p>
                     <p>We are the best book provider <br> in the market</p>
-                    <a href="booklist.php"><button class="shop-btn">Shop now</button></a>
+                    <a href="shopallproducts.php"><button class="shop-btn">Shop All Products</button></a>
                 </div>
                 <div class="banner-image">
                     <img class="bg-image img-fluid" src="../images/bg1.jpg" alt="Background Image">
                 </div>
             </div>
             <div class="col-xl-12 title-head">
-                    <h1>Most Popular Books</h1>
+                <h1>Most Popular Books</h1>
             </div>
             <div class="col-xl-1"></div>
             <div class="col-xl-10">
                 <div class="about-container">
-                    <div class="card" style="width: 14rem;">
-                        <img class="card-img-top" style="width: 100%;height:100%" src="../images/computer5.png" alt="Card image cap">
-                        
-                    </div>
-                    <div class="card" style="width: 14rem;">
-                        <img class="card-img-top"  style="width: 100%;height:100%"  src="../images/computer3.png" alt="Card image cap">
-                    
-                    </div>
-                    <div class="card" style="width: 14rem;">
-                        <img class="card-img-top"  style="width: 100%;height:100%"  src="../images/computer1.png" alt="Card image cap">
-                     
-                    </div>
+                    <?php
+                    $db_connection = new Connection();
+                    $query = mysqli_query($db_connection->getConnection(), "SELECT * FROM product p, rating r where p.productid=r.fk2_productid ORDER BY r.rating_number DESC LIMIT 3");
+                    while ($row = mysqli_fetch_assoc($query)) {
+                        $image = $row['image'];
+                        $pid = $row['fk2_productid'];
+                    ?>
+                        <div class="card" style="width: 14rem;">
+                            <a href="productdescription.php?productid=<?php echo $pid ?>"><img class="card-img-top" style="width: 100%;height:100%" src="../images/<?php echo $image; ?>" alt="Card image cap"></a>
+
+                        </div>
+                    <?php } ?>
+
                 </div>
 
             </div>
@@ -129,52 +133,65 @@
                 </a>
             </div>
         </div>
-        <div style="margin-top:200px;margin-bottom:50px;" class="row justify-content-center">
-            <h2 class="text-center">TESTIMONIALS</h2>
+
+    </div>
+    <div class="container-fluid img-box">
+        <?php
+        $query = mysqli_query($db_connection->getConnection(), "SELECT COUNT(*) as total_product FROM product");
+        $result = mysqli_fetch_assoc($query);
+        $totalitems = $result['total_product'];
+        ?>
+        <div class="row">
+            <div style="height:300px;width:100%;" class="col-xl-12">
+                <div style="width: 100%;" class="contents">
+                    <h1>We have <?php echo $totalitems; ?> titles to choose from</h1><br>
+                    <a href="shopallproducts.php"><button class="explore-btn">EXPLORE NOW</button></a>
+                </div>
+                <img style=" width: 100%; height: 100%;object-fit:cover;" src="../images/bg-1.jpg">
+            </div>
         </div>
-        <div class="row text-center">
-            <div class="col-lg-4 col-md-12 mb-lg-0 mb-4">
-                <div class="card testimonial-card">
-                    <div class="card-up info-color"></div>
-                    <div class="avatar mx-auto white">
-                        <img style="width:70%;" src="../images/asim.jpg" class="rounded-circle img-fluid">
+    </div>
+    <!-- Reference from: https://bestjquery.com/tutorial/testimonial/demo64/ -->
+    <div class="container">
+        <h2>Testimonials</h2><br><br><br><br>
+        <div class="row">
+            <div class="col-md-12">
+                <div id="testimonial-slider" class="owl-carousel">
+                    <div class="testimonial">
+                        <div class="pic">
+                            <img src="../images/asim.jpg">
+                        </div>
+                        <div class="testimonial-profile">
+                            <h3 class="title">Asim</h3>
+                            <span class="post">United States</span>
+                        </div>
+                        <p class="description">
+                        Couldn’t be happier with this group of highly skilled industry professionals!. Top notch service and a virtual shoulder to lean on, when needed.
+                        </p>
                     </div>
-                    <div class="card-body">
-                        <h4 class="font-weight-bold mb-4">Asim</h4>
-                        <hr>
-                        <p class="dark-grey-text mt-4"><i class="fas fa-quote-left pr-2"></i>Lorem ipsum dolor sit amet eos
-                            adipisci, consectetur adipisicing elit.</p>
+                    <div class="testimonial">
+                        <div class="pic">
+                            <img src="../images/gopal.jpg">
+                        </div>
+                        <div class="testimonial-profile">
+                            <h3 class="title">Gopal</h3>
+                            <span class="post">United States</span>
+                        </div>
+                        <p class="description">
+                            I want to say thank you!! Your bargains have introduced me to some great books and authors. This site is amazing!!
+                        </p>
                     </div>
-                </div>
-            </div>
-
-            <div class="col-lg-4 col-md-6 mb-md-0 mb-4">
-                <div class="card testimonial-card">
-                    <div class="card-up blue-gradient">
-                    </div>
-                    <div class="avatar mx-auto white">
-                        <img style="width:70%;" src="../images/gopal.jpg" class="rounded-circle img-fluid">
-                    </div>
-                    <div class="card-body">
-                        <h4 class="font-weight-bold mb-4">Saroj</h4>
-                        <hr>
-                        <p class="dark-grey-text mt-4"><i class="fas fa-quote-left pr-2"></i>Lorem ipsum dolor sit amet eos
-                            adipisci, consectetur adipisicing elit.</p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-lg-4 col-md-6">
-                <div class="card testimonial-card">
-                    <div class="card-up indigo"></div>
-                    <div class="avatar mx-auto white">
-                        <img style="width:70%;" src="../images/saroj.jpg" class="rounded-circle img-fluid">
-                    </div>
-                    <div class="card-body">
-                        <h4 class="font-weight-bold mb-4">Rajib</h4>
-                        <hr>
-                        <p class="dark-grey-text mt-4"><i class="fas fa-quote-left pr-2"></i>Lorem ipsum dolor sit amet eos
-                            adipisci, consectetur adipisicing elit.</p>
+                    <div class="testimonial">
+                        <div class="pic">
+                            <img src="../images/saroj.jpg">
+                        </div>
+                        <div class="testimonial-profile">
+                            <h3 class="title">Saroj</h3>
+                            <span class="post">United States</span>
+                        </div>
+                        <p class="description">
+                        Oh my gosh. I believe I have found the best book site for my Kindle and I think I have gone to heaven. Thanks for such a wonderful web site.
+                        </p>
                     </div>
                 </div>
             </div>
@@ -183,6 +200,23 @@
     <div style="margin-top:200px;">
         <?php include "footer.php" ?>
     </div>
+
+    <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/owl-carousel/1.3.3/owl.carousel.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $("#testimonial-slider").owlCarousel({
+                items: 2,
+                itemsDesktop: [1000, 2],
+                itemsDesktopSmall: [979, 2],
+                itemsTablet: [768, 1],
+                pagination: false,
+                navigation: true,
+                navigationText: ["", ""],
+                autoPlay: true
+            });
+        });
+    </script>
 </body>
 
 </html>

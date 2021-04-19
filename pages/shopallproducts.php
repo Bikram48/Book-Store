@@ -6,14 +6,7 @@ require_once "../backend/db_connect.php";
 include_once "../backend/cart.php";
 $db_connection = new Connection();
 $error = "";
-if (isset($_GET['genre'])) {
-    $category = $_GET['genre'];
-    $_SESSION['category'] = $category;
-}
 
-if (isset($_SESSION['category'])) {
-    $cat = $_SESSION['category'];
-}
 
 if (isset($_POST['submit'])) {
     $productid = $_POST['pid'];
@@ -76,7 +69,7 @@ if (isset($_POST['submit'])) {
             <div class="col-xl-1 col-lg-0 col-md-0 col-sm-0 col-0"></div>
             <div class="col-xl-6 col-lg-7 col-md-7 col-4 col-sm-6">
                 <div class="row contents">
-                    We are here to help you to explore the books that you love to read and our main goal is to provide you a quality books in an affordable price. Please scroll the page for more books.
+                    Lorem ipsum dolor sit, amet consectetur adipisicing elit. Ab vero molestias neque soluta quidem rerum, laboriosam facere cumque reiciendis, labore dolor nulla ut sed eveniet porro excepturi velit? Suscipit, fugiat!
                 </div>
                 <div class="row banner-title">
                     <h1>Don't stop reading</h1>
@@ -88,7 +81,7 @@ if (isset($_POST['submit'])) {
             <div class="col-xl-2 col-sm-0 col-0"></div>
         </div>
         <?php
-        $query = mysqli_query($db_connection->getConnection(), "SELECT * FROM product WHERE category='$cat'");
+        $query = mysqli_query($db_connection->getConnection(), "SELECT * FROM product");
         while ($row = mysqli_fetch_assoc($query)) {
             $productid = $row['productid'];
         ?>

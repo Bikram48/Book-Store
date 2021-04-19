@@ -153,6 +153,7 @@ if (isset($_GET['action']) == 'clear') {
 
                 <?php
                 if (isset($_SESSION['userid'])) {
+                     $total_items=0;
                     $userid = $_SESSION['userid'];
                     $query = mysqli_query($db_connection->getConnection(), "SELECT p.*,c.quantity as cart_quantity FROM product p,cart c,user u WHERE u.userid=c.fk1_userid AND p.productid=c.fk1_productid AND c.fk1_userid=$userid");
                     if (mysqli_num_rows($query) > 0) {
@@ -163,7 +164,7 @@ if (isset($_GET['action']) == 'clear') {
                             } else {
                                 $price = $row['price'];
                             }
-                            $quantity = $row['quantity'];
+                            $quantity = $row['cart_quantity'];
                             $total_items=$total_items+$quantity;
                             $total_price = $total_price + $price * $quantity;
                             $total_item++;

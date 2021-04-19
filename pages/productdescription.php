@@ -188,7 +188,7 @@ include_once "../backend/db_connect.php";
                     $productid = $row['productid'];
                     $total_quantity=$row['quantity'];
                 ?>
-                    <p class="product-description"><?php echo $row['description']; ?>Daniel Minoli has many years of telecom, networking, and IT experience with end-users, carriers, academia, and venture capitalists, including work at ARPA think tanks, Bell Telephone Laboratories, ITT, Prudential Securities,Daniel Minoli has many years of telecom, networking, and IT experience with end-users, carriers, academia, and venture capitalists, including work at ARPA think tanks, Bell Telephone Laboratories, ITT, Prudential Securities,Daniel Minoli has many years of telecom, networking, and IT experience with end-users, carriers, academia, and venture capitalists, including work at ARPA think tanks, Bell Telephone Laboratories, ITT, Prudential Securities,Daniel Minoli has many years of telecom, networking, and IT experience with end-users, carriers, academia, and venture capitalists, including work at ARPA think tanks, Bell Telephone Laboratories, ITT, Prudential Securities,
+                    <p class="product-description"><?php echo $row['description']; ?>
                     </p>
                     <p style="font-weight: bold;" class=""><?php echo "Items availability:  " . $row['quantity']; ?> </p>
 
