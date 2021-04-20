@@ -32,6 +32,8 @@
                   <select style="font-family: sans-serif;height:40px;width:107px;font-size:12px;margin:0;padding:0;border:none;background-color:#0E0E25;color:white" name="keyword_cat" style="width: 100px;height:40px;border-radius:5px;border:2px solid black;">
                     <option value="keyword">keyword search</option>
                     <option value="title">Title</option>
+                    <option value="author">Author</option>
+                    <option value="category">Department</option>
                   </select>
                   <input class="search-box" name="searchtxt" type="text">
                   <button style="height: 40px;width:50px;border:none;background-color:#0E0E25;" type="submit" name="submit"><i style="color:white;" class="fas fa-search"></i></button>

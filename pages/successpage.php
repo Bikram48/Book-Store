@@ -8,6 +8,17 @@ $payment_gross = $_SESSION['totalPrice'];
 $customer_id = $_SESSION['customer_id'];
 if ($customer_id) {
     $query = mysqli_query($db_connection, "INSERT INTO payments(payment_gross,payment_status,fk1_userid) VALUES($payment_gross,'$payer_status',$customer_id)");
+    if($query){
+     
+        $qry=mysqli_query($db_connection,"SELECT p.productid,c.quantity as cart_quantity,p.price,p.quantity FROM cart c,product p WHERE p.productid=c.fk1_productid AND c.fk1_userid=$customer_id"); 
+        while($row=mysqli_fetch_assoc($qry)){
+            $productid=$row['productid'];
+            $cart_quantity=$row['cart_quantity'];
+            $product_quantity=$row['quantity'];
+            $quantity=$product_quantity-$cart_quantity;
+            $query=mysqli_query($db_connection,"UPDATE product SET quantity=$quantity WHERE productid=$productid");
+        }
+    }
 }
 
 ?>
@@ -69,7 +80,7 @@ if ($customer_id) {
         echo 'Message could not be sent.';
         echo 'Mailer Error: ' . $mail->ErrorInfo;
     } else {
-        echo '';
+        mysqli_query($db_connection,"DELETE FROM cart WHERE fk1_userid=$customer_id");
     }
     ?>
     <a href="../pages/index.php">Go to homepage</a>

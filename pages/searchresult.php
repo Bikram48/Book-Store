@@ -27,17 +27,21 @@ require_once "../backend/discounthandler.php";
             $_SESSION['keywordcat'] = $_POST['keyword_cat'];
             $_SESSION['searchtxt'] = $_POST['searchtxt'];
         }
-        $query=getQuery($_SESSION['keywordcat'],$_SESSION['searchtxt']);
-        while ($row = mysqli_fetch_array($query,MYSQLI_ASSOC)) {
+        $query = getQuery($_SESSION['keywordcat'], $_SESSION['searchtxt']);
+        while ($row = mysqli_fetch_array($query, MYSQLI_ASSOC)) {
             $_SESSION['search_product'] = $row['productid'];
             $count++;
         }
-    
+
 
 
         ?>
 
-        <h1><?php if($count>0){ echo $count;} else{ echo "No ";} ?> Items Found </h1>
+        <h1><?php if ($count > 0) {
+                echo $count;
+            } else {
+                echo "No ";
+            } ?> Items Found </h1>
         <?php if ($count > 0) { ?>
             <div class="row sorting-part">
                 <div class="col-xl-12 col-sm-12">
@@ -55,39 +59,81 @@ require_once "../backend/discounthandler.php";
         <?php } ?>
         <div class="row">
             <?php
-               if (isset($_POST['submit'])) {
+            include "../backend/ratinghandler.php";
+            if (isset($_POST['submit'])) {
                 $_SESSION['keywordcat'] = $_POST['keyword_cat'];
                 $_SESSION['searchtxt'] = $_POST['searchtxt'];
             }
-            $query=getQuery($_SESSION['keywordcat'],$_SESSION['searchtxt']);
+            $query = getQuery($_SESSION['keywordcat'], $_SESSION['searchtxt']);
             while ($row = mysqli_fetch_assoc($query)) {
                 $productid = $row['productid'];
             ?>
 
-             
-            <div class="row book-items">
-                <div class="col-xl-1 col-lg-1 col-sm-3"></div>
-                <div class="col-xl-2 col-lg-2 col-md-3 col-sm-6 image-box">
-                    <img class="img-fluid" src="../images/<?php echo $row['image'] ?>" alt="">
-                </div>
-                <div class="col-xl-7 col-lg-7 col-md-8 col-sm-6 book-contents">
-                    <h3 class="product_title"><?php echo $row['product_name']; ?></h3>
-                    <p style="font-style: italic;font-weight:bolder;"><?php echo $row['category']; ?></p>
-                    <?php if (checkexisted_discount($productid) > 0) { ?>
-                        <p style="font-weight: bolder;"><del>$<?php echo $row['price']; ?></del> $<?php echo priceafterdiscount($productid); ?></p>
-                    <?php } else { ?>
-                        <p style="font-weight: bolder;">$<?php echo $row['price']; ?></p>
-                    <?php } ?>
-                   
-                    <div class="description">
-                        <p><?php echo $row['description']; ?></p>
+
+                <div class="row book-items">
+                    <div class="col-xl-1 col-lg-1 col-sm-3"></div>
+                    <div class="col-xl-2 col-lg-2 col-md-3 col-sm-6 image-box">
+                        <img class="img-fluid" src="../images/<?php echo $row['image'] ?>" alt="">
                     </div>
-                    <form method="POST" action="booklist.php">
-                        <input type="hidden" name="pid" value="<?php echo $productid ?>">
-                        <button class="addtocart"><?php echo "<a style=color:white;text-decoration:none; href='productdescription.php?productid=$productid'>PRODUCT DETAILS</a>" ?></button>
-                    </form>
+                    <div class="col-xl-7 col-lg-7 col-md-8 col-sm-6 book-contents">
+                        <h3 class="product_title"><?php echo $row['product_name']; ?></h3>
+                        <p style="font-style: italic;font-weight:bolder;"><?php echo $row['category']; ?></p>
+                        <div class="ratings">
+                            <?php $rating = averageRating($productid);
+                            if ($rating == 1) { ?>
+                                <i style="color:orangered;" class="fas fa-star"></i>
+                                <i style="color:silver;" class="fas fa-star"></i>
+                                <i style="color:silver;" class="fas fa-star"></i>
+                                <i style="color:silver;" class="fas fa-star"></i>
+                                <i style="color:silver;" class="fas fa-star"></i>
+                            <?php } elseif ($rating == 2) { ?>
+                                <i style="color:orangered;" class="fas fa-star"></i>
+                                <i style="color:orangered;" class="fas fa-star"></i>
+                                <i style="color:silver;" class="fas fa-star"></i>
+                                <i style="color:silver;" class="fas fa-star"></i>
+                                <i style="color:silver;" class="fas fa-star"></i>
+                            <?php } elseif ($rating == 3) { ?>
+                                <i style="color:orangered;" class="fas fa-star"></i>
+                                <i style="color:orangered;" class="fas fa-star"></i>
+                                <i style="color:orangered;" class="fas fa-star"></i>
+                                <i style="color:silver;" class="fas fa-star"></i>
+                                <i style="color:silver;" class="fas fa-star"></i>
+                            <?php } elseif ($rating == 4) { ?>
+
+                                <i style="color:orangered;" class="fas fa-star"></i>
+                                <i style="color:orangered;" class="fas fa-star"></i>
+                                <i style="color:orangered;" class="fas fa-star"></i>
+                                <i style="color:orangered;" class="fas fa-star"></i>
+                                <i style="color:silver;" class="fas fa-star"></i>
+
+                            <?php } elseif ($rating == 5) { ?>
+                                <i style="color:orangered;" class="fas fa-star"></i>
+                                <i style="color:orangered;" class="fas fa-star"></i>
+                                <i style="color:orangered;" class="fas fa-star"></i>
+                                <i style="color:orangered;" class="fas fa-star"></i>
+                                <i style="color:orangered;" class="fas fa-star"></i>
+                            <?php } else { ?>
+                                <p style="color:red;font-weight:bolder;">Not rated yet!!</p>
+                            <?php } ?>
+
+
+
+                        </div>
+                        <?php if (checkexisted_discount($productid) > 0) { ?>
+                            <p style="font-weight: bolder;"><del>$<?php echo $row['price']; ?></del> $<?php echo priceafterdiscount($productid); ?></p>
+                        <?php } else { ?>
+                            <p style="font-weight: bolder;">$<?php echo $row['price']; ?></p>
+                        <?php } ?>
+
+                        <div class="description">
+                            <p><?php echo $row['description']; ?></p>
+                        </div>
+                        <form method="POST" action="booklist.php">
+                            <input type="hidden" name="pid" value="<?php echo $productid ?>">
+                            <button class="addtocart"><?php echo "<a style=color:white;text-decoration:none; href='productdescription.php?productid=$productid'>PRODUCT DETAILS</a>" ?></button>
+                        </form>
+                    </div>
                 </div>
-            </div>
             <?php
             }
 

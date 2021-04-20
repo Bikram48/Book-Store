@@ -86,7 +86,7 @@ require_once "navbar.php";
                     <form method="POST" action="login.php">
                         <div class="form-group">
                             <label for="exampleInputEmail1">Email/Username</label>
-                            <input style="border-radius: 0%;" type="input" name="emailorusername" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" required>
+                            <input style="border-radius: 0%;" type="input" name="emailorusername" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" value="<?php if(isset($emailorusername)){ echo $emailorusername; } ?>" required>
                             <small id="error" class="form-text text-muted">
                                 <p class="error-text"><?php if (isset($error)) {
                                                             echo $error;
@@ -95,7 +95,7 @@ require_once "navbar.php";
                         </div>
                         <div class="form-group">
                             <label for="exampleInputPassword1">Password</label>
-                            <input style="border-radius: 0%;" type="password" name="password" class="form-control" id="exampleInputPassword1" required>
+                            <input style="border-radius: 0%;" type="password" name="password" class="form-control" id="exampleInputPassword1" value="<?php if(isset($password)){ echo $password; } ?>" required>
                         </div>
                         <a href="forgetpassword.php">Forgot Password?</a><br>
                         <button class="login-btn" type="submit" name="submit" class="btn btn-primary">SIGN IN</button>

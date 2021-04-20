@@ -28,19 +28,7 @@ require_once "../backend/discounthandler.php";
 
         ?>
 
-        <div class="row sorting-part">
-            <div class="col-xl-12 col-sm-12">
-                <form action="sorting.php" method="POST">
-                    <select class="sort" name="Sorting_value" id="">
-                        <option value='option'>Sorting Option</option>
-                        <option value='low'>Price Low To High</option>
-                        <option value='high'>Price High To Low</option>
-                    </select>
-                    <input type="submit" name="submit" value="SORT">
-                </form>
-            </div>
-        </div>
-
+    
         <div class="row">
             <?php
             if (isset($_SESSION['searchtxt'])) {
@@ -51,13 +39,11 @@ require_once "../backend/discounthandler.php";
             }
             if (isset($_POST['sorting'])) {
                 $sorting = $_POST['sorting_value'];
-
-
+                include "../backend/ratinghandler.php";
                 $query = sortingQuery($sorting, $searchtxt, $keywordcat);
                 while ($row = mysqli_fetch_assoc($query)) {
                     $productid = $row['productid'];
             ?>
-
                     <div class="row book-items">
                         <div class="col-xl-1 col-lg-1 col-sm-3"></div>
                         <div class="col-xl-2 col-lg-2 col-md-3 col-sm-6 image-box">
@@ -65,6 +51,47 @@ require_once "../backend/discounthandler.php";
                         </div>
                         <div class="col-xl-7 col-lg-7 col-md-8 col-sm-6 book-contents">
                             <h3 class="product_title"><?php echo $row['product_name']; ?></h3>
+                            <div class="ratings">
+                            <?php $rating = averageRating($productid);
+                            if ($rating == 1) { ?>
+                                <i style="color:orangered;" class="fas fa-star"></i>
+                                <i style="color:silver;" class="fas fa-star"></i>
+                                <i style="color:silver;" class="fas fa-star"></i>
+                                <i style="color:silver;" class="fas fa-star"></i>
+                                <i style="color:silver;" class="fas fa-star"></i>
+                            <?php } elseif ($rating == 2) { ?>
+                                <i style="color:orangered;" class="fas fa-star"></i>
+                                <i style="color:orangered;" class="fas fa-star"></i>
+                                <i style="color:silver;" class="fas fa-star"></i>
+                                <i style="color:silver;" class="fas fa-star"></i>
+                                <i style="color:silver;" class="fas fa-star"></i>
+                            <?php } elseif ($rating == 3) { ?>
+                                <i style="color:orangered;" class="fas fa-star"></i>
+                                <i style="color:orangered;" class="fas fa-star"></i>
+                                <i style="color:orangered;" class="fas fa-star"></i>
+                                <i style="color:silver;" class="fas fa-star"></i>
+                                <i style="color:silver;" class="fas fa-star"></i>
+                            <?php } elseif ($rating == 4) { ?>
+
+                                <i style="color:orangered;" class="fas fa-star"></i>
+                                <i style="color:orangered;" class="fas fa-star"></i>
+                                <i style="color:orangered;" class="fas fa-star"></i>
+                                <i style="color:orangered;" class="fas fa-star"></i>
+                                <i style="color:silver;" class="fas fa-star"></i>
+
+                            <?php } elseif ($rating == 5) { ?>
+                                <i style="color:orangered;" class="fas fa-star"></i>
+                                <i style="color:orangered;" class="fas fa-star"></i>
+                                <i style="color:orangered;" class="fas fa-star"></i>
+                                <i style="color:orangered;" class="fas fa-star"></i>
+                                <i style="color:orangered;" class="fas fa-star"></i>
+                            <?php } else { ?>
+                                <p style="color:red;font-weight:bolder;">Not rated yet!!</p>
+                            <?php } ?>
+
+
+
+                        </div>
                             <p style="font-style: italic;font-weight:bolder;"><?php echo $row['category']; ?></p>
                             <?php if (checkexisted_discount($productid) > 0) { ?>
                                 <p style="font-weight: bolder;"><del>$<?php echo $row['price']; ?></del> $<?php echo priceafterdiscount($productid); ?></p>

@@ -121,10 +121,11 @@ include_once "../backend/db_connect.php";
 
                 ?>
                     <h6 class="productName"><?php echo $row['product_name']; ?></h6>
+                    by <?php echo $row['author']; ?>
                     <?php if (checkexisted_discount($productid) > 0) { ?>
                         <p style="color: #6b6868;font-weight:bolder;" class=""> <del><?php echo "$" . $row['price']; ?></del><?php echo "  $" . priceafterdiscount($productid); ?> </p>
                     <?php } else { ?>
-                        <p class=""><?php echo "$" . $row['price']; ?></p>
+                        <p style="font-weight: bolder;" class=""><?php echo "$" . $row['price']; ?></p>
                     <?php } ?>
                 <?php } ?>
                 <div class="ratings">

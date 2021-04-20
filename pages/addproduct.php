@@ -64,7 +64,7 @@
                         <br>
                         <div class="form-group col-md-12">
                             <label for="inputEmail4">Author</label>
-                            <input style="width: 100%;" type="text" name="author" class="form-control" required>
+                            <input style="width: 100%;" type="text" name="author" class="form-control">
                         </div>
                         <br>
                         <div class="form-row">

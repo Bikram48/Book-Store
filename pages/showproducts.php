@@ -1,4 +1,5 @@
 <?php
+require_once "navbar.php";
 require_once "../backend/db_connect.php";
 require_once "../backend/image_handler.php";
 require_once '../backend/producthandler.php';
@@ -141,11 +142,19 @@ if (isset($_POST['discount_btn'])) {
                         </div>
                         <label for="select_category" class="form-label">Select Category</label>
                         <select name="category" class="form-control form-control-lg">
-                            <option>Select Category</option>
+                            <option disabled selected>Choose...</option>
                             <option value="engineering">Engineering</option>
                             <option value="computer_science">Computer Science</option>
+                            <option value="nursing">Nursing</option>
+                            <option value="maths">Mathematics</option>
                             <option value="english">English</option>
                             <option value="business">Business</option>
+                            <option value="arts">Arts</option>
+                            <option value="agriculture_science">Agriculture Science</option>
+                            <option value="college_materials">College Materials</option>
+                            <option value="marketing">Marketing</option>
+                            <option value="psychology">Psychology</option>
+                            <option value="radiology">Radiology</option>
                         </select><br>
                         <label for="formFileLg" class="form-label">Choose Image</label>
                         <input class="form-control form-control-lg" id="formFileLg" type="file" name="file" />
@@ -206,7 +215,7 @@ if (isset($_POST['discount_btn'])) {
             modal.find('#product_name').val(name)
             modal.find('#description').val(description)
             modal.find('#price').val(price);
-            modal.find('#quantity').val(price)
+            modal.find('#quantity').val(quantity)
             modal.find('#image').val(image)
         })
 
