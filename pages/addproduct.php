@@ -1,4 +1,4 @@
-<?php include "navbar.php" ?>
+<?php include "navbar.php"; if(isset($_SESSION['adminid'])){  ?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -113,3 +113,4 @@
 </body>
 
 </html>
+<?php } ?>

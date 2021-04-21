@@ -1,5 +1,6 @@
 <?php
 require_once "navbar.php";
+if(isset($_SESSION['adminid'])){ 
 require_once "../backend/db_connect.php";
 require_once "../backend/image_handler.php";
 require_once '../backend/producthandler.php';
@@ -229,3 +230,4 @@ if (isset($_POST['discount_btn'])) {
 </body>
 
 </html>
+<?php } ?>
